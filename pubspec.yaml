@@ -1,19 +1,45 @@
-name: smart_switch_team13
+name: login_page
 description: "A new Flutter project."
-publish_to: 'none'
-version: 0.1.0
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' 
+version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: '>=3.2.6 <4.0.0'
+
 
 dependencies:
   flutter:
     sdk: flutter
+  #info_popup: ^4.3.1
+  sms_v2: ^1.0.0
+  email_validator: ^2.0.1 
+  cupertino_icons: ^1.0.2
+  url_launcher: ^6.0.19
+  flutter_email_sender: ^5.0.2
+
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
 
+
 flutter:
+
+
   uses-material-design: true
+
+  assets:
+    - images/background.png
+    - images/background2.png
+    - images/background3.png
+    - images/logo.png
+    - images/back.png
+    - Fonts/
+
+
+  
