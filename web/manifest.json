@@ -1,6 +1,6 @@
 {
-    "name": "smart_switch_team13",
-    "short_name": "smart_switch_team13",
+    "name": "login_page",
+    "short_name": "login_page",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

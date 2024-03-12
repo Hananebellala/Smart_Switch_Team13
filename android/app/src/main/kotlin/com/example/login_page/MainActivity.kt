@@ -1,4 +1,4 @@
-package com.example.smart_switch_team13
+package com.example.login_page
 
 import io.flutter.embedding.android.FlutterActivity
 
