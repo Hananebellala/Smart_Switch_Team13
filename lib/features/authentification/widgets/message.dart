@@ -19,7 +19,7 @@ class Message extends StatelessWidget {
           Text(
             message,
             style: TextStyle(
-              color: Colors.black,
+              fontFamily: 'Poppins',
               fontSize: size,
             ),
           ),

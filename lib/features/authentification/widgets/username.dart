@@ -46,6 +46,12 @@ class _UsernameState extends State<Username> {
             ),
             labelText: 'Username',
             hintText: 'Enter your username',
+            labelStyle: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 16,
+              color: Colors.black.withOpacity(0.6), // Opacity 60%
+              fontWeight: FontWeight.w300, // Light
+            ),
           ),
         ),
       ],
@@ -81,6 +87,12 @@ class _EmailFieldState extends State<EmailField> {
         ),
         labelText: 'Email',
         hintText: 'Enter your email',
+        labelStyle: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 16,
+          color: Colors.black.withOpacity(0.6), // Opacity 60%
+          fontWeight: FontWeight.w300, // Light
+        ),
       ),
     );
   }
@@ -115,6 +127,12 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
         ),
         labelText: 'Confirm Password',
         hintText: 'Confirm your password',
+        labelStyle: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 16,
+          color: Colors.black.withOpacity(0.6), // Opacity 60%
+          fontWeight: FontWeight.w300, // Light
+        ),
       ),
     );
   }

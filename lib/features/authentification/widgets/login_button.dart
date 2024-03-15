@@ -24,12 +24,14 @@ class _LoginButtonState extends State<LoginButton> {
         onPressed: () {
           // Replace Home with an empty Container widget for now
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Container()));
+            context,
+            MaterialPageRoute(builder: (context) => Container()),
+          );
         },
         child: Text(
           'Log in',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.bold, // Use Poppins Bold
             fontSize: 18,
           ),
         ),
@@ -62,12 +64,14 @@ class _SignupButtonState extends State<SignupButton> {
         onPressed: () {
           // Replace Home with an empty Container widget for now
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Container()));
+            context,
+            MaterialPageRoute(builder: (context) => Container()),
+          );
         },
         child: Text(
           'Sign Up',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.bold, // Use Poppins Bold
             fontSize: 18,
           ),
         ),
@@ -100,12 +104,14 @@ class _SendButtonState extends State<SendButton> {
         onPressed: () {
           // Replace Home with an empty Container widget for now
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Container()));
+            context,
+            MaterialPageRoute(builder: (context) => Container()),
+          );
         },
         child: Text(
           'Send',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.bold, // Use Poppins Bold
             fontSize: 18,
           ),
         ),

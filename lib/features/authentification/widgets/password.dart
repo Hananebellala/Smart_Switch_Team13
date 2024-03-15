@@ -21,7 +21,10 @@ class _PasswordState extends State<Password> {
             bottom: 0,
             child: Text(
               'Invalid password (minimum 12 characters)',
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(
+                  color: Colors.red,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w300),
             ),
           ),
         TextFormField(
@@ -46,6 +49,8 @@ class _PasswordState extends State<Password> {
             ),
             labelText: 'Password',
             hintText: 'Enter your password',
+            labelStyle:
+                TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w300),
           ),
         ),
       ],

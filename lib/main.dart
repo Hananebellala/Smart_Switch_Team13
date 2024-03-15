@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Poppins', // Specify the Poppins font family directly
       ),
       home:
           LoginScreen(), // You can start with the login screen as the home screen

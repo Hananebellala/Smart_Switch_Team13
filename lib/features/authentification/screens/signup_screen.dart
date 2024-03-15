@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../widgets/logo.dart';
-import '../widgets/message.dart';
 import '../widgets/box_create_account.dart';
 import '../widgets/go_back.dart';
 import '../widgets/back.dart';
@@ -16,7 +15,22 @@ class SignupScreen extends StatelessWidget {
           Stack(
             children: [
               Logo(),
-              Message(message: 'Create an account', size: 34),
+              Positioned(
+                top: MediaQuery.of(context).size.height *
+                    0.25, // Adjust as needed
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Text(
+                    'Create an account',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.normal, // Regular
+                      fontSize: 34,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           Container(

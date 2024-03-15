@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/logo.dart';
-import '../widgets/message.dart';
 import '../widgets/box_login.dart';
 import '../widgets/go_back.dart';
 import '../widgets/back.dart';
-
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -18,7 +16,22 @@ class LoginScreen extends StatelessWidget {
             Stack(
               children: [
                 Logo(),
-                Message(message: 'Welcome back !', size: 33),
+                Positioned(
+                  top: MediaQuery.of(context).size.height *
+                      0.25, // Adjust as needed
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Text(
+                      'Welcome back !',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.normal, // Regular
+                        fontSize: 33,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
             Container(

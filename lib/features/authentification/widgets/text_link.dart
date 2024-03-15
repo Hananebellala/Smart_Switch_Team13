@@ -15,44 +15,21 @@ class _TextLinkState extends State<TextLink> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('Need an account?'),
+        const Text(
+          'Need an account?',
+          style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w300),
+        ),
         InkWell(
           onTap: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Signup()));
           },
           child: const Text(
-            'Sign up',
+            ' Sign up',
             style: TextStyle(
               decoration: TextDecoration.underline,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class LienText2 extends StatelessWidget {
-  const LienText2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text('Already have an account?'),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
-            );
-          },
-          child: const Text(
-            ' Log in',
-            style: TextStyle(
-              decoration: TextDecoration.underline,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w300,
             ),
           ),
         ),
@@ -85,6 +62,41 @@ class _TextLink1State extends State<TextLink1> {
             'Forgot password?',
             style: TextStyle(
               decoration: TextDecoration.underline,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class LienText2 extends StatelessWidget {
+  const LienText2({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          'Already have an account?',
+          style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w300),
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginScreen()),
+            );
+          },
+          child: const Text(
+            ' Log in',
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w300,
             ),
           ),
         ),
