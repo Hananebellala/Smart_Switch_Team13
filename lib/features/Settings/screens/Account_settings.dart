@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import '../widgets/rectangle.dart';
-import '../widgets/rectangle2.dart';
-import '../widgets/rectangle3.dart';
-import '../widgets/rectangle4.dart';
 
 class AccountSettings extends StatelessWidget {
   @override
@@ -27,13 +24,8 @@ class AccountSettings extends StatelessWidget {
             ),
             SizedBox(height: 27), // Additional space
             Rectangle(),
-            
-
-            
           ],
-          
         ),
-        
       ),
     );
   }
