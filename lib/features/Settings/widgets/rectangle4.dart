@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../screens/Account_settings.dart';
 
-class Rectangle extends StatelessWidget {
+class Rectangle4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get the device screen width
@@ -42,7 +42,7 @@ class Rectangle extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: containerWidth * 0.08), // 8% of container width
               child: Text(
-                'Account Settings',
+                'About the app',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 16,

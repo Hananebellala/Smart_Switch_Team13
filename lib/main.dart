@@ -16,8 +16,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Poppins', // Specify the Poppins font family directly
       ),
-      home:
-          LoginScreen(), // You can start with the login screen as the home screen
+      home: LoginScreen(), // Start with the settings page as the home screen
     );
   }
 }

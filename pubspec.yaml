@@ -17,7 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   url_launcher: ^6.0.19
   flutter_email_sender: ^5.0.2
-  
+  flutter_svg: ^0.22.0
 
 dev_dependencies:
   flutter_test:
@@ -33,5 +33,6 @@ flutter:
     - images/background3.png
     - images/logo.png
     - images/back.png
+    - images/Vector.png
+    - images/Preferences-bro 1.svg
     - Fonts/
-  
