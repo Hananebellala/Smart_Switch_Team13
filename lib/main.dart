@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'features/authentification/index.dart';
+import 'features/Settings/index.dart';
 
 void main() {
   runApp(MyApp());
