@@ -16,7 +16,7 @@ class _LoginButtonState extends State<LoginButton> {
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
           backgroundColor: const Color(0xFF6900FF),
-          minimumSize: Size(double.infinity, 50.0),
+          minimumSize: const Size(double.infinity, 50.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -28,7 +28,7 @@ class _LoginButtonState extends State<LoginButton> {
             MaterialPageRoute(builder: (context) => Container()),
           );
         },
-        child: Text(
+        child: const Text(
           'Log in',
           style: TextStyle(
             fontWeight: FontWeight.bold, // Use Poppins Bold
@@ -56,7 +56,7 @@ class _SignupButtonState extends State<SignupButton> {
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
           backgroundColor: const Color(0xFF6900FF),
-          minimumSize: Size(double.infinity, 50.0),
+          minimumSize: const Size(double.infinity, 50.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -68,7 +68,7 @@ class _SignupButtonState extends State<SignupButton> {
             MaterialPageRoute(builder: (context) => Container()),
           );
         },
-        child: Text(
+        child: const Text(
           'Sign Up',
           style: TextStyle(
             fontWeight: FontWeight.bold, // Use Poppins Bold
@@ -99,7 +99,7 @@ class _SendButtonState extends State<SendButton> {
           ),
           foregroundColor: Colors.white,
           backgroundColor: const Color(0xFF6900FF),
-          minimumSize: Size(double.infinity, 50.0),
+          minimumSize: const Size(double.infinity, 50.0),
         ),
         onPressed: () {
           // Replace Home with an empty Container widget for now
@@ -108,7 +108,7 @@ class _SendButtonState extends State<SendButton> {
             MaterialPageRoute(builder: (context) => Container()),
           );
         },
-        child: Text(
+        child: const Text(
           'Send',
           style: TextStyle(
             fontWeight: FontWeight.bold, // Use Poppins Bold

@@ -22,7 +22,7 @@ class _TextLinkState extends State<TextLink> {
         InkWell(
           onTap: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Signup()));
+                context, MaterialPageRoute(builder: (context) => const Signup()));
           },
           child: const Text(
             ' Sign up',
@@ -55,7 +55,7 @@ class _TextLink1State extends State<TextLink1> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+              MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
             );
           },
           child: const Text(
@@ -88,7 +88,7 @@ class LienText2 extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
             );
           },
           child: const Text(

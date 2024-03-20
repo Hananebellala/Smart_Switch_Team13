@@ -6,6 +6,8 @@ import '../widgets/rectangle3.dart';
 import '../widgets/rectangle4.dart';
 
 class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Get the device screen width and height
@@ -13,27 +15,27 @@ class SettingsPage extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     // Define the size of the image
-    final imageSize = Size(183, 186.54);
+    const imageSize = Size(183, 186.54);
 
     // Calculate the position of the image
     final imageX = (screenWidth - imageSize.width) / 2;
 
 // Define the percentage of the screen height for the image position
-    final imageYPercentage = 0.10; // Adjust as needed
+    const imageYPercentage = 0.10; // Adjust as needed
 
 // Calculate the position of the image
     final imageY = screenHeight * imageYPercentage;
 
     return Scaffold(
-      backgroundColor: Color(0xFFFFFAFA),
+      backgroundColor: const Color(0xFFFFFAFA),
       resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 57), // Space from top
-            Text(
+            const SizedBox(height: 57), // Space from top
+            const Text(
               'Settings',
               style: TextStyle(
                 fontFamily: 'Poppins',
@@ -42,16 +44,16 @@ class SettingsPage extends StatelessWidget {
                 color: Colors.black, // Black color
               ),
             ),
-            SizedBox(height: 27), // Additional space
-            Rectangle(),
-            SizedBox(height: 31), // Additional space
-            Rectangle2(),
-            SizedBox(height: 31), // Additional space
-            Rectangle3(),
-            SizedBox(height: 31), // Additional space
-            Rectangle4(),
+            const SizedBox(height: 27), // Additional space
+            const Rectangle(),
+            const SizedBox(height: 31), // Additional space
+            const Rectangle2(),
+            const SizedBox(height: 31), // Additional space
+            const Rectangle3(),
+            const SizedBox(height: 31), // Additional space
+            const Rectangle4(),
             SizedBox(height: imageY), // Space to position the image
-            Container(
+            SizedBox(
               width: imageSize.width,
               height: imageSize.height,
               child: SvgPicture.asset(

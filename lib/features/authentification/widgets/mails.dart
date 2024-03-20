@@ -18,12 +18,12 @@ class _MailsState extends State<Mails> {
         TextFormField(
           keyboardType: TextInputType.emailAddress,
           controller: _controller,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: 'Mail',
             labelText: 'Mail',
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () async {
             final Email email = Email(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../screens/Account_settings.dart';
 
 class Rectangle3 extends StatelessWidget {
+  const Rectangle3({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Get the device screen width
@@ -15,23 +17,23 @@ class Rectangle3 extends StatelessWidget {
         // Navigate to AccountSettings screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AccountSettings()),
+          MaterialPageRoute(builder: (context) => const AccountSettings()),
         );
       },
       child: Container(
         width: containerWidth,
         height: 55,
         decoration: BoxDecoration(
-          color: Color(0xFFFAF7FF),
+          color: const Color(0xFFFAF7FF),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: Color(0xFF6900FF),
+            color: const Color(0xFF6900FF),
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.25),
-              offset: Offset(0, 4),
+              offset: const Offset(0, 4),
               blurRadius: 4,
             ),
           ],
@@ -41,7 +43,7 @@ class Rectangle3 extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(
                   left: containerWidth * 0.08), // 8% of container width
-              child: Text(
+              child: const Text(
                 'Help Center',
                 style: TextStyle(
                   fontFamily: 'Poppins',
@@ -51,7 +53,7 @@ class Rectangle3 extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Image.asset(
@@ -60,7 +62,7 @@ class Rectangle3 extends StatelessWidget {
                 height: 24, // Maintain specified size
               ),
             ),
-            SizedBox(width: 12), // Maintain specified spacing
+            const SizedBox(width: 12), // Maintain specified spacing
           ],
         ),
       ),

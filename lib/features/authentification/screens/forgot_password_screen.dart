@@ -7,14 +7,16 @@ import '../widgets/box_forgot_password.dart';
 import '../widgets/go_back.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFAFA),
+      backgroundColor: const Color(0xFFFFFAFA),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          Stack(
+          const Stack(
             children: [
               Logo(),
               Message(message: 'Forgot password', size: 33),
@@ -24,19 +26,19 @@ class ForgotPasswordScreen extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.035,
-            child: Message(
+            child: const Message(
                 message: 'Enter your email, you will receive a link to',
                 size: 20),
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.035,
-            child: Message(message: ' reset your password', size: 20),
+            child: const Message(message: ' reset your password', size: 20),
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.559,
-            child: Stack(
+            child: const Stack(
               children: [
                 Backimage(message: 'images/background2.png', taille: 0.55),
                 BoxForgotPassword(),

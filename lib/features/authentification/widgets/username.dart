@@ -17,7 +17,7 @@ class _UsernameState extends State<Username> {
     return Stack(
       children: [
         if (_showMessage)
-          Positioned(
+          const Positioned(
             bottom: 0,
             child: Text(
               'Invalid password (minimum 12 characters)',
@@ -28,19 +28,19 @@ class _UsernameState extends State<Username> {
           controller: _controller,
           onChanged: (value) {
             setState(() {
-              _showMessage = value.length > 0 && value.length < minLength;
+              _showMessage = value.isNotEmpty && value.length < minLength;
             });
           },
           obscureText: true,
           decoration: InputDecoration(
             filled: true,
-            fillColor: Color(0xFFFFFAFA),
+            fillColor: const Color(0xFFFFFAFA),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF6900FF), width: 2.0),
+              borderSide: const BorderSide(color: Color(0xFF6900FF), width: 2.0),
               borderRadius: BorderRadius.circular(10),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                   color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
               borderRadius: BorderRadius.circular(10),
             ),
@@ -75,14 +75,14 @@ class _EmailFieldState extends State<EmailField> {
       controller: _controller,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Color(0xFFFFFAFA),
+        fillColor: const Color(0xFFFFFAFA),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF6900FF), width: 2.0),
+          borderSide: const BorderSide(color: Color(0xFF6900FF), width: 2.0),
           borderRadius: BorderRadius.circular(10),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
+              const BorderSide(color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
           borderRadius: BorderRadius.circular(10),
         ),
         labelText: 'Email',
@@ -115,14 +115,14 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
       obscureText: true,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Color(0xFFFFFAFA),
+        fillColor: const Color(0xFFFFFAFA),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF6900FF), width: 2.0),
+          borderSide: const BorderSide(color: Color(0xFF6900FF), width: 2.0),
           borderRadius: BorderRadius.circular(10),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
+              const BorderSide(color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
           borderRadius: BorderRadius.circular(10),
         ),
         labelText: 'Confirm Password',
