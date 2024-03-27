@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../HomePage/screens/homepage.dart';
+
 
 class LoginButton extends StatefulWidget {
   const LoginButton({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class _LoginButtonState extends State<LoginButton> {
           // Replace Home with an empty Container widget for now
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Container()),
+            MaterialPageRoute(builder: (context) => home()),
           );
         },
         child: Text(
