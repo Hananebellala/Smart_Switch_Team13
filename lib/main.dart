@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'features/authentification/index.dart';
-import 'features/Settings/index.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,8 +17,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Poppins', // Specify the Poppins font family directly
       ),
-      home:
-          LoginScreen(), // You can start with the login screen as the home screen
+      home: const LoginScreen(), // Start with the settings page as the home screen
     );
   }
 }

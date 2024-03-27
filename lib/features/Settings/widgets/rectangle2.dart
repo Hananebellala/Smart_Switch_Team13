@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../screens/Account_settings.dart';
 
-class Rectangle extends StatelessWidget {
-  const Rectangle({super.key});
+class Rectangle2 extends StatelessWidget {
+  const Rectangle2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class Rectangle extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: containerWidth * 0.08), // 8% of container width
               child: const Text(
-                'Account Settings',
+                'Stats',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 16,

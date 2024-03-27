@@ -6,25 +6,27 @@ import 'go_back.dart';
 import 'box_create_account.dart';
 
 class Signup extends StatelessWidget {
+  const Signup({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFAFA),
+      backgroundColor: const Color(0xFFFFFAFA),
       resizeToAvoidBottomInset:
           false, // reglage de probleme de l ecran apres lancer le clavier
       body: Column(
         children: [
-          Stack(
+          const Stack(
             // (logo+message 'welcome back !)
             children: [
               Logo(),
               Message(message: 'Create an account', size: 34),
             ],
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.7,
-            child: Stack(
+            child: const Stack(
               children: [
                 Backimage(message: 'images/background3.png', taille: 0.7),
                 BoxCreateAccount(),

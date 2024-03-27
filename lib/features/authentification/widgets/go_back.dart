@@ -12,7 +12,7 @@ class GoBack extends StatelessWidget {
         onPressed: () {
           Navigator.pop(context);
         },
-        child: Text(
+        child: const Text(
           '< Back',
           style: TextStyle(
             fontFamily: 'Poppins',

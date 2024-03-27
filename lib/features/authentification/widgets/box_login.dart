@@ -20,17 +20,17 @@ class BoxLogin extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.45,
         width: MediaQuery.of(context).size.width * 0.800,
         decoration: BoxDecoration(
-          color: Color(0xFFFAF7FF),
+          color: const Color(0xFFFAF7FF),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
+              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
               spreadRadius: 0,
               blurRadius: 4,
               offset: const Offset(0, 4),
             ),
             BoxShadow(
-              color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
+              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
               spreadRadius: 0,
               blurRadius: 4,
               offset: const Offset(0, 4),
