@@ -7,7 +7,7 @@ import '../widgets/rectangle4.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     // Get the device screen width and height
