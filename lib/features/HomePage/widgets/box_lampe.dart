@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'on_off_Bouton.dart';
+import 'on_off_lampe.dart';
 
 /********************************************************box  ********************************************************************* */
-class Box extends StatelessWidget {
- // const Box({super.key});
+class Box_lampe extends StatelessWidget {
+  @immutable
+   Box_lampe({super.key});
        var on=true;
 
   @override
@@ -29,18 +30,18 @@ class Box extends StatelessWidget {
                                                  child:   const   Column(
                                                     children: [ 
                                                           // SizedBox(height:40),
-                                                      on_off(), // qui va controler l icon on/off et envoyer des message a base de donenr 
+                                                      on_off_lampe(), // qui va controler l icon on/off et envoyer des message a base de donenr 
                                                       SizedBox(height:8),
                                                       Row( // ligne de message 1
                                                         children: [
                                                          SizedBox(width:8),//pour ne pas etre coler
-                                                          Align( alignment:Alignment.centerLeft,child: Text('data****',style:TextStyle(fontSize: 20)),  ),
+                                                          Align( alignment:Alignment.centerLeft,child: Text('Smart light',style:TextStyle(fontSize: 20)),  ),
                                                         ],
                                                       ) ,          
                                                       Row( // ligne de message 2
                                                         children: [
                                                          SizedBox(width:8),
-                                                          Align(alignment:Alignment.centerLeft, child:Text('  **data',style:TextStyle(fontSize: 10)), ),
+                                                          Align(alignment:Alignment.centerLeft, child:Text('   badroom light',style:TextStyle(fontSize: 10)), ),
                                                         ],
                                                       ) ,                        
                                                              

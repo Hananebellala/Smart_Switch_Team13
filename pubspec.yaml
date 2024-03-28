@@ -7,12 +7,11 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=3.2.6 <4.0.0"
-
+ 
 dependencies:
   flutter:
     sdk: flutter
-  #info_popup: ^4.3.1
-  sms_v2: ^1.0.0
+  font_awesome_flutter: ^9.2.0
   email_validator: ^2.0.1
   cupertino_icons: ^1.0.2
   url_launcher: ^6.0.19
@@ -36,3 +35,18 @@ flutter:
     - images/Vector.png
     - images/Preferences-bro 1.svg
     - Fonts/
+    - icon/lampe.ico
+    - icon/lampeOn.ico
+    - icon/Microphone.ico
+    - icon/tvOn.ico
+    - icon/tvOff.ico
+    - icon/home.ico
+    - icon/homeOn.ico
+    - icon/sCENCE_1.ico
+    - icon/scenceON.ico
+    - icon/add.ico
+    - icon/paramettreOn_1.ico
+    - icon/paramettre.ico
+    - icon/controle.ico
+    - icon/controleOn.ico
+

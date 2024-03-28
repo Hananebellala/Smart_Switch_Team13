@@ -5,14 +5,15 @@ import '../widgets/boutton/paramettre_boutton.dart';
 import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
 
- class next_homepage extends StatelessWidget {
-  const next_homepage({super.key});
+ class scencepage extends StatelessWidget {
+  const scencepage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Column(children: [
- const SizedBox(height:25),
+      body:
+      Column(children: [
+      const SizedBox(height:25),
       Row( 
                children: [
               Container(
@@ -46,7 +47,7 @@ import '../widgets/boutton/scence_boutton.dart';
                                       child: IconButton(
                                          icon: const  Icon(Icons.notifications, color: Color(0xFF6900FF), size: 27.0, ),
                                          onPressed:(){
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) =>next_homepage()));  // lazm tkon t3 notification 
+                                         //   Navigator.push(context, MaterialPageRoute(builder: (context) =>next_homepage()));  // lazm tkon t3 notification 
                                             } ,),
                                     ),),
                              Container(
@@ -60,7 +61,7 @@ import '../widgets/boutton/scence_boutton.dart';
                                       child: IconButton(
                                          icon: const  Icon(Icons.person, color: Color(0xFF6900FF), size: 30.0, ),
                                          onPressed:(){
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) => next_homepage())); // lzm tkon t3 info personal 
+                                           // Navigator.push(context, MaterialPageRoute(builder: (context) => next_homepage())); // lzm tkon t3 info personal 
                                             } ,),
                                     ),)
                                          ] ,),
@@ -68,8 +69,7 @@ import '../widgets/boutton/scence_boutton.dart';
 
       
       ],),
-      
-       floatingActionButton: Container(
+      floatingActionButton: Container(
                                             height: 65.0,
                                               width: 65.0,
                                               child: FittedBox(
@@ -77,7 +77,7 @@ import '../widgets/boutton/scence_boutton.dart';
                                                           backgroundColor: Color(0xFF6900FF),
                                                          shape: CircleBorder(),
                                                         onPressed: () {
-                                     Navigator.push(context, MaterialPageRoute(builder: (context) => next_homepage()));
+                                  //   Navigator.push(context, MaterialPageRoute(builder: (context) => next_homepage()));
 
                                                         },
                                                         child:Padding(
@@ -87,7 +87,7 @@ import '../widgets/boutton/scence_boutton.dart';
                                                         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
       
-         bottomNavigationBar:  const  BottomAppBar(
+         bottomNavigationBar: const   BottomAppBar(
           
                                               shape:CircularNotchedRectangle(), // quelle a fait border -aspace au dessous de bottom
                                               child:  PreferredSize(
@@ -97,9 +97,9 @@ import '../widgets/boutton/scence_boutton.dart';
                                                                 SizedBox(width:10),
                                                                home_boutton(pathIcon:'icon/home.ico')  ,  
                                                                   SizedBox(width:30),
-                                                                controle_boutton(pathIcon:'icon/controleOn.ico')  ,                                                              
+                                                                controle_boutton(pathIcon:'icon/controle.ico')  ,  
                                                                 SizedBox(width:90),
-                                                               scence_boutton(pathIcon:'icon/sCENCE_1.ico')  ,    
+                                                               scence_boutton(pathIcon:'icon/scenceON.ico')  , 
                                                                  SizedBox(width:30),                                                              
                                                                   paramettre_boutton(pathIcon:'icon/paramettre.ico')  ,  
 
@@ -108,8 +108,7 @@ import '../widgets/boutton/scence_boutton.dart';
                                                               ],),
 
                                               ), ),
-
-
+                
     );
   }
 }
