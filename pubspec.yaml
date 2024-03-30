@@ -14,16 +14,18 @@ dependencies:
   #info_popup: ^4.3.1
   sms_v2: ^1.0.0
   email_validator: ^2.0.1
-  cupertino_icons: ^1.0.2
   url_launcher: ^6.0.19
-  flutter_email_sender: ^5.0.2
-  flutter_svg: ^0.22.0
+  flutter_email_sender: ^6.0.2
+  flutter_svg: ^2.0.10+1
   firebase_core: ^2.27.2
+  cupertino_icons: ^1.0.6
+  lottie: ^3.1.0
+  firebase_auth: ^4.18.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.2
 
 flutter:
   uses-material-design: true
@@ -40,3 +42,5 @@ flutter:
     - images/eye.png
     - images/eye_hide.png
     - Fonts/
+    - images/Loading.png
+    - animation/loadin.json
