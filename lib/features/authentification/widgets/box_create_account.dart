@@ -36,20 +36,22 @@ class BoxCreateAccount extends StatelessWidget {
           ],
         ),
         padding: const EdgeInsets.all(20.0),
-        child: const Column(
-          children: [
-            EmailField(),
-            SizedBox(height: 15),
-            Username(),
-            SizedBox(height: 15),
-            Password(),
-            SizedBox(height: 15),
-            ConfirmPasswordField(),
-            SizedBox(height: 13),
-            SignupButton(),
-            SizedBox(height: 13),
-            LienText2(),
-          ],
+        child: Form(
+          child: Column(
+            children: [
+              EmailField(),
+              const SizedBox(height: 15),
+              Username(),
+              const SizedBox(height: 15),
+              Password(),
+              const SizedBox(height: 15),
+              ConfirmPasswordField(),
+              const SizedBox(height: 13),
+              SignupButton(),
+              const SizedBox(height: 13),
+              LienText2(),
+            ],
+          ),
         ),
       ),
     );

@@ -31,7 +31,7 @@ class _UsernameState extends State<Username> {
               _showMessage = value.isNotEmpty && value.length < minLength;
             });
           },
-          obscureText: true,
+          obscureText: false, // Set obscureText to false
           decoration: InputDecoration(
             filled: true,
             fillColor: const Color(0xFFFFFAFA),
@@ -58,6 +58,7 @@ class _UsernameState extends State<Username> {
     );
   }
 }
+
 
 class EmailField extends StatefulWidget {
   const EmailField({Key? key}) : super(key: key);
