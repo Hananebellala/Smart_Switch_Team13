@@ -19,7 +19,7 @@ class SignupScreen extends StatelessWidget {
               const Logo(),
               Positioned(
                 top: MediaQuery.of(context).size.height *
-                    0.25, // Adjust as needed
+                    0.2, // Adjust as needed
                 left: 0,
                 right: 0,
                 child: const Center(

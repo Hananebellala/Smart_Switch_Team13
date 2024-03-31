@@ -9,6 +9,9 @@ class BoxLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _usernameController = TextEditingController();
+    final TextEditingController _passwordController = TextEditingController();
+
     return Positioned(
       top: (MediaQuery.of(context).size.height -
               MediaQuery.of(context).size.height * 0.45) /
@@ -38,12 +41,12 @@ class BoxLogin extends StatelessWidget {
           ],
         ),
         padding: const EdgeInsets.all(20.0),
-        child: const Column(
+        child: Column(
           children: [
             SizedBox(height: 30),
-            Username(),
+            Username(controller: _usernameController),
             SizedBox(height: 20),
-            Password(),
+            Password(controller: _passwordController),
             SizedBox(height: 20),
             LoginButton(),
             SizedBox(height: 10),

@@ -1,79 +1,33 @@
 import 'package:flutter/material.dart';
 
 class Username extends StatefulWidget {
-  const Username({Key? key}) : super(key: key);
+  final TextEditingController controller;
+  const Username({Key? key, required this.controller}) : super(key: key);
 
   @override
   _UsernameState createState() => _UsernameState();
 }
 
 class _UsernameState extends State<Username> {
-  final TextEditingController _controller = TextEditingController();
-  bool _showMessage = false;
-  final int minLength = 12;
+  late FocusNode _focusNode;
 
   @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        if (_showMessage)
-          const Positioned(
-            bottom: 0,
-            child: Text(
-              'Invalid password (minimum 12 characters)',
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-        TextFormField(
-          controller: _controller,
-          onChanged: (value) {
-            setState(() {
-              _showMessage = value.isNotEmpty && value.length < minLength;
-            });
-          },
-          obscureText: false, // Set obscureText to false
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: const Color(0xFFFFFAFA),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Color(0xFF6900FF), width: 2.0),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            labelText: 'Username',
-            hintText: 'Enter your username',
-            labelStyle: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 16,
-              color: Colors.black.withOpacity(0.6), // Opacity 60%
-              fontWeight: FontWeight.w300, // Light
-            ),
-          ),
-        ),
-      ],
-    );
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
   }
-}
-
-
-class EmailField extends StatefulWidget {
-  const EmailField({Key? key}) : super(key: key);
 
   @override
-  _EmailFieldState createState() => _EmailFieldState();
-}
-
-class _EmailFieldState extends State<EmailField> {
-  final TextEditingController _controller = TextEditingController();
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _controller,
+      focusNode: _focusNode,
+      controller: widget.controller,
       decoration: InputDecoration(
         filled: true,
         fillColor: const Color(0xFFFFFAFA),
@@ -82,37 +36,136 @@ class _EmailFieldState extends State<EmailField> {
           borderRadius: BorderRadius.circular(10),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide:
-              const BorderSide(color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
+          borderSide: const BorderSide(color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        labelText: 'Username',
+        hintText: 'Enter your username',
+        labelStyle: const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w300),
+      ),
+      onChanged: (value) {
+        setState(() {}); // Trigger rebuild to maintain focus
+      },
+    );
+  }
+}
+
+
+
+
+
+class EmailField extends StatefulWidget {
+  final TextEditingController controller;
+  const EmailField({Key? key, required this.controller}) : super(key: key);
+
+  @override
+  _EmailFieldState createState() => _EmailFieldState();
+}
+
+class _EmailFieldState extends State<EmailField> {
+  late FocusNode _focusNode;
+  late String _errorText; // Track the error text
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    _errorText = ''; // Initialize error text
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  String? _validateEmail(String? value) {
+    // Check if the entered text contains "@" symbol
+    if (value == null || !value.contains('@')) {
+      return 'Invalid email'; // Return error message if "@" is not found
+    }
+    return null; // Return null if validation succeeds
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      focusNode: _focusNode,
+      controller: widget.controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0xFFFFFAFA),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color(0xFF6900FF), width: 2.0),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
           borderRadius: BorderRadius.circular(10),
         ),
         labelText: 'Email',
         hintText: 'Enter your email',
+        errorText: _errorText.isNotEmpty ? _errorText : null, // Show error text if not empty
         labelStyle: TextStyle(
           fontFamily: 'Poppins',
           fontSize: 16,
-          color: Colors.black.withOpacity(0.6), // Opacity 60%
+          color: widget.controller.text.isEmpty ? Colors.black.withOpacity(0.6) : Colors.black,
           fontWeight: FontWeight.w300, // Light
         ),
       ),
+      onTap: () {
+        _focusNode.requestFocus(); // Ensure focus is maintained
+      },
+      onChanged: (value) {
+        // Validate email whenever text changes
+        setState(() {
+          _errorText = _validateEmail(value) ?? ''; // Update error text based on validation result
+        });
+      },
     );
   }
 }
 
 class ConfirmPasswordField extends StatefulWidget {
-  const ConfirmPasswordField({Key? key}) : super(key: key);
+  final TextEditingController passwordController; // Add controller parameter for password field
+  final TextEditingController controller; // Add controller parameter
+  const ConfirmPasswordField({super.key, required this.passwordController, required this.controller});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ConfirmPasswordFieldState createState() => _ConfirmPasswordFieldState();
 }
 
 class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
-  final TextEditingController _controller = TextEditingController();
+  late FocusNode _focusNode;
+  late String _errorText; // Track the error text
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    _errorText = ''; // Initialize error text
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  String? _validatePassword(String? value) {
+    // Check if the entered text is the same as the password
+    if (value != widget.passwordController.text) {
+      return 'Passwords do not match'; // Return error message if passwords do not match
+    }
+    return null; // Return null if validation succeeds
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _controller,
+      focusNode: _focusNode,
+      controller: widget.controller, // Use provided controller
       obscureText: true,
       decoration: InputDecoration(
         filled: true,
@@ -122,19 +175,23 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
           borderRadius: BorderRadius.circular(10),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide:
-              const BorderSide(color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
+          borderSide: const BorderSide(color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
           borderRadius: BorderRadius.circular(10),
         ),
         labelText: 'Confirm Password',
         hintText: 'Confirm your password',
-        labelStyle: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 16,
-          color: Colors.black.withOpacity(0.6), // Opacity 60%
-          fontWeight: FontWeight.w300, // Light
-        ),
+        errorText: _errorText.isNotEmpty ? _errorText : null, // Show error text if not empty
+        labelStyle: const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w300),
       ),
+      onTap: () {
+        _focusNode.requestFocus(); // Ensure focus is maintained
+      },
+      onChanged: (value) {
+        // Validate password whenever text changes
+        setState(() {
+          _errorText = _validatePassword(value) ?? ''; // Update error text based on validation result
+        });
+      },
     );
   }
 }

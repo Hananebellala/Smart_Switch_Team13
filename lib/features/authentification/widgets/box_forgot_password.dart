@@ -6,6 +6,8 @@ class BoxForgotPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _emailController = TextEditingController();
+
     return Positioned(
       top: (MediaQuery.of(context).size.height -
               MediaQuery.of(context).size.height * 0.45) /
@@ -35,10 +37,10 @@ class BoxForgotPassword extends StatelessWidget {
           ],
         ),
         padding: const EdgeInsets.all(20.0),
-        child: const Column(
+        child: Column(
           children: [
             SizedBox(height: 20),
-            EmailField(),
+            EmailField(controller: _emailController),
             SizedBox(height: 20),
             SendButton(),
           ],

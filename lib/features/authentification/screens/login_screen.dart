@@ -3,9 +3,38 @@ import '../widgets/logo.dart';
 import '../widgets/box_login.dart';
 import '../widgets/go_back.dart';
 import '../widgets/back.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../controllers/signup_controller.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String? errorMessage = '';
+  bool isLogin = true;
+
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+
+  // ignore: non_constant_identifier_names
+  Future<void> SignInWithEmailAndPassword() async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+        email: _controllerEmail.text,
+        password: _controllerPassword.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

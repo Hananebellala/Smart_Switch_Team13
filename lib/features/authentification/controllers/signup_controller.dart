@@ -1,40 +1,29 @@
-import 'package:flutter/material.dart';
-/* import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class SignUpController extends GetxController {
-  final TextEditingController email = TextEditingController();
-  final TextEditingController password = TextEditingController();
-  final TextEditingController username = TextEditingController();
+class Auth {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> signUp() async {
-    try {
-      // Create user with email and password
-      final UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: email.text, password: password.text);
+  User? get currentUser => _firebaseAuth.currentUser;
 
-      // Get user id
-      final String userId = userCredential.user!.uid;
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-      // Store additional user details in Firestore
-      await FirebaseFirestore.instance.collection('users').doc(userId).set({
-        'email': email.text,
-        'username': username.text,
-        // Add more fields as needed
-      });
-
-      // Reset text controllers
-      email.clear();
-      password.clear();
-      username.clear();
-
-      // Show success message
-      Get.snackbar('Success', 'Account created successfully');
-    } catch (error) {
-      // Show error message
-      Get.snackbar('Error', 'Failed to create account: $error');
-    }
+  Future<void> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
   }
-} */
+
+  Future<void> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
+  }
+
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
+  }
+}
