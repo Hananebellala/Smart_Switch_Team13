@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "335030332386",
+    "project_id": "switch-it-5dfca",
+    "storage_bucket": "switch-it-5dfca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335030332386:android:d7d044616e28e4a34f67bb",
+        "android_client_info": {
+          "package_name": "com.example.login_page"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYvlGEaTQGErXcwr2s1qaVT9dODYic8QI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

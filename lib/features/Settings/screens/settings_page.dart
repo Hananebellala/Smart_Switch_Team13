@@ -12,7 +12,7 @@ import '../../HomePage/widgets/boutton/scence_boutton.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     // Get the device screen width and height
@@ -100,9 +100,9 @@ class SettingsPage extends StatelessWidget {
                                                                   SizedBox(width:30),
                                                                 controle_boutton(pathIcon:'icon/controle.ico')  ,  
                                                                 SizedBox(width:90),
-                                                               scence_boutton(pathIcon:'icon/scenceON.ico')  , 
+                                                               scence_boutton(pathIcon:'icon/sCENCE_1.ico')  , 
                                                                  SizedBox(width:30),                                                              
-                                                                  paramettre_boutton(pathIcon:'icon/paramettre.ico')  ,  
+                                                                  paramettre_boutton(pathIcon:'icon/Setting.ico')  ,  
 
 
                                                             // ElevatedButton( onPressed: () {   }, child:Image.asset('icon/home.ico',height: 30,width: 30,) ),

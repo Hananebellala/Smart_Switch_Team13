@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_switch_team13/features/Settings/index.dart';
+import 'package:smart_switch_team13/features/HomePage/index.dart';
 import 'features/authentification/index.dart';
 
 void main() {

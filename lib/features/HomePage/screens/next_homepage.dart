@@ -4,6 +4,8 @@ import '../widgets/boutton/home_boutton.dart';
 import '../widgets/boutton/paramettre_boutton.dart';
 import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
+import '../widgets/boutton/add_scence.dart';
+
 
  class next_homepage extends StatelessWidget {
   const next_homepage({super.key});
@@ -25,7 +27,7 @@ import '../widgets/boutton/scence_boutton.dart';
                                  height:50,
                                width: MediaQuery.of(context).size.width*0.6,
                                 alignment: Alignment.bottomLeft, // this line is soooooooooo helpfull alignement de message dans un container 
-                                child:  const Text('Scence',
+                                child:  const Text('Connected device',
                                  style: TextStyle(
                // fontFamily:'assets/Fonts/Poppins-Regular.ttf',
                                fontSize: 23,
@@ -66,6 +68,7 @@ import '../widgets/boutton/scence_boutton.dart';
                                          ] ,),
 
 
+                                           //add_scence(),
       
       ],),
       

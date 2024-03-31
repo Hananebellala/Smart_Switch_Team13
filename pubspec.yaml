@@ -11,12 +11,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  font_awesome_flutter: ^9.2.0
+  shared_preferences: ^2.0.0
   email_validator: ^2.0.1
   cupertino_icons: ^1.0.2
   url_launcher: ^6.0.19
   flutter_email_sender: ^5.0.2
   flutter_svg: ^0.22.0
+  firebase_core: ^2.27.2
+  flutter_bloc: ^7.3.1
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +37,9 @@ flutter:
     - images/back.png
     - images/Vector.png
     - images/Preferences-bro 1.svg
+    - images/user_male.png
+    - images/eye.png
+    - images/eye_hide.png
     - Fonts/
     - icon/lampe.ico
     - icon/lampeOn.ico
@@ -45,8 +51,8 @@ flutter:
     - icon/sCENCE_1.ico
     - icon/scenceON.ico
     - icon/add.ico
-    - icon/paramettreOn_1.ico
+    - icon/Setting.ico
     - icon/paramettre.ico
     - icon/controle.ico
     - icon/controleOn.ico
-
+    - icon/addition.ico

@@ -9,14 +9,24 @@ import '../../../Settings/screens/settings_page.dart';
 }
 
 class _home_bouttonState extends State<paramettre_boutton> {
+  bool a=false;
+  int x=0;
+  int y=0;
+  
   @override
   Widget build(BuildContext context) {
     return    
-      IconButton( onPressed: () {
+      IconButton( 
+        
+        onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
 
 
-       }, icon: Image.asset(widget.pathIcon,height: 25,width: 25,), )         
+       }, icon: Image.asset(widget.pathIcon,
+       height: 25 ,
+       width:25,
+      ), 
+      )         
 ;
   }
 }
