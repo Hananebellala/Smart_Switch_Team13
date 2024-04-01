@@ -7,21 +7,24 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=3.2.6 <4.0.0"
-
+ 
 dependencies:
   flutter:
     sdk: flutter
-  #info_popup: ^4.3.1
-  sms_v2: ^1.0.0
+  firebase_auth: ^4.18.0
+  lottie: ^3.1.0
+  shared_preferences: ^2.0.0
   email_validator: ^2.0.1
   url_launcher: ^6.0.19
   flutter_email_sender: ^6.0.2
   flutter_svg: ^2.0.10+1
   firebase_core: ^2.27.2
+  equatable: ^2.0.5
   cupertino_icons: ^1.0.6
-  lottie: ^3.1.0
-  firebase_auth: ^4.18.0
-
+  flutter_bloc: ^8.1.5
+  sqflite: ^2.0.0+4
+  path: ^1.8.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -42,5 +45,20 @@ flutter:
     - images/eye.png
     - images/eye_hide.png
     - Fonts/
+    - icon/lampe.ico
+    - icon/lampeOn.ico
+    - icon/Microphone.ico
+    - icon/tvOn.ico
+    - icon/tvOff.ico
+    - icon/home.ico
+    - icon/homeOn.ico
+    - icon/sCENCE_1.ico
+    - icon/scenceON.ico
+    - icon/add.ico
+    - icon/Setting.ico
+    - icon/paramettre.ico
+    - icon/controle.ico
+    - icon/controleOn.ico
+    - icon/addition.ico
     - images/Loading.png
     - animation/loadin.json

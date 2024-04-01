@@ -1,6 +1,12 @@
 
 import 'package:flutter/material.dart';
-import '../widgets/box.dart';
+import '../widgets/box_lampe.dart';
+import '../widgets/box_tv.dart';
+import '../widgets/boutton/home_boutton.dart';
+import '../widgets/boutton/paramettre_boutton.dart';
+import '../widgets/boutton/controle_Boutton.dart';
+import '../widgets/boutton/scence_boutton.dart';
+
 import 'next_homepage.dart';
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&--home--&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&/
 class home extends StatelessWidget {
@@ -8,6 +14,7 @@ class home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return  Scaffold(
    
     //backgroundColor: ,
@@ -107,16 +114,16 @@ class home extends StatelessWidget {
          Row(
                          children: [
                                    SizedBox(width:MediaQuery.of(context).size.width*0.05),
-                                   Box(),
+                                   Box_lampe(),
                                    SizedBox(width:MediaQuery.of(context).size.width*0.1),
-                                  Box(),
+                                  Box_tv(),
                                      ],
                                      ),
                                   const  SizedBox(height:35),
          Row(
                         children: [
                                         SizedBox(width:MediaQuery.of(context).size.width*0.05),
-                                        Box(),
+                                        Box_lampe(),
                                           ],
                                          ),
                                             //  Stack(children: [
@@ -133,20 +140,32 @@ class home extends StatelessWidget {
                                      Navigator.push(context, MaterialPageRoute(builder: (context) => next_homepage()));
 
                                                         },
-                                                        child: Icon(Icons.add,color:Colors.white), ), ),),
+                                                        child:Padding(
+                                                          padding: const EdgeInsets.only(left:7),
+                                                          child: Image.asset('icon/Microphone.ico',height: 50,width: 70,),
+                                                        ), ), ),),
                                                         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
       
-         bottomNavigationBar: BottomAppBar(
+        bottomNavigationBar:  const  BottomAppBar(
+          
                                               shape:CircularNotchedRectangle(), // quelle a fait border -aspace au dessous de bottom
                                               child:  PreferredSize(
                                                   preferredSize: Size.fromHeight(100.0),
                                                      child: Row(
                                                               children: <Widget>[
-                                                              IconButton(icon: Icon(Icons.home,size: 30,), onPressed: () {},),
-                                                             /*  IconButton(icon: Icon(Icons.email,size: 30,), onPressed: () {},),  
-                                                               IconButton(icon: Icon(Icons.email,size: 30,), onPressed: () {},), 
-                                                              IconButton(icon: Icon(Icons.email,size: 30,), onPressed: () {},), */
-                                                               ],),
+                                                                SizedBox(width:10),
+                                                               home_boutton(pathIcon:'icon/homeOn.ico')  ,  
+                                                                  SizedBox(width:30),
+                                                                controle_boutton(pathIcon:'icon/controle.ico')  ,  
+                                                                SizedBox(width:90),
+                                                               scence_boutton(pathIcon:'icon/sCENCE_1.ico')  , 
+                                                                 SizedBox(width:30),                                                              
+                                                                  paramettre_boutton(pathIcon:'icon/paramettre.ico')  ,  
+
+
+                                                            // ElevatedButton( onPressed: () {   }, child:Image.asset('icon/home.ico',height: 30,width: 30,) ),
+                                                              ],),
 
                                               ), ),
                                               );                       

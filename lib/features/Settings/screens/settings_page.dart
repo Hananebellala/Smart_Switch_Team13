@@ -5,6 +5,11 @@ import '../widgets/rectangle2.dart';
 import '../widgets/rectangle3.dart';
 import '../widgets/rectangle4.dart';
 
+import '../../HomePage/widgets/boutton/controle_Boutton.dart';
+import '../../HomePage/widgets/boutton/home_boutton.dart';
+import '../../HomePage/widgets/boutton/paramettre_boutton.dart';
+import '../../HomePage/widgets/boutton/scence_boutton.dart';
+
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
   
@@ -65,6 +70,45 @@ class SettingsPage extends StatelessWidget {
           ],
         ),
       ),
+       floatingActionButton: Container(
+                                            height: 65.0,
+                                              width: 65.0,
+                                              child: FittedBox(
+                                                        child: FloatingActionButton(
+                                                          backgroundColor: Color(0xFF6900FF),
+                                                         shape: CircleBorder(),
+                                                        onPressed: () {
+                                  //   Navigator.push(context, MaterialPageRoute(builder: (context) => next_homepage()));
+
+                                                        },
+                                                        child:Padding(
+                                                          padding: const EdgeInsets.only(left:7),
+                                                          child: Image.asset('icon/Microphone.ico',height: 50,width: 70,),
+                                                        ), ), ),),
+                                                        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      
+         bottomNavigationBar: const   BottomAppBar(
+          
+                                              shape:CircularNotchedRectangle(), // quelle a fait border -aspace au dessous de bottom
+                                              child:  PreferredSize(
+                                                  preferredSize: Size.fromHeight(100.0),
+                                                     child: Row(
+                                                              children: <Widget>[
+                                                                SizedBox(width:10),
+                                                               home_boutton(pathIcon:'icon/home.ico')  ,  
+                                                                  SizedBox(width:30),
+                                                                controle_boutton(pathIcon:'icon/controle.ico')  ,  
+                                                                SizedBox(width:90),
+                                                               scence_boutton(pathIcon:'icon/sCENCE_1.ico')  , 
+                                                                 SizedBox(width:30),                                                              
+                                                                  paramettre_boutton(pathIcon:'icon/Setting.ico')  ,  
+
+
+                                                            // ElevatedButton( onPressed: () {   }, child:Image.asset('icon/home.ico',height: 30,width: 30,) ),
+                                                              ],),
+
+                                              ), ),
     );
   }
 }
