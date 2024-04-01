@@ -1,4 +1,4 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/box_lampe.dart';
 
@@ -168,4 +168,6 @@ class _MyWidgetContentState extends State<MyWidgetContent> {
     await prefs.setStringList(
         'secondColumnData', secondColumnData.map((e) => e.toString()).toList());
   }
-}*/
+
+
+}

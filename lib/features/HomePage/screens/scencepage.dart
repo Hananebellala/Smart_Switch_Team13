@@ -6,7 +6,7 @@ import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
 import '../widgets/boutton/add_scence.dart';
 import '../widgets/ajouter_box.dart';
-/*
+
 
 class scencepage extends StatefulWidget {
   const scencepage({super.key});
@@ -123,91 +123,4 @@ class _scencepageState extends State<scencepage> {
       ),
     );
   }
-}
-*/
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-class scencepage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => BoxProvider(),
-      child: MaterialApp(
-        home: BoxList(),
-      ),
-    );
-  }
-}
-
-class BoxList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final boxProvider = Provider.of<BoxProvider>(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Liste de boîtes'),
-      ),
-      body: ListView.builder(
-        itemCount: boxProvider.boxes.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(boxProvider.boxes[index].name),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () => boxProvider.removeBox(index),
-            ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final newBox = BoxModel('Nouvelle boîte');
-          boxProvider.addBox(newBox);
-        },
-        child: Icon(Icons.add),
-      ),
-      bottomNavigationBar: const BottomAppBar(
-        shape:  CircularNotchedRectangle(),
-        child: PreferredSize(
-          preferredSize:  Size.fromHeight(100.0),
-          child: Row(
-            children: <Widget>[
-              SizedBox(width: 10),
-              home_boutton(pathIcon: 'icon/home.ico'),
-              SizedBox(width: 30),
-              controle_boutton(pathIcon: 'icon/controle.ico'),
-              SizedBox(width: 90),
-              scence_boutton(pathIcon: 'icon/scenceON.ico'),
-              SizedBox(width: 30),
-              paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class BoxProvider extends ChangeNotifier {
-  List<BoxModel> _boxes = [];
-
-  List<BoxModel> get boxes => _boxes;
-
-  void addBox(BoxModel box) {
-    _boxes.add(box);
-    notifyListeners();
-  }
-
-  void removeBox(int index) {
-    _boxes.removeAt(index);
-    notifyListeners();
-  }
-}
-
-class BoxModel {
-  final String name;
-
-  BoxModel(this.name);
 }
