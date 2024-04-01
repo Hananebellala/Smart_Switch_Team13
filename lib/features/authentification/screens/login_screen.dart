@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../controllers/signup_controller.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -20,8 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
-  // ignore: non_constant_identifier_names
-  Future<void> SignInWithEmailAndPassword() async {
+  Future<void> signInWithEmailAndPassword() async {
     try {
       await Auth().signInWithEmailAndPassword(
         email: _controllerEmail.text,
@@ -34,49 +33,49 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: const Color(0xFFFFFAFA),
         resizeToAvoidBottomInset: false,
-        body: Column(
-          children: [
-            Stack(
-              children: [
-                const Logo(),
-                Positioned(
-                  top: MediaQuery.of(context).size.height *
-                      0.25, // Adjust as needed
-                  left: 0,
-                  right: 0,
-                  child: const Center(
-                    child: Text(
-                      'Welcome back !',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.normal, // Regular
-                        fontSize: 33,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  const Logo(),
+                  Positioned(
+                    top: MediaQuery.of(context).size.height *
+                        0.25, // Adjust as needed
+                    left: 0,
+                    right: 0,
+                    child: const Center(
+                      child: Text(
+                        'Welcome back !',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.normal, // Regular
+                          fontSize: 33,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.7,
-              child: const Stack(
-                children: [
-                  Backimage(message: 'images/background.png', taille: 0.7),
-                  BoxLogin(),
-                  GoBack(),
                 ],
               ),
-            ),
-          ],
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Stack(
+                  children: [
+                    Backimage(message: 'images/background.png', taille: 0.7),
+                    BoxLogin(),
+                    GoBack(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -62,6 +62,7 @@ class _BoxCreateAccountState extends State<BoxCreateAccount> {
         ),
         padding: const EdgeInsets.all(20.0),
         child: Form(
+          child: SingleChildScrollView(
           child: Column(
             children: [
               EmailField(controller: _emailController),
@@ -84,6 +85,7 @@ class _BoxCreateAccountState extends State<BoxCreateAccount> {
               const SizedBox(height: 25),
               LienText2(),
             ],
+          ),
           ),
         ),
       ),

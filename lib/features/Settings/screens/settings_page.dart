@@ -36,6 +36,7 @@ class SettingsPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -55,7 +56,7 @@ class SettingsPage extends StatelessWidget {
             const Rectangle2(),
             const SizedBox(height: 31), // Additional space
             const Rectangle3(),
-            const SizedBox(height: 31), // Additional space
+            const SizedBox(height: 20), // Additional space
             const Rectangle4(),
             SizedBox(height: imageY), // Space to position the image
             SizedBox(
@@ -68,6 +69,7 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
           ],
+        ),
         ),
       ),
        floatingActionButton: Container(

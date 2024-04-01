@@ -25,7 +25,7 @@ class _TextLinkState extends State<TextLink> {
             Navigator.push(
 
                 //context, MaterialPageRoute(builder: (context) => const Signup()));
-                context, MaterialPageRoute(builder: (context) => const home())); // dartha bah n9der nd5ol ll home 
+                context, MaterialPageRoute(builder: (context) => const SignupScreen())); // dartha bah n9der nd5ol ll home 
 
           },
           child: const Text(

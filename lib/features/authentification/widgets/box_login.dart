@@ -1,17 +1,44 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_switch_team13/features/authentification/authentification.dart';
+import 'package:smart_switch_team13/features/authentification/index.dart';
 import 'login_button.dart';
 import 'text_link.dart';
 import 'username.dart';
 import 'password.dart';
 
-class BoxLogin extends StatelessWidget {
+class BoxLogin extends StatefulWidget {
   const BoxLogin({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController _usernameController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
+  _BoxLoginState createState() => _BoxLoginState();
+}
 
+class _BoxLoginState extends State<BoxLogin> {
+  late TextEditingController _passwordController;
+  late TextEditingController _emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordController = TextEditingController();
+    _emailController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  void signUserIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text, password: _passwordController.text);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Positioned(
       top: (MediaQuery.of(context).size.height -
               MediaQuery.of(context).size.height * 0.45) /
@@ -41,19 +68,24 @@ class BoxLogin extends StatelessWidget {
           ],
         ),
         padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(height: 30),
-            Username(controller: _usernameController),
+            EmailField(controller: _emailController),
             SizedBox(height: 20),
             Password(controller: _passwordController),
             SizedBox(height: 20),
-            LoginButton(),
+            LoginButton(
+              emailController: _emailController,
+              passwordController: _passwordController,
+            ),
             SizedBox(height: 10),
             TextLink1(),
             SizedBox(height: 10),
             TextLink(),
           ],
+        ),
         ),
       ),
     );

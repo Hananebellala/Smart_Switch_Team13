@@ -37,6 +37,7 @@ class BoxForgotPassword extends StatelessWidget {
           ],
         ),
         padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(height: 20),
@@ -44,6 +45,7 @@ class BoxForgotPassword extends StatelessWidget {
             SizedBox(height: 20),
             SendButton(),
           ],
+        ),
         ),
       ),
     );

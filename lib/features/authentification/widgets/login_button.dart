@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/HomePage/screens/homepage.dart';
 
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+class LoginButton extends StatelessWidget {
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
 
-class LoginButton extends StatefulWidget {
-  const LoginButton({Key? key}) : super(key: key);
+  const LoginButton({
+    Key? key,
+    required this.emailController,
+    required this.passwordController,
+  }) : super(key: key);
 
-  @override
-  State<LoginButton> createState() => _LoginButtonState();
-}
-
-class _LoginButtonState extends State<LoginButton> {
   @override
   Widget build(BuildContext context) {
     return ButtonTheme(
@@ -24,12 +27,56 @@ class _LoginButtonState extends State<LoginButton> {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        onPressed: () {
-          // Replace Home with an empty Container widget for now
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Container()),
-          );
+        onPressed: () async {
+          // Validate the form fields
+          if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+            // Show an error message if any field is empty
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Email and password are required'),
+                backgroundColor: Colors.red,
+              ),
+            );
+            return;
+          }
+
+          // Perform user authentication
+          try {
+            // Sign in the user with email and password
+            final UserCredential userCredential =
+                await FirebaseAuth.instance.signInWithEmailAndPassword(
+              email: emailController.text.trim(),
+              password: passwordController.text.trim(),
+            );
+
+            // Check if the user exists in the database
+            if (userCredential.user != null) {
+              // Navigate to the home screen after successful login
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        home()), // Replace HomeScreen() with the appropriate screen
+              );
+            } else {
+              // Show an error message if authentication fails
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Invalid email or password'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          } catch (e) {
+            print('Error signing in: $e');
+            // Show an error message if authentication fails
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Error loging in. Please Enter your correct credentials.'),
+                backgroundColor: Color.fromARGB(255, 255, 0, 0),
+              ),
+            );
+          }
         },
         child: const Text(
           'Log in',
@@ -104,7 +151,9 @@ class SignupButton extends StatelessWidget {
           // Navigate to the next screen after successful signup
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => home()), // Replace NextScreen() with the appropriate screen
+            MaterialPageRoute(
+                builder: (context) =>
+                    home()), // Replace NextScreen() with the appropriate screen
           );
         },
         child: const Text(
@@ -118,7 +167,6 @@ class SignupButton extends StatelessWidget {
     );
   }
 }
-
 
 class SendButton extends StatefulWidget {
   const SendButton({Key? key}) : super(key: key);
