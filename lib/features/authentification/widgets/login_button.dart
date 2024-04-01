@@ -178,14 +178,20 @@ class SignupButton extends StatelessWidget {
   }
 }
 
+
+
 class SendButton extends StatefulWidget {
-  const SendButton({Key? key}) : super(key: key);
+  final TextEditingController emailController;
+
+  const SendButton({Key? key, required this.emailController}) : super(key: key);
 
   @override
   State<SendButton> createState() => _SendButtonState();
 }
 
 class _SendButtonState extends State<SendButton> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return ButtonTheme(
@@ -200,11 +206,7 @@ class _SendButtonState extends State<SendButton> {
           minimumSize: const Size(double.infinity, 50.0),
         ),
         onPressed: () {
-          // Replace Home with an empty Container widget for now
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Container()),
-          );
+          _sendPasswordResetEmail();
         },
         child: const Text(
           'Send',
@@ -215,5 +217,20 @@ class _SendButtonState extends State<SendButton> {
         ),
       ),
     );
+  }
+
+  Future<void> _sendPasswordResetEmail() async {
+    try {
+      await _auth.sendPasswordResetEmail(email: widget.emailController.text);
+      // Show a success message or navigate to a confirmation screen
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password reset email sent successfully')),
+      );
+    } catch (e) {
+      // Handle errors such as invalid email or network issues
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error sending password reset email: $e')),
+      );
+    }
   }
 }

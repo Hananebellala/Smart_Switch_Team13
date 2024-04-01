@@ -28,7 +28,7 @@ class SettingsPage extends StatelessWidget {
     final imageX = (screenWidth - imageSize.width) / 2;
 
 // Define the percentage of the screen height for the image position
-    const imageYPercentage = 0.008; // Adjust as needed
+    const imageYPercentage = 0.0007; // Adjust as needed
 
 // Calculate the position of the image
     final imageY = screenHeight * imageYPercentage;

@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/authentification/authentification.dart';
 
-class BoxForgotPassword extends StatelessWidget {
+class BoxForgotPassword extends StatefulWidget {
   const BoxForgotPassword({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController _emailController = TextEditingController();
+  _BoxForgotPasswordState createState() => _BoxForgotPasswordState();
+}
 
+class _BoxForgotPasswordState extends State<BoxForgotPassword> {
+  final TextEditingController _emailController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     return Positioned(
       top: (MediaQuery.of(context).size.height -
               MediaQuery.of(context).size.height * 0.45) /
@@ -38,16 +43,22 @@ class BoxForgotPassword extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 20),
-            EmailField(controller: _emailController),
-            SizedBox(height: 20),
-            SendButton(),
-          ],
-        ),
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              EmailField(controller: _emailController),
+              SizedBox(height: 20),
+              SendButton(emailController: _emailController),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
   }
 }
