@@ -72,7 +72,8 @@ class LoginButton extends StatelessWidget {
             // Show an error message if authentication fails
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Error loging in. Please Enter your correct credentials.'),
+                content: Text(
+                    'Error loging in. Please Enter your correct credentials.'),
                 backgroundColor: Color.fromARGB(255, 255, 0, 0),
               ),
             );
@@ -88,7 +89,7 @@ class LoginButton extends StatelessWidget {
       ),
     );
   }
-}
+} // Import your home screen widget
 
 class SignupButton extends StatelessWidget {
   final TextEditingController emailController;
@@ -117,49 +118,58 @@ class SignupButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        onPressed: () {
-          // Validate the form fields
-          if (emailController.text.isEmpty ||
-              usernameController.text.isEmpty ||
-              passwordController.text.isEmpty ||
-              confirmPasswordController.text.isEmpty) {
-            // Show an error message if any field is empty
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('All fields are required'),
-                backgroundColor: Colors.red,
-              ),
+        onPressed: () async {
+          try {
+            // Validate the form fields
+            if (emailController.text.isEmpty ||
+                usernameController.text.isEmpty ||
+                passwordController.text.isEmpty ||
+                confirmPasswordController.text.isEmpty) {
+              throw 'All fields are required';
+            }
+
+            // Validate password and confirm password match
+            if (passwordController.text != confirmPasswordController.text) {
+              throw 'Passwords do not match';
+            }
+
+            // Create user with email and password using Firebase Authentication
+            final UserCredential userCredential =
+                await FirebaseAuth.instance.createUserWithEmailAndPassword(
+              email: emailController.text,
+              password: passwordController.text,
             );
-            return;
-          }
 
-          // Validate password and confirm password match
-          if (passwordController.text != confirmPasswordController.text) {
-            // Show an error message if passwords don't match
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Passwords do not match'),
-                backgroundColor: Colors.red,
-              ),
-            );
-            return;
-          }
-
-          // Implement your signup logic here
-          // Example: Auth().createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
-
-          // Navigate to the next screen after successful signup
-          Navigator.push(
-            context,
-            MaterialPageRoute(
+            // Navigate to the home screen after successful signup
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
                 builder: (context) =>
-                    home()), // Replace NextScreen() with the appropriate screen
-          );
+                    home(), // Replace Home() with your home screen widget
+              ),
+            );
+          } on FirebaseAuthException catch (e) {
+            // Handle FirebaseAuthException errors
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(e.message ?? 'An error occurred'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          } catch (e) {
+            // Handle other errors
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(e.toString()),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
         },
         child: const Text(
           'Sign Up',
           style: TextStyle(
-            fontWeight: FontWeight.bold, // Use Poppins Bold
+            fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
         ),
