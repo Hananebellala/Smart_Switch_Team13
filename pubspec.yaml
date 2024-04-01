@@ -11,20 +11,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_auth: ^4.18.0
+  lottie: ^3.1.0
   shared_preferences: ^2.0.0
   email_validator: ^2.0.1
-  cupertino_icons: ^1.0.2
   url_launcher: ^6.0.19
-  flutter_email_sender: ^5.0.2
-  flutter_svg: ^0.22.0
+  flutter_email_sender: ^6.0.2
+  flutter_svg: ^2.0.10+1
   firebase_core: ^2.27.2
-  flutter_bloc: ^7.3.1
   equatable: ^2.0.5
-
+  cupertino_icons: ^1.0.6
+  flutter_bloc: ^8.1.5
+  sqflite: ^2.0.0+4
+  path: ^1.8.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.2
 
 flutter:
   uses-material-design: true
@@ -56,3 +60,5 @@ flutter:
     - icon/controle.ico
     - icon/controleOn.ico
     - icon/addition.ico
+    - images/Loading.png
+    - animation/loadin.json

@@ -19,7 +19,7 @@ class SignupScreen extends StatelessWidget {
               const Logo(),
               Positioned(
                 top: MediaQuery.of(context).size.height *
-                    0.25, // Adjust as needed
+                    0.2, // Adjust as needed
                 left: 0,
                 right: 0,
                 child: const Center(
@@ -38,7 +38,7 @@ class SignupScreen extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.7,
-            child: const Stack(
+            child: Stack(
               children: [
                 Backimage(message: 'images/background3.png', taille: 0.7),
                 BoxCreateAccount(),

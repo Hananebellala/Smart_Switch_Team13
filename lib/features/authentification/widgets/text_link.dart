@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/authentification/authentification.dart';
 import 'signup.dart';
+import '../../HomePage/screens/homepage.dart';
 
 class TextLink extends StatefulWidget {
   const TextLink({Key? key}) : super(key: key);
@@ -22,7 +23,10 @@ class _TextLinkState extends State<TextLink> {
         InkWell(
           onTap: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const Signup()));
+
+                //context, MaterialPageRoute(builder: (context) => const Signup()));
+                context, MaterialPageRoute(builder: (context) => const home())); // dartha bah n9der nd5ol ll home 
+
           },
           child: const Text(
             ' Sign up',
