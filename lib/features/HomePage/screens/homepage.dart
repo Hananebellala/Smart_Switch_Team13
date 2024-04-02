@@ -7,8 +7,8 @@ import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
 import 'next_homepage.dart';
 
-class home extends StatelessWidget {
-  const home({super.key});
+class Home extends StatelessWidget {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class home extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           height: 30,
                           width: MediaQuery.of(context).size.width * 0.6,
                           child: const Text(
@@ -68,7 +68,7 @@ class home extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => next_homepage(),
+                            builder: (context) => const next_homepage(),
                           ),
                         );
                       },
@@ -123,7 +123,7 @@ class home extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => next_homepage(),
+                          builder: (context) => const next_homepage(),
                         ),
                       );
                     },
@@ -137,7 +137,7 @@ class home extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),
@@ -150,24 +150,24 @@ class home extends StatelessWidget {
             Row(
               children: [
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                Box_lampe(),
+                const Box_lampe(),
               ],
             ),
           ],
         ),
       ),
-      floatingActionButton: Container(
+      floatingActionButton: SizedBox(
         height: 65.0,
         width: 65.0,
         child: FittedBox(
           child: FloatingActionButton(
-            backgroundColor: Color(0xFF6900FF),
-            shape: CircleBorder(),
+            backgroundColor: const Color(0xFF6900FF),
+            shape: const CircleBorder(),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => next_homepage(),
+                  builder: (context) => const next_homepage(),
                 ),
               );
             },
@@ -184,20 +184,20 @@ class home extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: const BottomAppBar(
         shape: CircularNotchedRectangle(),
         child: PreferredSize(
           preferredSize: Size.fromHeight(100.0),
           child: Row(
             children: <Widget>[
               SizedBox(width: 10),
-              home_boutton(pathIcon: 'icon/homeOn.ico'),
+              Home_boutton(pathIcon: 'icon/homeOn.ico'),
               SizedBox(width: 30),
-              controle_boutton(pathIcon: 'icon/controle.ico'),
+              Controle_boutton(pathIcon: 'icon/controle.ico'),
               SizedBox(width: 90),
-              scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
+              Scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
               SizedBox(width: 30),
-              paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
+              Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
             ],
           ),
         ),

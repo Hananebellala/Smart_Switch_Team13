@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/HomePage/screens/homepage.dart';
-
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginButton extends StatelessWidget {
@@ -9,10 +7,10 @@ class LoginButton extends StatelessWidget {
   final TextEditingController passwordController;
 
   const LoginButton({
-    Key? key,
+    super.key,
     required this.emailController,
     required this.passwordController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class LoginButton extends StatelessWidget {
           if (emailController.text.isEmpty || passwordController.text.isEmpty) {
             // Show an error message if any field is empty
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Email and password are required'),
                 backgroundColor: Colors.red,
               ),
@@ -53,25 +51,29 @@ class LoginButton extends StatelessWidget {
             if (userCredential.user != null) {
               // Navigate to the home screen after successful login
               Navigator.pushReplacement(
+                // ignore: use_build_context_synchronously
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        home()), // Replace HomeScreen() with the appropriate screen
+                        const Home()), // Replace HomeScreen() with the appropriate screen
               );
             } else {
               // Show an error message if authentication fails
+              // ignore: use_build_context_synchronously
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Text('Invalid email or password'),
                   backgroundColor: Colors.red,
                 ),
               );
             }
           } catch (e) {
+            // ignore: avoid_print
             print('Error signing in: $e');
             // Show an error message if authentication fails
+            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text(
                     'Error loging in. Please Enter your correct credentials.'),
                 backgroundColor: Color.fromARGB(255, 255, 0, 0),
@@ -98,12 +100,12 @@ class SignupButton extends StatelessWidget {
   final TextEditingController confirmPasswordController;
 
   const SignupButton({
-    Key? key,
+    super.key,
     required this.emailController,
     required this.usernameController,
     required this.passwordController,
     required this.confirmPasswordController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +136,7 @@ class SignupButton extends StatelessWidget {
             }
 
             // Create user with email and password using Firebase Authentication
+            // ignore: unused_local_variable
             final UserCredential userCredential =
                 await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: emailController.text,
@@ -142,14 +145,16 @@ class SignupButton extends StatelessWidget {
 
             // Navigate to the home screen after successful signup
             Navigator.pushReplacement(
+              // ignore: use_build_context_synchronously
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    home(), // Replace Home() with your home screen widget
+                    const Home(), // Replace Home() with your home screen widget
               ),
             );
           } on FirebaseAuthException catch (e) {
             // Handle FirebaseAuthException errors
+            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message ?? 'An error occurred'),
@@ -158,6 +163,7 @@ class SignupButton extends StatelessWidget {
             );
           } catch (e) {
             // Handle other errors
+            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.toString()),
@@ -178,12 +184,10 @@ class SignupButton extends StatelessWidget {
   }
 }
 
-
-
 class SendButton extends StatefulWidget {
   final TextEditingController emailController;
 
-  const SendButton({Key? key, required this.emailController}) : super(key: key);
+  const SendButton({super.key, required this.emailController});
 
   @override
   State<SendButton> createState() => _SendButtonState();
@@ -223,11 +227,13 @@ class _SendButtonState extends State<SendButton> {
     try {
       await _auth.sendPasswordResetEmail(email: widget.emailController.text);
       // Show a success message or navigate to a confirmation screen
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Password reset email sent successfully')),
       );
     } catch (e) {
       // Handle errors such as invalid email or network issues
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error sending password reset email: $e')),
       );

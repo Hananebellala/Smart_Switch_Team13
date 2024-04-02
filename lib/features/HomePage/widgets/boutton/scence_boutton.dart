@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../screens/scencepage.dart';
- class scence_boutton extends StatefulWidget {
+ class Scence_boutton extends StatefulWidget {
   final String pathIcon ;
-  const scence_boutton({super.key,required this.pathIcon});
+  const Scence_boutton({super.key,required this.pathIcon});
 
   @override
-  State<scence_boutton> createState() => _home_bouttonState();
+  State<Scence_boutton> createState() => _home_bouttonState();
 }
 
-class _home_bouttonState extends State<scence_boutton> {
+class _home_bouttonState extends State<Scence_boutton> {
   @override
   Widget build(BuildContext context) {
     return    

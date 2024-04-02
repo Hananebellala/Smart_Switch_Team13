@@ -1,35 +1,48 @@
 import 'package:flutter/material.dart';
-//*********************** on-off-Icon*****************
-class on_off_tv extends StatefulWidget {
-  const on_off_tv({super.key});
-  
+
+class On_off_tv extends StatefulWidget {
+  const On_off_tv({Key? key});
+
   @override
-  State<on_off_tv> createState() => _on_offState();
+  State<On_off_tv> createState() => _On_offState();
 }
 
-class _on_offState extends State<on_off_tv> {
-  @override
-  String _tv='icon/tvOff.ico';
-  bool on=false;
-  Widget build(BuildContext context) {
-    return  Row( children: [  // ligne de icon+bouton
-                             const SizedBox(width:15),
+class _On_offState extends State<On_off_tv> {
+  bool _isOn = false;
 
-                         Align(alignment:Alignment.centerLeft,child:Image.asset(_tv,height: 60,width: 60,)),
-                         const SizedBox(width:15),
-                         Switch(
-                          //activeColor: Color(0xFF6900FF),
-                                value: on,
-                               onChanged: (newValue) {
-                               setState(() {
-                                on= newValue;
-                                if (_tv=='icon/tvOff.ico'){
-                                  _tv='icon/tvOn.ico';
-                                }else{
-                                  _tv='icon/tvOff.ico';
-                                }
-                                
-                                 }); },)],) ; 
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const SizedBox(width: 15),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: SizedBox(
+            height: 60,
+            width: 60,
+            
+            child: Center(
+              child: Image.asset(
+                'icon/${_isOn ? 'tvOn' : 'tvOff'}.ico',
+                height: 40,
+                width: 40,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 15),
+        Switch(
+          value: _isOn,
+          onChanged: (newValue) {
+            setState(() {
+              _isOn = newValue;
+            });
+          },
+          activeColor: const Color(0xFFA58BFF), // Active color (when switch is on)
+          inactiveThumbColor: const Color(0xFFFAF7FF), // Thumb color (when switch is off)
+          inactiveTrackColor: Colors.black.withOpacity(0.2), // Track color (when switch is off)
+        ),
+      ],
+    );
   }
 }
-//************************************* */ */

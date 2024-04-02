@@ -140,13 +140,13 @@ class SettingsPage extends StatelessWidget {
           child: Row(
             children: <Widget>[
               SizedBox(width: 10),
-              home_boutton(pathIcon: 'icon/home.ico'),
+              Home_boutton(pathIcon: 'icon/home.ico'),
               SizedBox(width: 30),
-              controle_boutton(pathIcon: 'icon/controle.ico'),
+              Controle_boutton(pathIcon: 'icon/controle.ico'),
               SizedBox(width: 90),
-              scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
+              Scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
               SizedBox(width: 30),
-              paramettre_boutton(pathIcon: 'icon/Setting.ico'),
+              Paramettre_boutton(pathIcon: 'icon/Setting.ico'),
 
               // ElevatedButton( onPressed: () {   }, child:Image.asset('icon/home.ico',height: 30,width: 30,) ),
             ],

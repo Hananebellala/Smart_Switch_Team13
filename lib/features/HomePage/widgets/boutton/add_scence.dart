@@ -12,14 +12,14 @@ import 'scence_boutton.dart';
 
 
 
- class add_scence extends StatefulWidget {
-  const add_scence({super.key});
+ class Add_scence extends StatefulWidget {
+  const Add_scence({super.key});
 
   @override
-  State<add_scence> createState() => _home_bouttonState();
+  State<Add_scence> createState() => _home_bouttonState();
 }
 
-class _home_bouttonState extends State<add_scence> {
+class _home_bouttonState extends State<Add_scence> {
  
   @override
   Widget build(BuildContext context) {
@@ -171,13 +171,13 @@ void _showBottomSheet(BuildContext context) {
             child: Row(
               children: [
                 SizedBox(width: 10),
-               home_boutton(pathIcon:'icon/home.ico')  ,  
+               Home_boutton(pathIcon:'icon/home.ico')  ,  
                                                                   SizedBox(width:30),
-                                                                controle_boutton(pathIcon:'icon/controle.ico')  ,  
+                                                                Controle_boutton(pathIcon:'icon/controle.ico')  ,  
                                                                 SizedBox(width:90),
-                                                               scence_boutton(pathIcon:'icon/scenceON.ico')  , 
+                                                               Scence_boutton(pathIcon:'icon/scenceON.ico')  , 
                                                                  SizedBox(width:30),                                                              
-                                                                  paramettre_boutton(pathIcon:'icon/paramettre.ico')  ,  
+                                                                  Paramettre_boutton(pathIcon:'icon/paramettre.ico')  ,  
   ],
             ),
           ),

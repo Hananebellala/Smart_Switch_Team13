@@ -76,7 +76,7 @@ class _scencepageState extends State<scencepage> {
               Insert(),
 
                 const SizedBox(height: 20),
-                add_scence(),
+                Add_scence(),
                 const SizedBox(height: 20),
               ],
             ),
@@ -110,13 +110,13 @@ class _scencepageState extends State<scencepage> {
           child: Row(
             children: <Widget>[
               SizedBox(width: 10),
-              home_boutton(pathIcon: 'icon/home.ico'),
+              Home_boutton(pathIcon: 'icon/home.ico'),
               SizedBox(width: 30),
-              controle_boutton(pathIcon: 'icon/controle.ico'),
+              Controle_boutton(pathIcon: 'icon/controle.ico'),
               SizedBox(width: 90),
-              scence_boutton(pathIcon: 'icon/scenceON.ico'),
+              Scence_boutton(pathIcon: 'icon/scenceON.ico'),
               SizedBox(width: 30),
-              paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
+              Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
             ],
           ),
         ),

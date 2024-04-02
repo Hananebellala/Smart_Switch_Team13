@@ -1,12 +1,11 @@
 import 'controllers/signup_controller.dart';
-import 'screens/login_screen.dart';
 import 'screens/signup_screen.dart';
 import 'package:smart_switch_team13/features/HomePage/index.dart';
 
 import 'package:flutter/material.dart';
 
 class WidgetTree extends StatelessWidget {
-  const WidgetTree({Key? key}) : super(key: key);
+  const WidgetTree({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class WidgetTree extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Poppins',
       ),
-      home: user != null ? home() : SignupScreen(),
+      home: user != null ? const Home() : const SignupScreen(),
     );
   }
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../screens/next_homepage.dart';
- class controle_boutton extends StatefulWidget {
+ class Controle_boutton extends StatefulWidget {
   final String pathIcon;
-  const controle_boutton({super.key,required this.pathIcon});
+  const Controle_boutton({super.key,required this.pathIcon});
 
   @override
-  State<controle_boutton> createState() => _home_bouttonState();
+  State<Controle_boutton> createState() => _home_bouttonState();
 }
 
-class _home_bouttonState extends State<controle_boutton> {
+class _home_bouttonState extends State<Controle_boutton> {
   @override
   Widget build(BuildContext context) {
     return    
