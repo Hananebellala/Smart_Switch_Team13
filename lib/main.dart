@@ -1,13 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_switch_team13/features/Settings/index.dart';
-import 'package:smart_switch_team13/features/HomePage/index.dart';
-import 'package:smart_switch_team13/features/LogoPage/index.dart';
 import 'package:smart_switch_team13/features/authentification/widget_tree.dart';
 import 'package:smart_switch_team13/firebase_options.dart';
-import 'features/authentification/index.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smart_switch_team13/features/pairing/pairing.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -57,7 +52,8 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Poppins', // Specify the Poppins font family directly
       ),
-      home: WidgetTree(), // Start with the settings page as the home screen
+      home:
+          const WidgetTree(), // Start with the settings page as the home screen
     );
   }
 }
