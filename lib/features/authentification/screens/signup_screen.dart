@@ -42,7 +42,6 @@ class SignupScreen extends StatelessWidget {
               children: [
                 Backimage(message: 'images/background3.png', taille: 0.7),
                 BoxCreateAccount(),
-                GoBack(),
               ],
             ),
           ),

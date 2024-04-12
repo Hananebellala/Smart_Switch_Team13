@@ -70,7 +70,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Backimage(message: 'images/background.png', taille: 0.7),
                     BoxLogin(),
-                    GoBack(),
                   ],
                 ),
               ),
