@@ -95,7 +95,7 @@ class Home extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => next_homepage(),
+                            builder: (context) => const next_homepage(),
                           ),
                         );
                       },
@@ -141,7 +141,7 @@ class Home extends StatelessWidget {
             Row(
               children: [
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                Box_lampe(),
+                const Box_lampe(),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.1),
                 Box_tv(),
               ],

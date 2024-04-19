@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../screens/about.dart';
+import '../screens/changeLocation.dart';
 
-class Rectangle4 extends StatelessWidget {
-  const Rectangle4({super.key});
+class Rectangle6 extends StatelessWidget {
+  const Rectangle6({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Get the device screen width
     final screenWidth = MediaQuery.of(context).size.width;
 
-    // Calculate the width of the Rectangle based on the screen width
+    // Calculate the width of the Rectangle6 based on the screen width
     final containerWidth = screenWidth * 0.9; // 90% of screen width
 
     return GestureDetector(
@@ -17,7 +17,7 @@ class Rectangle4 extends StatelessWidget {
         // Navigate to AccountSettings screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const About()),
+          MaterialPageRoute(builder: (context) => const ChangeLocation()),
         );
       },
       child: Container(
@@ -44,7 +44,7 @@ class Rectangle4 extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: containerWidth * 0.08), // 8% of container width
               child: const Text(
-                'About the app',
+                'FAQ',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 16,

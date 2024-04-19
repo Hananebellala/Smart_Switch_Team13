@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/authentification/widget_tree.dart';
 import 'package:smart_switch_team13/firebase_options.dart';
-import 'package:smart_switch_team13/features/pairing/pairing.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -41,7 +40,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

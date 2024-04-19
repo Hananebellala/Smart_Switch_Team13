@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Import the LastPassword widget
+
 import '../widgets/Password.dart'; // Import the Password widget
 
 import '../../HomePage/widgets/boutton/controle_Boutton.dart';
@@ -16,7 +15,7 @@ class ChangePassword extends StatelessWidget {
   final TextEditingController _confirmPasswordController =
       TextEditingController(); // Controller for the confirm password
 
-  ChangePassword({Key? key}) : super(key: key);
+  ChangePassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -96,17 +95,17 @@ class ChangePassword extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.circular(10), // Button border radius
-                          side: BorderSide(
+                          side: const BorderSide(
                               color: Colors.white, width: 2), // Button border
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Save Changes',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500, // Medium
                           fontSize: 18.0, // Adjust the font size as needed
-                          color: const Color(0xFFFFFAFA), // Text color
+                          color: Color(0xFFFFFAFA), // Text color
                         ),
                       ),
                     ),
@@ -122,8 +121,8 @@ class ChangePassword extends StatelessWidget {
         width: 65.0,
         child: FittedBox(
           child: FloatingActionButton(
-            backgroundColor: Color(0xFF6900FF),
-            shape: CircleBorder(),
+            backgroundColor: const Color(0xFF6900FF),
+            shape: const CircleBorder(),
             onPressed: () {
               // Implement action for the floating action button
             },

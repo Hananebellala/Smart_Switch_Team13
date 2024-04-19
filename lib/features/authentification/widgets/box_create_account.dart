@@ -83,7 +83,7 @@ class _BoxCreateAccountState extends State<BoxCreateAccount> {
                 confirmPasswordController: _confirmPasswordController,
               ),
               const SizedBox(height: 25),
-              LienText2(),
+              const LienText2(),
             ],
           ),
           ),

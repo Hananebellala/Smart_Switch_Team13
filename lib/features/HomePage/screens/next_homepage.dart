@@ -4,7 +4,6 @@ import '../widgets/boutton/home_boutton.dart';
 import '../widgets/boutton/paramettre_boutton.dart';
 import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
-import '../widgets/boutton/add_scence.dart';
 
 class next_homepage extends StatelessWidget {
   const next_homepage({super.key});
@@ -56,7 +55,7 @@ class next_homepage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  next_homepage())); // lazm tkon t3 notification
+                                  const next_homepage())); // lazm tkon t3 notification
                     },
                   ),
                 ),
@@ -81,7 +80,7 @@ class next_homepage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  next_homepage())); // lzm tkon t3 info personal
+                                  const next_homepage())); // lzm tkon t3 info personal
                     },
                   ),
                 ),
@@ -97,11 +96,11 @@ class next_homepage extends StatelessWidget {
         width: 65.0,
         child: FittedBox(
           child: FloatingActionButton(
-            backgroundColor: Color(0xFF6900FF),
-            shape: CircleBorder(),
+            backgroundColor: const Color(0xFF6900FF),
+            shape: const CircleBorder(),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => next_homepage()));
+                  MaterialPageRoute(builder: (context) => const next_homepage()));
             },
             child: Padding(
               padding: const EdgeInsets.only(left: 7),

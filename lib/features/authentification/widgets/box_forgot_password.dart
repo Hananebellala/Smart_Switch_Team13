@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/authentification/authentification.dart';
 
 class BoxForgotPassword extends StatefulWidget {
-  const BoxForgotPassword({Key? key}) : super(key: key);
+  const BoxForgotPassword({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BoxForgotPasswordState createState() => _BoxForgotPasswordState();
 }
 
@@ -45,9 +46,9 @@ class _BoxForgotPasswordState extends State<BoxForgotPassword> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               EmailField(controller: _emailController),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SendButton(emailController: _emailController),
             ],
           ),

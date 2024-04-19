@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
+// ignore: camel_case_types
 class On_off_tv extends StatefulWidget {
-  const On_off_tv({Key? key}) : super(key: key);
+  const On_off_tv({super.key});
 
   @override
   State<On_off_tv> createState() => _On_offState();
 }
 
+// ignore: camel_case_types
 class _On_offState extends State<On_off_tv> {
   late bool _isOn;
   late MqttServerClient mqttClient;
@@ -21,8 +23,11 @@ class _On_offState extends State<On_off_tv> {
   }
 
   void _connectToMqtt() async {
+    // ignore: prefer_const_declarations
     final String mqttServer = 'test.mosquitto.org'; // MQTT broker address
+    // ignore: prefer_const_declarations
     final int mqttPort = 1883; // MQTT broker port
+    // ignore: prefer_const_declarations
     final String clientId = 'Hana'; // Unique client ID
 
     mqttClient = MqttServerClient(mqttServer, clientId);

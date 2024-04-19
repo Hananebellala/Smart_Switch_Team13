@@ -4,6 +4,7 @@ import '../widgets/box_lampe.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+
 abstract class ColumnEvent extends Equatable {
   @override
   List<Object?> get props => [];
@@ -32,14 +33,14 @@ class ColumnState extends Equatable {
   final List<int> firstColumnData;
   final List<int> secondColumnData;
 
-  ColumnState(this.firstColumnData, this.secondColumnData);
+  const ColumnState(this.firstColumnData, this.secondColumnData);
 
   @override
   List<Object?> get props => [firstColumnData, secondColumnData];
 }
 
 class ColumnBloc extends Bloc<ColumnEvent, ColumnState> {
-  ColumnBloc() : super(ColumnState([], [])) {
+  ColumnBloc() : super(const ColumnState([], [])) {
     on<AddBoxEvent>(_mapAddBoxEventToState);
   }
 
@@ -73,17 +74,22 @@ class ColumnBloc extends Bloc<ColumnEvent, ColumnState> {
 }
 
 class Insert extends StatelessWidget {
+  const Insert({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ColumnBloc(),
-      child: MyWidgetContent(),
+      child: const MyWidgetContent(),
     );
   }
 }
 
 class MyWidgetContent extends StatefulWidget {
+  const MyWidgetContent({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _MyWidgetContentState createState() => _MyWidgetContentState();
 }
 
@@ -132,14 +138,14 @@ class _MyWidgetContentState extends State<MyWidgetContent> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: state.firstColumnData.map((boxNumber) {
-                      return Box_lampe();
+                      return const Box_lampe();
                     }).toList(),
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.07),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: state.secondColumnData.map((boxNumber) {
-                      return Box_lampe();
+                      return const Box_lampe();
                     }).toList(),
                   ),
                 ],
@@ -161,13 +167,12 @@ class _MyWidgetContentState extends State<MyWidgetContent> {
     );
   }
 
-  Future<void> _saveColumnData(List<int> firstColumnData, List<int> secondColumnData) async {
+  Future<void> _saveColumnData(
+      List<int> firstColumnData, List<int> secondColumnData) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(
         'firstColumnData', firstColumnData.map((e) => e.toString()).toList());
     await prefs.setStringList(
         'secondColumnData', secondColumnData.map((e) => e.toString()).toList());
   }
-
-
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class Mails extends StatefulWidget {
-  const Mails({Key? key}) : super(key: key);
+  const Mails({super.key});
 
   @override
   State<Mails> createState() => _MailsState();

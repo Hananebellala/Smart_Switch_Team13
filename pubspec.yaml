@@ -7,7 +7,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=3.2.6 <4.0.0"
- 
+
 dependencies:
   flutter:
     sdk: flutter
@@ -25,7 +25,8 @@ dependencies:
   sqflite: ^2.0.0+4
   path: ^1.8.0
   mqtt_client: ^10.2.0
-  
+  image_picker: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -68,5 +69,7 @@ flutter:
     - images/localisation.png
     - images/review-bro.png
     - images/Online world-bro 1.png
-    - images/Bluetooth.png 
+    - images/Bluetooth.png
     - images/simple-icons_esphome.png
+    - images/Smart_home_bro1.png
+    - images/Questions_bro.png

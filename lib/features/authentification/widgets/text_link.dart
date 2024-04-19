@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/authentification/authentification.dart';
-import 'signup.dart';
-import '../../HomePage/screens/homepage.dart';
 
 class TextLink extends StatefulWidget {
-  const TextLink({Key? key}) : super(key: key);
+  const TextLink({super.key});
 
   @override
   State<TextLink> createState() => _TextLinkState();
@@ -43,9 +41,10 @@ class _TextLinkState extends State<TextLink> {
 }
 
 class TextLink1 extends StatefulWidget {
-  const TextLink1({Key? key}) : super(key: key);
+  const TextLink1({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _TextLink1State createState() => _TextLink1State();
 }
 
@@ -77,7 +76,7 @@ class _TextLink1State extends State<TextLink1> {
 }
 
 class LienText2 extends StatelessWidget {
-  const LienText2({Key? key}) : super(key: key);
+  const LienText2({super.key});
 
   @override
   Widget build(BuildContext context) {

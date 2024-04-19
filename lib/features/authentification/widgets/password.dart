@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class Password extends StatefulWidget {
   final TextEditingController controller; // Add controller parameter
-  const Password({Key? key, required this.controller}) : super(key: key);
+  const Password({super.key, required this.controller});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PasswordState createState() => _PasswordState();
 }
 
@@ -19,7 +20,7 @@ class _PasswordState extends State<Password> {
     return Stack(
       children: [
         if (_showMessage)
-          Positioned(
+          const Positioned(
             bottom: 0,
             child: Text(
               'Invalid password (minimum 12 characters)',
@@ -60,7 +61,7 @@ class _PasswordState extends State<Password> {
                 });
               },
               child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
                 child: Transform.scale(
                   scale: 0.9,
                   child: ImageIcon(

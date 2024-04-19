@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'on_off_lampe.dart';
 
 /********************************************************box  ********************************************************************* */
+// ignore: camel_case_types
 class Box_lampe extends StatelessWidget {
-  const Box_lampe({Key? key}) : super(key: key);
+  const Box_lampe({super.key});
 
   @override
   Widget build(BuildContext context) {

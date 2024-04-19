@@ -2,15 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/authentification/authentification.dart';
 import 'package:smart_switch_team13/features/authentification/index.dart';
-import 'login_button.dart';
-import 'text_link.dart';
-import 'username.dart';
-import 'password.dart';
 
 class BoxLogin extends StatefulWidget {
-  const BoxLogin({Key? key}) : super(key: key);
+  const BoxLogin({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BoxLoginState createState() => _BoxLoginState();
 }
 
@@ -69,23 +66,23 @@ class _BoxLoginState extends State<BoxLogin> {
         ),
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 30),
-            EmailField(controller: _emailController),
-            SizedBox(height: 20),
-            Password(controller: _passwordController),
-            SizedBox(height: 20),
-            LoginButton(
-              emailController: _emailController,
-              passwordController: _passwordController,
-            ),
-            SizedBox(height: 10),
-            TextLink1(),
-            SizedBox(height: 10),
-            TextLink(),
-          ],
-        ),
+          child: Column(
+            children: [
+              const SizedBox(height: 30),
+              EmailField(controller: _emailController),
+              const SizedBox(height: 20),
+              Password(controller: _passwordController),
+              const SizedBox(height: 20),
+              LoginButton(
+                emailController: _emailController,
+                passwordController: _passwordController,
+              ),
+              const SizedBox(height: 10),
+              const TextLink1(),
+              const SizedBox(height: 10),
+              const TextLink(),
+            ],
+          ),
         ),
       ),
     );

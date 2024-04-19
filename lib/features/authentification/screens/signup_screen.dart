@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/logo.dart';
 import '../widgets/box_create_account.dart';
-import '../widgets/go_back.dart';
 import '../widgets/back.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -38,7 +37,7 @@ class SignupScreen extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.7,
-            child: Stack(
+            child: const Stack(
               children: [
                 Backimage(message: 'images/background3.png', taille: 0.7),
                 BoxCreateAccount(),

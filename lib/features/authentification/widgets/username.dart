@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class Username extends StatefulWidget {
   final TextEditingController controller;
-  const Username({Key? key, required this.controller}) : super(key: key);
+  const Username({super.key, required this.controller});
 
   @override
+  // ignore: library_private_types_in_public_api
   _UsernameState createState() => _UsernameState();
 }
 
@@ -56,9 +57,10 @@ class _UsernameState extends State<Username> {
 
 class EmailField extends StatefulWidget {
   final TextEditingController controller;
-  const EmailField({Key? key, required this.controller}) : super(key: key);
+  const EmailField({super.key, required this.controller});
 
   @override
+  // ignore: library_private_types_in_public_api
   _EmailFieldState createState() => _EmailFieldState();
 }
 

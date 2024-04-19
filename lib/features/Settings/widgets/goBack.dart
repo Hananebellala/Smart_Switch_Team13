@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens/settings_page.dart';
 
 class GoBack extends StatelessWidget {
-  const GoBack({Key? key}) : super(key: key);
+  const GoBack({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,16 +8,17 @@ class Password extends StatefulWidget {
   final bool isLastPassword; // Indicator if it's the last password field
   final String correctLastPassword; // Correct last password from the database
   const Password({
-    Key? key,
+    super.key,
     required this.controller,
     required this.labelText,
     required this.hintText,
     required this.errorMessage,
     required this.isLastPassword,
     required this.correctLastPassword,
-  }) : super(key: key);
+  });
 
   @override
+  // ignore: library_private_types_in_public_api
   _PasswordState createState() => _PasswordState();
 }
 
@@ -35,7 +36,7 @@ class _PasswordState extends State<Password> {
             bottom: -20, // Adjust the position as needed
             child: Text(
               widget.errorMessage,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.red,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w300,
@@ -72,7 +73,7 @@ class _PasswordState extends State<Password> {
                 });
               },
               child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
                 child: Transform.scale(
                   scale: 0.9,
                   child: ImageIcon(
@@ -96,7 +97,7 @@ class _PasswordState extends State<Password> {
               onPressed: () {
                 _validateLastPassword(); // Validate last password when button is pressed
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ),
       ],
@@ -122,19 +123,20 @@ class Password1 extends StatefulWidget {
   final String hintText;
   final String errorMessage;
   const Password1({
-    Key? key,
+    super.key,
     required this.controller,
     required this.labelText,
     required this.hintText,
     required this.errorMessage,
-  }) : super(key: key);
+  });
 
   @override
+  // ignore: library_private_types_in_public_api
   _Password1State createState() => _Password1State();
 }
 
 class _Password1State extends State<Password1> {
-  bool _showMessage = false;
+  final bool _showMessage = false;
   bool _showPassword = false;
   String _eyeIcon = 'images/eye.png';
 
@@ -147,7 +149,7 @@ class _Password1State extends State<Password1> {
             bottom: -20, // Adjust the position as needed
             child: Text(
               widget.errorMessage,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.red,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w300,
@@ -184,7 +186,7 @@ class _Password1State extends State<Password1> {
                 });
               },
               child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
                 child: Transform.scale(
                   scale: 0.9,
                   child: ImageIcon(

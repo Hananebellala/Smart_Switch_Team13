@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class PairingSmartSwitch extends StatelessWidget {
+  const PairingSmartSwitch({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,7 +16,10 @@ class PairingSmartSwitch extends StatelessWidget {
 }
 
 class BlurBackgroundDemo extends StatefulWidget {
+  const BlurBackgroundDemo({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _BlurBackgroundDemoState createState() => _BlurBackgroundDemoState();
 }
 
@@ -27,7 +32,7 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
     super.initState();
 
     // Delay for 3 seconds
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         shouldBlur = true;
         showBox = true;
@@ -54,7 +59,7 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                 children: [
                   Container(
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xfffff9f9),
                     ),
                     child: Column(
@@ -72,7 +77,7 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                               fontWeight: FontWeight.w400,
                               height: 1 * ffem / fem,
                               letterSpacing: 0.15 * fem,
-                              color: Color(0xff000000),
+                              color: const Color(0xff000000),
                             ),
                           ),
                         ),
@@ -91,7 +96,7 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                               fontWeight: FontWeight.w300,
                               height: 1 * ffem / fem,
                               letterSpacing: 0.0925729465 * fem,
-                              color: Color(0xff000000),
+                              color: const Color(0xff000000),
                             ),
                           ),
                         ),
@@ -108,7 +113,7 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                   width: 301 * fem,
                                   height: 237 * fem,
                                   decoration: BoxDecoration(
-                                    color: Color.fromRGBO(255, 241, 168, 1.0),
+                                    color: const Color.fromRGBO(255, 241, 168, 1.0),
                                     borderRadius:
                                         BorderRadius.circular(50 * fem),
                                     boxShadow: [
@@ -161,12 +166,12 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                             margin: EdgeInsets.only(
                                                 left: 22 * fem, top: 3 * fem),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFFAF7FF),
+                                              color: const Color(0xFFFAF7FF),
                                               borderRadius:
                                                   BorderRadius.circular(
                                                       22 * fem),
                                               border: Border.all(
-                                                color: Color(0xFF000000),
+                                                color: const Color(0xFF000000),
                                                 width: 0.5 * fem,
                                               ),
                                             ),
@@ -178,12 +183,12 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                             margin: EdgeInsets.only(
                                                 left: 22 * fem, top: 3 * fem),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFFAF7FF),
+                                              color: const Color(0xFFFAF7FF),
                                               borderRadius:
                                                   BorderRadius.circular(
                                                       22 * fem),
                                               border: Border.all(
-                                                color: Color(0xFF000000),
+                                                color: const Color(0xFF000000),
                                                 width: 0.5 * fem,
                                               ),
                                             ),
@@ -202,12 +207,12 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                             margin: EdgeInsets.only(
                                                 left: 22 * fem, top: 3 * fem),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFFAF7FF),
+                                              color: const Color(0xFFFAF7FF),
                                               borderRadius:
                                                   BorderRadius.circular(
                                                       22 * fem),
                                               border: Border.all(
-                                                color: Color(0xFF000000),
+                                                color: const Color(0xFF000000),
                                                 width: 0.5 * fem,
                                               ),
                                             ),
@@ -219,12 +224,12 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                             margin: EdgeInsets.only(
                                                 left: 22 * fem, top: 3 * fem),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFFAF7FF),
+                                              color: const Color(0xFFFAF7FF),
                                               borderRadius:
                                                   BorderRadius.circular(
                                                       22 * fem),
                                               border: Border.all(
-                                                color: Color(0xFF000000),
+                                                color: const Color(0xFF000000),
                                                 width: 0.5 * fem,
                                               ),
                                             ),
@@ -236,12 +241,12 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                             margin: EdgeInsets.only(
                                                 left: 22 * fem, top: 3 * fem),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFFAF7FF),
+                                              color: const Color(0xFFFAF7FF),
                                               borderRadius:
                                                   BorderRadius.circular(
                                                       22 * fem),
                                               border: Border.all(
-                                                color: Color(0xFF000000),
+                                                color: const Color(0xFF000000),
                                                 width: 0.5 * fem,
                                               ),
                                             ),
@@ -253,12 +258,12 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                             margin: EdgeInsets.only(
                                                 left: 22 * fem, top: 3 * fem),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFFAF7FF),
+                                              color: const Color(0xFFFAF7FF),
                                               borderRadius:
                                                   BorderRadius.circular(
                                                       22 * fem),
                                               border: Border.all(
-                                                color: Color(0xFF000000),
+                                                color: const Color(0xFF000000),
                                                 width: 0.5 * fem,
                                               ),
                                             ),
@@ -278,12 +283,12 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                             margin: EdgeInsets.only(
                                                 left: 22 * fem, top: 3 * fem),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFFAF7FF),
+                                              color: const Color(0xFFFAF7FF),
                                               borderRadius:
                                                   BorderRadius.circular(
                                                       22 * fem),
                                               border: Border.all(
-                                                color: Color(0xFF000000),
+                                                color: const Color(0xFF000000),
                                                 width: 0.5 * fem,
                                               ),
                                             ),
@@ -295,12 +300,12 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                             margin: EdgeInsets.only(
                                                 left: 22 * fem, top: 3 * fem),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFFAF7FF),
+                                              color: const Color(0xFFFAF7FF),
                                               borderRadius:
                                                   BorderRadius.circular(
                                                       22 * fem),
                                               border: Border.all(
-                                                color: Color(0xFF000000),
+                                                color: const Color(0xFF000000),
                                                 width: 0.5 * fem,
                                               ),
                                             ),
@@ -334,7 +339,7 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                   fem), // Adjust right margin to control button position
 
                           decoration: BoxDecoration(
-                            color: Color(0xff6900ff),
+                            color: const Color(0xff6900ff),
                             borderRadius: BorderRadius.circular(10 * fem),
                           ),
                           child: Center(
@@ -347,7 +352,7 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                                 fontWeight: FontWeight.w500,
                                 height: 1 * ffem / fem,
                                 letterSpacing: 0.09 * fem,
-                                color: Color(0xfffff9f9),
+                                color: const Color(0xfffff9f9),
                               ),
                             ),
                           ),
@@ -434,7 +439,7 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
                               width: double.infinity, // Takes the full width
                               decoration: BoxDecoration(
                                 color:
-                                    Color(0x80A58BFF), // Grey background color
+                                    const Color(0x80A58BFF), // Grey background color
                                 borderRadius: BorderRadius.circular(
                                     15.88 * fem), // Changed border radius
                                 border: Border.all(
@@ -466,7 +471,7 @@ class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
 }
 
 class Pair extends StatelessWidget {
-  const Pair({Key? key}) : super(key: key);
+  const Pair({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -482,7 +487,7 @@ class Pair extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xfffff9f9),
                 ),
                 child: Column(
@@ -491,7 +496,7 @@ class Pair extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.fromLTRB(
                           0 * fem, 0 * fem, 0 * fem, 34 * fem),
-                      child: Text(
+                      child: const Text(
                         'Home location',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -510,7 +515,7 @@ class Pair extends StatelessWidget {
                       constraints: BoxConstraints(
                         maxWidth: 347 * fem,
                       ),
-                      child: Text(
+                      child: const Text(
                         'Setting up your location helps display information like the local weather and use sun-based automations',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -532,12 +537,12 @@ class Pair extends StatelessWidget {
                       width: 340 * fem,
                       height: 55 * fem,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xff000000)),
-                        color: Color(0xFFFAF7FF),
+                        border: Border.all(color: const Color(0xff000000)),
+                        color: const Color(0xFFFAF7FF),
                         borderRadius: BorderRadius.circular(10 * fem),
                         boxShadow: [
                           BoxShadow(
-                            color: Color(0x70000000),
+                            color: const Color(0x70000000),
                             offset: Offset(0 * fem, 2 * fem),
                           ),
                         ],
@@ -554,11 +559,12 @@ class Pair extends StatelessWidget {
                             child: Image(
                               width: 400 * fem, // Increased size of the image
                               height: 400 * fem, // Increased size of the image
-                              image: AssetImage('images/search.png'),
+                              image: const AssetImage('images/search.png'),
                               fit: BoxFit.contain,
                             ),
                           ),
                           Expanded(
+                            // ignore: avoid_unnecessary_containers
                             child: Container(
                               // Added padding to the TextField
                               child: TextField(
@@ -571,7 +577,7 @@ class Pair extends StatelessWidget {
                                     fontSize: 12 * fem,
                                     fontWeight: FontWeight.w300,
                                     letterSpacing: 0.06 * fem,
-                                    color: Color(0x99000000),
+                                    color: const Color(0x99000000),
                                   ),
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none,
@@ -581,7 +587,7 @@ class Pair extends StatelessWidget {
                                   fontSize: 12 * fem,
                                   fontWeight: FontWeight.w300,
                                   letterSpacing: 0.06 * fem,
-                                  color: Color(0x99000000),
+                                  color: const Color(0x99000000),
                                 ),
                               ),
                             ),
@@ -643,7 +649,7 @@ class Pair extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => PairingSmartSwitch(),
+                              builder: (context) => const PairingSmartSwitch(),
                             ),
                           );
                         },
@@ -651,7 +657,7 @@ class Pair extends StatelessWidget {
                           width: 85 * fem,
                           height: 39 * fem,
                           decoration: BoxDecoration(
-                            color: Color(0xff6900ff),
+                            color: const Color(0xff6900ff),
                             borderRadius: BorderRadius.circular(10 * fem),
                           ),
                           child: Center(
@@ -664,7 +670,7 @@ class Pair extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 height: 1 * ffem / fem,
                                 letterSpacing: 0.09 * fem,
-                                color: Color(0xfffff9f9),
+                                color: const Color(0xfffff9f9),
                               ),
                             ),
                           ),

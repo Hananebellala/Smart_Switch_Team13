@@ -8,6 +8,7 @@ import '../widgets/boutton/add_scence.dart';
 import '../widgets/ajouter_box.dart';
 
 
+// ignore: camel_case_types
 class scencepage extends StatefulWidget {
   const scencepage({super.key});
 
@@ -15,6 +16,7 @@ class scencepage extends StatefulWidget {
   State<scencepage> createState() => _scencepageState();
 }
 
+// ignore: camel_case_types
 class _scencepageState extends State<scencepage> {
   
    
@@ -76,7 +78,7 @@ class _scencepageState extends State<scencepage> {
               Insert(),
 
                 const SizedBox(height: 20),
-                Add_scence(),
+                const Add_scence(),
                 const SizedBox(height: 20),
               ],
             ),
@@ -88,8 +90,8 @@ class _scencepageState extends State<scencepage> {
         width: 65.0,
         child: FittedBox(
           child: FloatingActionButton(
-            backgroundColor: Color(0xFF6900FF),
-            shape: CircleBorder(),
+            backgroundColor: const Color(0xFF6900FF),
+            shape: const CircleBorder(),
             onPressed: () {},
             child: Padding(
               padding: const EdgeInsets.only(left: 7),

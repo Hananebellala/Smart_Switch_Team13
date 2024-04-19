@@ -5,10 +5,10 @@ class InfoBox extends StatefulWidget {
   final Function(String) onChanged; // Fonction de rappel pour la valeur modifiée
 
   const InfoBox({
-    Key? key,
+    super.key,
     required this.initialValue,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<InfoBox> createState() => _InfoBoxState();
@@ -31,7 +31,7 @@ class _InfoBoxState extends State<InfoBox> {
       width: MediaQuery.of(context).size.width,
       height: 50,
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 227, 210, 249), // Couleur d'arrière-plan
+        color: const Color.fromARGB(255, 227, 210, 249), // Couleur d'arrière-plan
         borderRadius: BorderRadius.circular(15), // Bordure arrondie
         border: Border.all(
           color: Colors.grey, // Couleur de la bordure

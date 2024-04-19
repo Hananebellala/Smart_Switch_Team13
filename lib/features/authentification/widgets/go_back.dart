@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GoBack extends StatelessWidget {
-  const GoBack({Key? key}) : super(key: key);
+  const GoBack({super.key});
 
   @override
   Widget build(BuildContext context) {

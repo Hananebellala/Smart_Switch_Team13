@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/Account_settings.dart';
+import '../screens/helpCenter.dart';
 
 class Rectangle3 extends StatelessWidget {
   const Rectangle3({super.key});
@@ -17,7 +17,7 @@ class Rectangle3 extends StatelessWidget {
         // Navigate to AccountSettings screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const AccountSettings()),
+          MaterialPageRoute(builder: (context) => const HelpCenter()),
         );
       },
       child: Container(
