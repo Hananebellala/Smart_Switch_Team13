@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../HomePage/widgets/boutton/controle_Boutton.dart';
 import '../../HomePage/widgets/boutton/home_boutton.dart';
 import '../../HomePage/widgets/boutton/paramettre_boutton.dart';
+import '../widgets/goBack.dart';
+import 'settings_page.dart';
 import '../../HomePage/widgets/boutton/scence_boutton.dart';
 
 class About extends StatelessWidget {
@@ -20,14 +21,22 @@ class About extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 57), // Space from top
-              const Text(
-                'About the app',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600, // SemiBold
-                  fontSize: 24.0, // Adjust the font size as needed
-                  color: Colors.black, // Black color
-                ),
+              const Row(
+                children: [
+                  GoBack(previousScreen: SettingsPage()), // GoBack widget
+                  SizedBox(
+                      width:
+                          60), // Space between "Go Back" and "Account Settings"
+                  Text(
+                    'About',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600, // SemiBold
+                      fontSize: 24.0, // Adjust the font size as needed
+                      color: Colors.black, // Black color
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 100), // Additional space
               const Text(
@@ -39,7 +48,7 @@ class About extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              const SizedBox(height: 80), // Additional space
+              const SizedBox(height: 60), // Additional space
               SizedBox(
                 width: 224,
                 height: 224,

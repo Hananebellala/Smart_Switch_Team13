@@ -5,6 +5,8 @@ import '../../HomePage/widgets/boutton/controle_Boutton.dart';
 import '../../HomePage/widgets/boutton/home_boutton.dart';
 import '../../HomePage/widgets/boutton/paramettre_boutton.dart';
 import '../../HomePage/widgets/boutton/scence_boutton.dart';
+import '../widgets/goBack.dart';
+import 'Account_settings.dart';
 
 class ChangeLocation extends StatelessWidget {
   const ChangeLocation({super.key});
@@ -29,21 +31,29 @@ class ChangeLocation extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 0 * fem, 34 * fem),
-                      child: const Text(
-                        'Change Location',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 30, // no need to multiply by ffem
-                          fontWeight: FontWeight.w400,
-                          height: 1, // no need to divide by fem
-                          letterSpacing: 0.15,
-                          color: Color(0xff000000),
+                    Row(
+                      children: [
+                        GoBack(previousScreen: AccountSettings()), // GoBack widget
+                        SizedBox(
+                            width: 5), // Add some space between GoBack and Text
+                        Expanded(
+                          child: Container(
+                            //margin: const EdgeInsets.fromLTRB(0, 0, 0, 34),
+                            child: const Text(
+                              'Change Location',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 30,
+                                fontWeight: FontWeight.w400,
+                                height: 1,
+                                letterSpacing: 0.15,
+                                color: Color(0xff000000),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(

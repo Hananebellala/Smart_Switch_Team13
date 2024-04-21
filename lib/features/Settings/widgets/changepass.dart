@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/Settings/screens/ChangePassword.dart';
 
-class Rectangle2 extends StatelessWidget {
-  const Rectangle2({super.key});
+class ChangePass extends StatelessWidget {
+  const ChangePass({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +17,18 @@ class Rectangle2 extends StatelessWidget {
         // Navigate to AccountSettings screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  ChangePassword()),
+          MaterialPageRoute(builder: (context) => ChangePassword()),
         );
       },
       child: Container(
         width: containerWidth,
         height: 55,
         decoration: BoxDecoration(
-          color: const Color(0xFFFAF7FF),
-          borderRadius: BorderRadius.circular(20),
+          color: const Color(0xFFE4D9FC),
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: const Color(0xFF6900FF),
-            width: 1,
+            color: const Color(0xFF000000),
+            width: 0.5,
           ),
           boxShadow: [
             BoxShadow(
@@ -44,7 +44,7 @@ class Rectangle2 extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: containerWidth * 0.08), // 8% of container width
               child: const Text(
-                'Stats',
+                'Change Password',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 16,

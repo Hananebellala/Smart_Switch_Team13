@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../screens/Account_settings.dart';
+import 'package:smart_switch_team13/features/Settings/screens/changeLocation.dart';
 
-class Rectangle extends StatelessWidget {
-  const Rectangle({super.key});
+class ChangeLoc extends StatelessWidget {
+  const ChangeLoc({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +17,19 @@ class Rectangle extends StatelessWidget {
         // Navigate to AccountSettings screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const AccountSettings()),
+          MaterialPageRoute(builder: (context) => const ChangeLocation()),
         );
       },
       child: Container(
+        
         width: containerWidth,
         height: 55,
         decoration: BoxDecoration(
-          color: const Color(0xFFFAF7FF),
-          borderRadius: BorderRadius.circular(20),
+          color: const Color(0xFFE4D9FC),
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: const Color(0xFF6900FF),
-            width: 1,
+            color: const Color(0xFF000000),
+            width: 0.5,
           ),
           boxShadow: [
             BoxShadow(
@@ -44,7 +45,7 @@ class Rectangle extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: containerWidth * 0.08), // 8% of container width
               child: const Text(
-                'Account Settings',
+                'Location',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 16,

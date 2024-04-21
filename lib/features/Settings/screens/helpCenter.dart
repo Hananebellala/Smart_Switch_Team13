@@ -8,6 +8,8 @@ import '../../HomePage/widgets/boutton/controle_Boutton.dart';
 import '../../HomePage/widgets/boutton/home_boutton.dart';
 import '../../HomePage/widgets/boutton/paramettre_boutton.dart';
 import '../../HomePage/widgets/boutton/scence_boutton.dart';
+import 'settings_page.dart';
+import '../widgets/goBack.dart';
 
 class HelpCenter extends StatelessWidget {
   const HelpCenter({super.key});
@@ -40,14 +42,22 @@ class HelpCenter extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 57), // Space from top
-              const Text(
-                'Help Center',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600, // SemiBold
-                  fontSize: 24.0, // Adjust the font size as needed
-                  color: Colors.black, // Black color
-                ),
+              const Row(
+                children: [
+                  GoBack(previousScreen: SettingsPage()), // GoBack widget
+                  SizedBox(
+                      width:
+                          30), // Space between "Go Back" and "Account Settings"
+                  Text(
+                    'Help Center',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600, // SemiBold
+                      fontSize: 24.0, // Adjust the font size as needed
+                      color: Colors.black, // Black color
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 27), // Additional space
               const Rectangle5(),

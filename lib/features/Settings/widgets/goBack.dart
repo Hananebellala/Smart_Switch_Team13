@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import '../screens/settings_page.dart';
 
 class GoBack extends StatelessWidget {
-  const GoBack({super.key});
+  final Widget previousScreen; // Reference to the previous screen
+
+  const GoBack({required this.previousScreen, Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: 10,
-      bottom: 10,
+    return Container(
+      alignment:
+          Alignment.bottomLeft, // Align the widget to the bottom left corner
+      margin:
+          const EdgeInsets.only(left: 0, bottom: 0), // Add margin for spacing
       child: TextButton(
         onPressed: () {
-          Navigator.pop(
-            context
+          // Navigate to the previous screen (AccountSettings screen)
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => previousScreen),
           );
         },
         child: const Text(

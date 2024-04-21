@@ -6,6 +6,8 @@ import '../../HomePage/widgets/boutton/controle_Boutton.dart';
 import '../../HomePage/widgets/boutton/home_boutton.dart';
 import '../../HomePage/widgets/boutton/paramettre_boutton.dart';
 import '../../HomePage/widgets/boutton/scence_boutton.dart';
+import 'Account_settings.dart';
+import '../widgets/goBack.dart';
 
 class ChangePassword extends StatelessWidget {
   final TextEditingController _lastPasswordController =
@@ -45,14 +47,28 @@ class ChangePassword extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 57), // Space from top
-              const Text(
-                'Change Password',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600, // SemiBold
-                  fontSize: 24.0, // Adjust the font size as needed
-                  color: Colors.black, // Black color
-                ),
+              Row(
+                children: [
+                  GoBack(previousScreen: AccountSettings()), // GoBack widget
+                  SizedBox(width: 0), // Add some space between GoBack and Text
+                  Expanded(
+                    child: Container(
+                      //margin: const EdgeInsets.fromLTRB(0, 0, 0, 34),
+                      child: const Text(
+                        'Change Password',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 30,
+                          fontWeight: FontWeight.w400,
+                          height: 1,
+                          letterSpacing: 0.15,
+                          color: Color(0xff000000),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 100), // Additional space
               Password1(
