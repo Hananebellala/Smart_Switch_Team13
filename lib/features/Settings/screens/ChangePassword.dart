@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/Password.dart'; // Import the Password widget
-
 import '../../HomePage/widgets/boutton/controle_Boutton.dart';
 import '../../HomePage/widgets/boutton/home_boutton.dart';
 import '../../HomePage/widgets/boutton/paramettre_boutton.dart';
@@ -10,14 +9,12 @@ import 'Account_settings.dart';
 import '../widgets/goBack.dart';
 
 class ChangePassword extends StatelessWidget {
-  final TextEditingController _lastPasswordController =
-      TextEditingController(); // Controller for the last password
   final TextEditingController _newPasswordController =
       TextEditingController(); // Controller for the new password
   final TextEditingController _confirmPasswordController =
       TextEditingController(); // Controller for the confirm password
 
-  ChangePassword({super.key});
+  ChangePassword({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,25 +69,17 @@ class ChangePassword extends StatelessWidget {
               ),
               const SizedBox(height: 100), // Additional space
               Password1(
-                controller: _newPasswordController,
                 labelText: 'New Password',
                 hintText: 'Enter your new password',
+                controller: _newPasswordController,
                 errorMessage:
-                    'Invalid password (minimum 12 characters)', // Provide an error message
+                    'Invalid password (minimum 6 characters)', // Provide an error message
               ),
               const SizedBox(height: 31), // Additional space
               Password1(
-                controller: _newPasswordController,
-                labelText: 'New Password',
-                hintText: 'Enter your new password',
-                errorMessage:
-                    'Invalid password (minimum 12 characters)', // Provide an error message
-              ),
-              const SizedBox(height: 31), // Additional space
-              Password1(
-                controller: _confirmPasswordController,
                 labelText: 'Confirm Password',
                 hintText: 'Confirm your new password',
+                controller: _confirmPasswordController,
                 errorMessage:
                     'Passwords do not match', // Provide an error message
               ),
@@ -103,7 +92,40 @@ class ChangePassword extends StatelessWidget {
                     width: 350, // Adjust height to match the password rectangle
                     child: ElevatedButton(
                       onPressed: () async {
-                        // Implement password change logic here
+                        final String newPassword = _newPasswordController.text;
+                        final String confirmPassword =
+                            _confirmPasswordController.text;
+
+                        // Check if the new password and confirm password match
+                        if (newPassword != confirmPassword) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Passwords do not match'),
+                            ),
+                          );
+                          return;
+                        }
+
+                        try {
+                          // Get the current user
+                          User? user = FirebaseAuth.instance.currentUser;
+
+                          // Update the password
+                          await user!.updatePassword(newPassword);
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Password updated successfully'),
+                            ),
+                          );
+                        } catch (e) {
+                          print('Error updating password: $e');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Error updating password: $e'),
+                            ),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor:

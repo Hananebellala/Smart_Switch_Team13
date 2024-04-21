@@ -98,7 +98,7 @@ class _AccountSettingsState extends State<AccountSettings> {
               ),
               const SizedBox(
                   height:
-                      20), // Space before the "Edit profile information" text
+                      30), // Space before the "Edit profile information" text
               const Padding(
                 padding: EdgeInsets.only(
                     left: 18), // Adjust the left padding as needed
@@ -122,9 +122,6 @@ class _AccountSettingsState extends State<AccountSettings> {
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     child: Column(
                       children: [
-                        Name(nameController: _nameController),
-                        const SizedBox(
-                            height: 10), // Add space between Name and Username
                         Username(controller: _usernameController),
                       ],
                     ),
@@ -134,7 +131,7 @@ class _AccountSettingsState extends State<AccountSettings> {
 
               const SizedBox(
                   height:
-                      8), // Space before the "Edit profile information" text
+                      20), // Space before the "Edit profile information" text
               const Padding(
                 padding: EdgeInsets.only(
                     left: 18), // Adjust the left padding as needed
@@ -160,14 +157,14 @@ class _AccountSettingsState extends State<AccountSettings> {
                       children: [
                         ChangeLoc(),
                         SizedBox(
-                            height: 10), // Add space between Name and Username
+                            height: 30), // Add space between Name and Username
                         ChangePass(),
                       ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               Padding(
                 padding: EdgeInsets.only(
                     left: 10), // Adjust the left padding as needed

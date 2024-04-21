@@ -73,16 +73,14 @@ class SettingsPage extends StatelessWidget {
                     onPressed: () async {
                       try {
                         await FirebaseAuth.instance.signOut();
-                        // Redirect the user to the login screen or any other screen
-                        // For example:
-                        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                        // Redirect the user to the login screen
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen()),
+                        );
                       } catch (e) {
                         print('Error logging out: $e');
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen()));
                         // Handle any errors that occur during logout
                       }
                     },
