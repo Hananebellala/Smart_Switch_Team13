@@ -1,469 +1,353 @@
-import 'dart:async';
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smart_switch_team13/features/HomePage/index.dart';
+import 'package:mqtt_client/mqtt_client.dart';
+import 'package:mqtt_client/mqtt_server_client.dart';
 
-class PairingSmartSwitch extends StatelessWidget {
-  const PairingSmartSwitch({super.key});
+class Submit extends StatefulWidget {
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Blur Background Example',
-      home: BlurBackgroundDemo(),
-    );
-  }
-}
-
-class BlurBackgroundDemo extends StatefulWidget {
-  const BlurBackgroundDemo({super.key});
+  const Submit({
+    super.key,
+    required this.emailController,
+    required this.passwordController,
+  });
 
   @override
   // ignore: library_private_types_in_public_api
-  _BlurBackgroundDemoState createState() => _BlurBackgroundDemoState();
+  _SubmitState createState() => _SubmitState();
 }
 
-class _BlurBackgroundDemoState extends State<BlurBackgroundDemo> {
-  bool shouldBlur = false;
-  bool showBox = false;
+class _SubmitState extends State<Submit> {
+  late MqttServerClient mqttClient;
 
   @override
   void initState() {
     super.initState();
+    _connectToMqtt();
+  }
 
-    // Delay for 3 seconds
-    Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
-        shouldBlur = true;
-        showBox = true;
-      });
-    });
+  void _connectToMqtt() async {
+    final String mqttServer = 'test.mosquitto.org';
+    final int mqttPort = 1883;
+    final String clientId = 'Hanane';
+
+    mqttClient = MqttServerClient(mqttServer, clientId);
+    mqttClient.port = mqttPort;
+
+    try {
+      await mqttClient.connect();
+      print('Connected to MQTT broker');
+    } catch (e) {
+      print('Failed to connect to MQTT broker: $e');
+    }
+  }
+
+  void _sendToMqttTopic(String message, String topic) {
+    final builder = MqttClientPayloadBuilder();
+    builder.addString(message);
+    mqttClient.publishMessage(topic, MqttQos.atMostOnce, builder.payload!);
+  }
+
+  @override
+  void dispose() {
+    mqttClient.disconnect();
+    super.dispose();
+  }
+
+  void _handleSubmit() {
+    final wifiName = widget.emailController.text;
+    final password = widget.passwordController.text;
+
+    if (wifiName.isEmpty || password.isEmpty) {
+      // Show an error message if any field is empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter WiFi name and password'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else {
+      // Send data to MQTT topics
+      _sendToMqttTopic(wifiName, 'projet13/wifi_name');
+      _sendToMqttTopic(password, 'projet13/password');
+
+      // Navigate to the homepage
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    double fem = 1.0;
-    double ffem = 1.0;
+    return ButtonTheme(
+      height: 100.0,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: const Color(0xFF6900FF),
+          minimumSize: const Size(double.infinity, 50.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onPressed: _handleSubmit,
+        child: const Text('Submit to MQTT'),
+      ),
+    );
+  }
+}
 
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            // Content
-            Center(
-              child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Color(0xfffff9f9),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.fromLTRB(
-                              0 * fem, 40 * fem, 0 * fem, 34 * fem),
-                          child: Text(
-                            'Pairing smart switch',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 30 * ffem,
-                              fontWeight: FontWeight.w400,
-                              height: 1 * ffem / fem,
-                              letterSpacing: 0.15 * fem,
-                              color: const Color(0xff000000),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(
-                              0 * fem, 20 * fem, 0 * fem, 30 * fem),
-                          constraints: BoxConstraints(
-                            maxWidth: 347 * fem,
-                          ),
-                          child: Text(
-                            'We found these on your local network',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 18.5145893097 * ffem,
-                              fontWeight: FontWeight.w300,
-                              height: 1 * ffem / fem,
-                              letterSpacing: 0.0925729465 * fem,
-                              color: const Color(0xff000000),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(
-                                0 * fem, 30 * fem, 0 * fem, 0 * fem),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.fromLTRB(
-                                      0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                  width: 301 * fem,
-                                  height: 237 * fem,
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromRGBO(255, 241, 168, 1.0),
-                                    borderRadius:
-                                        BorderRadius.circular(50 * fem),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.4),
-                                        blurRadius: 0.1 * fem,
-                                        offset: Offset(2 * fem, 3 * fem),
-                                      ),
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.4),
-                                        blurRadius: 0.1 * fem,
-                                        offset: Offset(-1 * fem, 3 * fem),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 44 * fem,
-                                            height: 44 * fem,
-                                            margin: EdgeInsets.only(
-                                                left: 22 * fem, top: 3 * fem),
-                                            child: Image.asset(
-                                              'images/Bluetooth.png',
-                                              width: 30 * fem,
-                                              height: 40 * fem,
-                                            ),
-                                          ),
-                                          SizedBox(width: 5 * fem),
-                                          Container(
-                                            width: 44 * fem,
-                                            height: 44 * fem,
-                                            margin: EdgeInsets.only(
-                                                left: 22 * fem, top: 3 * fem),
-                                            child: Image.asset(
-                                              'images/simple-icons_esphome.png',
-                                              width: 47 * fem,
-                                              height: 47 * fem,
-                                            ),
-                                          ),
-                                          SizedBox(width: 5 * fem),
-                                          Container(
-                                            width: 44 * fem,
-                                            height: 44 * fem,
-                                            margin: EdgeInsets.only(
-                                                left: 22 * fem, top: 3 * fem),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFFAF7FF),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      22 * fem),
-                                              border: Border.all(
-                                                color: const Color(0xFF000000),
-                                                width: 0.5 * fem,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 5 * fem),
-                                          Container(
-                                            width: 44 * fem,
-                                            height: 44 * fem,
-                                            margin: EdgeInsets.only(
-                                                left: 22 * fem, top: 3 * fem),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFFAF7FF),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      22 * fem),
-                                              border: Border.all(
-                                                color: const Color(0xFF000000),
-                                                width: 0.5 * fem,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 5 * fem),
-                                        ],
-                                      ),
-                                      SizedBox(height: 20 * fem),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 44 * fem,
-                                            height: 44 * fem,
-                                            margin: EdgeInsets.only(
-                                                left: 22 * fem, top: 3 * fem),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFFAF7FF),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      22 * fem),
-                                              border: Border.all(
-                                                color: const Color(0xFF000000),
-                                                width: 0.5 * fem,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 5 * fem),
-                                          Container(
-                                            width: 44 * fem,
-                                            height: 44 * fem,
-                                            margin: EdgeInsets.only(
-                                                left: 22 * fem, top: 3 * fem),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFFAF7FF),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      22 * fem),
-                                              border: Border.all(
-                                                color: const Color(0xFF000000),
-                                                width: 0.5 * fem,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 5 * fem),
-                                          Container(
-                                            width: 44 * fem,
-                                            height: 44 * fem,
-                                            margin: EdgeInsets.only(
-                                                left: 22 * fem, top: 3 * fem),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFFAF7FF),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      22 * fem),
-                                              border: Border.all(
-                                                color: const Color(0xFF000000),
-                                                width: 0.5 * fem,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 5 * fem),
-                                          Container(
-                                            width: 44 * fem,
-                                            height: 44 * fem,
-                                            margin: EdgeInsets.only(
-                                                left: 22 * fem, top: 3 * fem),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFFAF7FF),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      22 * fem),
-                                              border: Border.all(
-                                                color: const Color(0xFF000000),
-                                                width: 0.5 * fem,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 5 * fem),
-                                        ],
-                                      ),
-                                      SizedBox(height: 20 * fem),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          SizedBox(width: 10 * fem),
-                                          Container(
-                                            width: 44 * fem,
-                                            height: 44 * fem,
-                                            margin: EdgeInsets.only(
-                                                left: 22 * fem, top: 3 * fem),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFFAF7FF),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      22 * fem),
-                                              border: Border.all(
-                                                color: const Color(0xFF000000),
-                                                width: 0.5 * fem,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 5 * fem),
-                                          Container(
-                                            width: 44 * fem,
-                                            height: 44 * fem,
-                                            margin: EdgeInsets.only(
-                                                left: 22 * fem, top: 3 * fem),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFFFAF7FF),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      22 * fem),
-                                              border: Border.all(
-                                                color: const Color(0xFF000000),
-                                                width: 0.5 * fem,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 5 * fem),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(
-                        13.96 * fem, 53.2 * fem, 17 * fem, 0 * fem),
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.end, // Aligns children to the left
-                      children: [
-                        Container(
-                          width: 85 * fem,
-                          height: 39 * fem,
-                          margin: EdgeInsets.only(
-                              right: 45 *
-                                  fem), // Adjust right margin to control button position
+class Wifiname extends StatefulWidget {
+  final TextEditingController controller;
+  const Wifiname({super.key, required this.controller});
 
-                          decoration: BoxDecoration(
-                            color: const Color(0xff6900ff),
-                            borderRadius: BorderRadius.circular(10 * fem),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Finish',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 18 * ffem,
-                                fontWeight: FontWeight.w500,
-                                height: 1 * ffem / fem,
-                                letterSpacing: 0.09 * fem,
-                                color: const Color(0xfffff9f9),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10 * fem),
-                        Center(
-                          child: Image.asset(
-                            'images/Online world-bro 1.png',
-                            width: 230 * fem,
-                            height: 230 * fem,
-                            fit: BoxFit
-                                .cover, // Added fit property to ensure image covers the container
-                          ),
-                        ) // Add some space between the button and the image
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              ),
+  @override
+  // ignore: library_private_types_in_public_api
+  _WifinameState createState() => _WifinameState();
+}
+
+class _WifinameState extends State<Wifiname> {
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      focusNode: _focusNode,
+      controller: widget.controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0xFFFFFAFA),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color(0xFF6900FF), width: 2.0),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+              color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        labelText: 'Wifiname',
+        hintText: 'Wifi name',
+        labelStyle:
+            const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w300),
+      ),
+      onChanged: (value) {
+        setState(() {}); // Trigger rebuild to maintain focus
+      },
+    );
+  }
+}
+
+class Password extends StatefulWidget {
+  final TextEditingController controller;
+  const Password({super.key, required this.controller});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _PasswordState createState() => _PasswordState();
+}
+
+class _PasswordState extends State<Password> {
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      focusNode: _focusNode,
+      controller: widget.controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0xFFFFFAFA),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color(0xFF6900FF), width: 2.0),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+              color: Color.fromARGB(255, 100, 99, 99), width: 1.0),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        labelText: 'Password',
+        hintText: 'Wifi password',
+        labelStyle:
+            const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w300),
+      ),
+      onChanged: (value) {
+        setState(() {}); // Trigger rebuild to maintain focus
+      },
+    );
+  }
+}
+
+class Submitbox extends StatefulWidget {
+  const Submitbox({Key? key});
+
+  @override
+  _SubmitboxState createState() => _SubmitboxState();
+}
+
+class _SubmitboxState extends State<Submitbox> {
+  late TextEditingController _passwordController;
+  late TextEditingController _emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordController = TextEditingController();
+    _emailController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  void signUserIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text, password: _passwordController.text);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.40,
+        width: MediaQuery.of(context).size.width * 0.800,
+        decoration: BoxDecoration(
+          color: const Color(0xFFFAF7FF),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
+              spreadRadius: 0,
+              blurRadius: 4,
+              offset: const Offset(0, 4),
             ),
-            // Blurred overlay
-            if (shouldBlur)
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                child: Container(
-                  color: Colors.transparent,
-                ),
+            BoxShadow(
+              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
+              spreadRadius: 0,
+              blurRadius: 4,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 30),
+              Wifiname(controller: _emailController),
+              const SizedBox(height: 20),
+              Password(controller: _passwordController),
+              const SizedBox(height: 20),
+              Submit(
+                emailController: _emailController,
+                passwordController: _passwordController,
               ),
-            // New box
-            if (showBox)
-              Positioned(
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.4),
-                            blurRadius: 5 * fem, // Adjusted blur radius
-                            offset: Offset(2 * fem, 3 * fem), // Adjusted offset
-                          ),
-                        ],
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.5 * fem, // Adjusted border width
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Wifi extends StatelessWidget {
+  const Wifi({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    double fem = 1.0;
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: const Color(0xFFFFFAFA),
+        resizeToAvoidBottomInset: false,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 57.0), // Add top padding here
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Wifi Information',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 30,
+                          fontWeight: FontWeight.w400,
+                          height: 1,
+                          letterSpacing: 0.15,
+                          color: Color(0xff000000),
                         ),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(15 * fem, 35 * fem,
-                            15 * fem, 60 * fem), // Inner padding
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Enter the smart switch reference',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 18 * ffem, // Increased font size
-                                fontWeight: FontWeight.w600, // semiBold
-                                color: Colors.black,
-                              ),
-                            ),
-                            SizedBox(height: 25 * fem),
-                            Text(
-                              'You will find it written on the device',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 12 * ffem,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              ),
-                            ),
-                            SizedBox(height: 40 * fem),
-                            Container(
-                              width: double.infinity, // Takes the full width
-                              decoration: BoxDecoration(
-                                color:
-                                    const Color(0x80A58BFF), // Grey background color
-                                borderRadius: BorderRadius.circular(
-                                    15.88 * fem), // Changed border radius
-                                border: Border.all(
-                                  color: Colors.black, // Thin border color
-                                  width: 0.3 * fem, // Thin border width
-                                ),
-                              ),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  border: InputBorder.none, // Removed border
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 15 * fem,
-                                      vertical: 10 * fem), // Padding
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
                 ),
-              ),
-          ],
+                const SizedBox(
+                    height:
+                        30), // Add additional space between "Wifi Information" and "Submitbox"
+                Container(
+                  width: 377 * fem,
+                  height: 650 * fem,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10 * fem),
+                  ),
+                  child: Column(
+                    children: [
+                      const Flexible(
+                        child: Submitbox(),
+                      ),
+                      const SizedBox(height: 0),
+                      SizedBox(
+                        width: 224,
+                        height: 224,
+                        child: Image.asset(
+                          'images/Wifi.png',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -649,7 +533,7 @@ class Pair extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const PairingSmartSwitch(),
+                              builder: (context) => const Wifi(),
                             ),
                           );
                         },

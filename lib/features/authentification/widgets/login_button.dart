@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/HomePage/screens/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smart_switch_team13/features/Pairing/pairing.dart';
 
 class LoginButton extends StatelessWidget {
   final TextEditingController emailController;
@@ -149,7 +150,7 @@ class SignupButton extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    const Home(), // Replace Home() with your home screen widget
+                    const Pair(), // Replace Home() with your home screen widget
               ),
             );
           } on FirebaseAuthException catch (e) {
