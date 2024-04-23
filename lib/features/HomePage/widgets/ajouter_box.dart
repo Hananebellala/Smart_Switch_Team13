@@ -1,178 +1,317 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/box_lampe.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import '../widgets/box_lampe.dart';
+import '../widgets/box_tv.dart';
+import '../widgets/boutton/add_scence.dart';
+import 'dart:async';
+import '../screens/scencepage.dart';
 
-abstract class ColumnEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
+class Box {
+  final int boxNumber;
+  final String deviceType;
+  final String deviceName;
+  final String pairedDevice;
+  Box(this.boxNumber, this.deviceType, this.deviceName, this.pairedDevice);
 }
+
+class ColumnEvent {}
 
 class AddBoxEvent extends ColumnEvent {
   final int newBoxNumber;
-
-  AddBoxEvent(this.newBoxNumber);
-
-  @override
-  List<Object?> get props => [newBoxNumber];
+  final String deviceType;
+  final String deviceName;
+  final String pairedDevice;
+  AddBoxEvent(
+      this.newBoxNumber, this.deviceType, this.deviceName, this.pairedDevice);
 }
 
-class LoadColumnDataEvent extends ColumnEvent {
-  final List<int> firstColumnData;
-  final List<int> secondColumnData;
-
-  LoadColumnDataEvent(this.firstColumnData, this.secondColumnData);
-
-  @override
-  List<Object?> get props => [firstColumnData, secondColumnData];
+class DeleteBoxEvent extends ColumnEvent {
+  final int boxNumber;
+  DeleteBoxEvent(this.boxNumber);
 }
 
-class ColumnState extends Equatable {
-  final List<int> firstColumnData;
-  final List<int> secondColumnData;
+class LoadInitialDataEvent extends ColumnEvent {}
 
-  const ColumnState(this.firstColumnData, this.secondColumnData);
+class ColumnState {
+  final List<Box> firstColumnData;
+  final List<Box> secondColumnData;
 
-  @override
-  List<Object?> get props => [firstColumnData, secondColumnData];
+  ColumnState(this.firstColumnData, this.secondColumnData);
 }
 
 class ColumnBloc extends Bloc<ColumnEvent, ColumnState> {
-  ColumnBloc() : super(const ColumnState([], [])) {
+  late Database _database;
+
+  ColumnBloc() : super(ColumnState([], [])) {
+    _openDatabaseAndLoadInitialData();
     on<AddBoxEvent>(_mapAddBoxEventToState);
+    on<LoadInitialDataEvent>(_mapLoadInitialDataEventToState);
+    on<DeleteBoxEvent>(_mapDeleteBoxEventToState);
   }
 
-  void _mapAddBoxEventToState(AddBoxEvent event, Emitter<ColumnState> emit) {
-    final currentState = state;
-    final List<int> firstColumnData = List.from(currentState.firstColumnData);
-    final List<int> secondColumnData = List.from(currentState.secondColumnData);
+  void addBox(int newBoxNumber, String deviceType, String deviceName,
+      String pairedDevice) {
+    add(AddBoxEvent(newBoxNumber, deviceType, deviceName, pairedDevice));
+  }
 
-    if (firstColumnData.length <= secondColumnData.length) {
-      firstColumnData.add(event.newBoxNumber);
-    } else {
-      secondColumnData.add(event.newBoxNumber);
+  void deleteBox(int boxNumber) {
+    add(DeleteBoxEvent(boxNumber));
+  }
+
+  Future<void> _openDatabaseAndLoadInitialData() async {
+    _database = await _initializeDatabase();
+    add(LoadInitialDataEvent());
+  }
+
+  Future<Database> _initializeDatabase() async {
+    return await openDatabase(
+      join(await getDatabasesPath(), 'my_database.db'),
+      onCreate: (db, version) {
+        return db.execute(
+          'CREATE TABLE columns(id INTEGER PRIMARY KEY AUTOINCREMENT, columnNumber INTEGER, boxNumber INTEGER, deviceType TEXT, deviceName TEXT, pairedDevice TEXT)',
+        );
+      },
+      version: 1,
+    );
+  }
+
+  Future<void> _mapAddBoxEventToState(
+      AddBoxEvent event, Emitter<ColumnState> emit) async {
+    final List<Map<String, dynamic>> rows = await _database.query('columns');
+    final List<Box> boxes = rows.map((row) {
+      final int boxNumber = row['boxNumber'];
+      final String deviceType = row['deviceType'];
+      final String? deviceName = row['deviceName'];
+      final String? pairedDevice = row['pairedDevice'];
+      return Box(boxNumber, deviceType, deviceName ?? '', pairedDevice ?? '');
+    }).toList();
+
+    final int newColumnNumber = boxes.length % 2 == 0 ? 1 : 2;
+
+    await _database.insert(
+      'columns',
+      {
+        'columnNumber': newColumnNumber,
+        'boxNumber': event.newBoxNumber,
+        'deviceType': event.deviceType,
+        'deviceName': event.deviceName,
+        'pairedDevice': event.pairedDevice
+      },
+    );
+
+    emit(_getColumnState(boxes));
+  }
+
+  Future<void> _mapLoadInitialDataEventToState(
+      LoadInitialDataEvent event, Emitter<ColumnState> emit) async {
+    final List<Map<String, dynamic>> rows = await _database.query('columns');
+    final List<Box> boxes = rows.map((row) {
+      final int columnNumber = row['columnNumber'];
+      final int boxNumber = row['boxNumber'];
+      final String deviceType = row['deviceType'];
+      final String? pairedDevice = row['pairedDevice'];
+      final String? deviceName = row['deviceName'];
+      return Box(boxNumber, deviceType, deviceName ?? '', pairedDevice ?? '');
+    }).toList();
+
+    emit(_getColumnState(boxes));
+  }
+
+  Future<void> _mapDeleteBoxEventToState(
+      DeleteBoxEvent event, Emitter<ColumnState> emit) async {
+    await _database.delete('columns',
+        where: 'boxNumber = ?', whereArgs: [event.boxNumber]);
+
+    final List<Map<String, dynamic>> rows = await _database.query('columns');
+    final List<Box> boxes = rows.map((row) {
+      final int boxNumber = row['boxNumber'];
+      final String deviceType = row['deviceType'];
+      final String? deviceName = row['deviceName'];
+      final String? pairedDevice = row['pairedDevice'];
+      return Box(boxNumber, deviceType, deviceName ?? '', pairedDevice ?? '');
+    }).toList();
+
+    emit(_getColumnState(boxes));
+  }
+
+  ColumnState _getColumnState(List<Box> boxes) {
+    final List<Box> firstColumnData = [];
+    final List<Box> secondColumnData = [];
+
+    for (int i = 0; i < boxes.length; i++) {
+      if (i % 2 == 0) {
+        firstColumnData.add(boxes[i]);
+      } else {
+        secondColumnData.add(boxes[i]);
+      }
     }
 
-    emit(ColumnState(firstColumnData, secondColumnData));
-    _saveBoxData([...firstColumnData, ...secondColumnData]);
+    return ColumnState(firstColumnData, secondColumnData);
   }
 
-  @override
-  Stream<ColumnState> mapEventToState(ColumnEvent event) async* {
-    if (event is LoadColumnDataEvent) {
-      yield ColumnState(event.firstColumnData, event.secondColumnData);
-    }
+  // Méthode pour accéder à la liste de Box
+  List<Box> get boxes => state.firstColumnData + state.secondColumnData;
+
+  // Méthode pour afficher les trois premiers éléments de la liste de Box
+  List<Box> getFirstThreeBoxes() {
+    List<Box> firstThreeBoxes = boxes.take(3).toList();
+    print('Les trois premières boîtes sont : $firstThreeBoxes');
+    return firstThreeBoxes;
   }
 
-  Future<void> _saveBoxData(List<int> boxData) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList(
-        'boxData', boxData.map((e) => e.toString()).toList());
+  // Méthode pour calculer le nombre de boîtes dans la liste
+  int countBoxes() {
+    return boxes.length;
   }
 }
 
-class Insert extends StatelessWidget {
-  const Insert({super.key});
+class Insert extends StatefulWidget {
+  @override
+  _InsertState createState() => _InsertState();
+}
+
+class _InsertState extends State<Insert> {
+  String deviceName = 'malak';
+  String pairedDevice = '';
+  String deviceType = '';
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ColumnBloc(),
-      child: const MyWidgetContent(),
-    );
-  }
-}
-
-class MyWidgetContent extends StatefulWidget {
-  const MyWidgetContent({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _MyWidgetContentState createState() => _MyWidgetContentState();
-}
-
-class _MyWidgetContentState extends State<MyWidgetContent> {
-  late ColumnBloc _columnBloc;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _columnBloc = BlocProvider.of<ColumnBloc>(context);
-    _loadColumnData();
-  }
-
-  Future<void> _loadColumnData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final List<int> firstColumnData =
-        prefs.getStringList('firstColumnData')?.map(int.parse).toList() ?? [];
-    final List<int> secondColumnData =
-        prefs.getStringList('secondColumnData')?.map(int.parse).toList() ?? [];
-
-    if (firstColumnData.isNotEmpty || secondColumnData.isNotEmpty) {
-      _columnBloc.add(LoadColumnDataEvent(firstColumnData, secondColumnData));
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<ColumnBloc, ColumnState>(
-      listener: (context, state) {
-        _saveColumnData(state.firstColumnData, state.secondColumnData);
-      },
-      child: BlocBuilder<ColumnBloc, ColumnState>(
-        builder: (context, state) {
-          return Column(
-            children: [
-              const SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.065),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: state.firstColumnData.map((boxNumber) {
-                      return const Box_lampe();
-                    }).toList(),
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.07),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: state.secondColumnData.map((boxNumber) {
-                      return const Box_lampe();
-                    }).toList(),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  final newBoxNumber = state.firstColumnData.length +
-                      state.secondColumnData.length +
-                      1;
-                  _columnBloc.add(AddBoxEvent(newBoxNumber));
-                },
-                child: const Text('Ajouter une boîte'),
-              ),
-            ],
-          );
+      child: MyWidgetContent(
+        deviceName: deviceName,
+        pairedDevice: pairedDevice,
+        deviceType: deviceType,
+        updateDeviceName: (newValue) {
+          setState(() {
+            deviceName = newValue;
+          });
+        },
+        updatePairedDevice: (newValue) {
+          setState(() {
+            pairedDevice = newValue;
+          });
+        },
+        updateDeviceType: (newValue) {
+          setState(() {
+            deviceType = newValue;
+          });
         },
       ),
     );
   }
+}
 
-  Future<void> _saveColumnData(
-      List<int> firstColumnData, List<int> secondColumnData) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList(
-        'firstColumnData', firstColumnData.map((e) => e.toString()).toList());
-    await prefs.setStringList(
-        'secondColumnData', secondColumnData.map((e) => e.toString()).toList());
+class MyWidgetContent extends StatelessWidget {
+  final String deviceName;
+  final String pairedDevice;
+  final String deviceType;
+  final Function(String) updateDeviceName;
+  final Function(String) updatePairedDevice;
+  final Function(String) updateDeviceType;
+
+  MyWidgetContent({
+    required this.deviceName,
+    required this.pairedDevice,
+    required this.deviceType,
+    required this.updateDeviceName,
+    required this.updatePairedDevice,
+    required this.updateDeviceType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ColumnBloc, ColumnState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                // Rafraîchir la page en émettant un événement pour recharger les données
+                BlocProvider.of<ColumnBloc>(context)
+                    .add(LoadInitialDataEvent());
+              },
+              child:
+                  //  Text('Nombre de boîtes dans la liste: ${BlocProvider.of<ColumnBloc>(context).countBoxes()}'), le nombre des box
+                  Text('Actualiser'),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(width: MediaQuery.of(context).size.width * 0.065),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: state.firstColumnData.map<Widget>((box) {
+                    if (box.deviceType == 'Lampe') {
+                      return Box_lampe(
+                        name: box.deviceName,
+                        Xcode: box.pairedDevice,
+                        onDelete: () {
+                          BlocProvider.of<ColumnBloc>(context)
+                              .deleteBox(box.boxNumber);
+                        },
+                      );
+                    } else {
+                      return Box_tv(
+                        name: box.deviceName,
+                        Xcode: box.pairedDevice,
+                        onDelete: () {
+                          BlocProvider.of<ColumnBloc>(context)
+                              .deleteBox(box.boxNumber);
+                        },
+                      );
+                    }
+                  }).toList(),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.07),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: state.secondColumnData.map<Widget>((box) {
+                    if (box.deviceType == 'Lampe') {
+                      return Box_lampe(
+                        name: box.deviceName,
+                        Xcode: box.pairedDevice,
+                        onDelete: () {
+                          BlocProvider.of<ColumnBloc>(context)
+                              .deleteBox(box.boxNumber);
+                        },
+                      );
+                    } else {
+                      return Box_tv(
+                        name: box.deviceName,
+                        Xcode: box.pairedDevice,
+                        onDelete: () {
+                          BlocProvider.of<ColumnBloc>(context)
+                              .deleteBox(box.boxNumber);
+                        },
+                      );
+                    }
+                  }).toList(),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            AddScence(
+              updateDeviceName: updateDeviceName,
+              updatePairedDevice: updatePairedDevice,
+              updateDeviceType: updateDeviceType,
+              firstColumnData: state.firstColumnData,
+              secondColumnData: state.secondColumnData,
+              onPressed: (newBoxNumber, deviceType, deviceName, pairedDevice) {
+                BlocProvider.of<ColumnBloc>(context).add(AddBoxEvent(
+                    newBoxNumber, deviceType, deviceName, pairedDevice));
+                BlocProvider.of<ColumnBloc>(context)
+                    .add(LoadInitialDataEvent());
+              },
+            ),
+            const SizedBox(height: 200),
+          ],
+        );
+      },
+    );
   }
 }

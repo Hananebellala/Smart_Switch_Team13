@@ -4,7 +4,12 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 // ignore: camel_case_types
 class On_off_tv extends StatefulWidget {
-  const On_off_tv({super.key});
+   final String code ;
+   On_off_tv({required this.code});
+
+
+
+  
 
   @override
   State<On_off_tv> createState() => _On_offState();

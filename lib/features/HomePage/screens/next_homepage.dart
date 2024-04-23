@@ -99,8 +99,10 @@ class next_homepage extends StatelessWidget {
             backgroundColor: const Color(0xFF6900FF),
             shape: const CircleBorder(),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const next_homepage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const next_homepage()));
             },
             child: Padding(
               padding: const EdgeInsets.only(left: 7),

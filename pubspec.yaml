@@ -26,6 +26,7 @@ dependencies:
   path: ^1.8.0
   mqtt_client: ^10.2.0
   image_picker: ^1.1.0
+  flutter_animate: ^4.5.0
 
 dev_dependencies:
   flutter_test:
@@ -74,3 +75,4 @@ flutter:
     - images/Smart_home_bro1.png
     - images/Questions_bro.png
     - images/Wifi.png
+    - icon/notifcations.ico

@@ -141,16 +141,16 @@ class Home extends StatelessWidget {
             Row(
               children: [
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                const Box_lampe(),
+                
                 SizedBox(width: MediaQuery.of(context).size.width * 0.1),
-                Box_tv(),
+                
               ],
             ),
             const SizedBox(height: 35),
             Row(
               children: [
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                const Box_lampe(),
+                
               ],
             ),
           ],

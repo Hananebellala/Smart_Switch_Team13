@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 
+
 class InfoBox extends StatefulWidget {
   final String initialValue; // Valeur initiale
   final Function(String) onChanged; // Fonction de rappel pour la valeur modifiée
 
+
   const InfoBox({
-    super.key,
+    Key? key,
     required this.initialValue,
     required this.onChanged,
-  });
+  }) : super(key: key);
+
 
   @override
   State<InfoBox> createState() => _InfoBoxState();
 }
 
+
 class _InfoBoxState extends State<InfoBox> {
   late TextEditingController _controller;
   late String _enteredText;
+
 
   @override
   void initState() {
@@ -25,13 +30,14 @@ class _InfoBoxState extends State<InfoBox> {
     _enteredText = widget.initialValue;
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 50,
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 227, 210, 249), // Couleur d'arrière-plan
+        color: Color.fromARGB(255, 227, 210, 249), // Couleur d'arrière-plan
         borderRadius: BorderRadius.circular(15), // Bordure arrondie
         border: Border.all(
           color: Colors.grey, // Couleur de la bordure
@@ -62,9 +68,14 @@ class _InfoBoxState extends State<InfoBox> {
     );
   }
 
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 }
+
+
+
+

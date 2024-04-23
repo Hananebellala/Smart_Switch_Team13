@@ -4,7 +4,8 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 // ignore: camel_case_types
 class on_off_lampe extends StatefulWidget {
-  const on_off_lampe({super.key});
+  final String code;
+  const on_off_lampe({required this.code});
 
   @override
   State<on_off_lampe> createState() => _on_off_lampeState();
@@ -13,6 +14,7 @@ class on_off_lampe extends StatefulWidget {
 // ignore: camel_case_types
 class _on_off_lampeState extends State<on_off_lampe> {
   late String _lampIcon;
+  
   late bool isLampOn;
   late MqttServerClient mqttClient;
 
@@ -25,33 +27,32 @@ class _on_off_lampeState extends State<on_off_lampe> {
   }
 
   void _connectToMqtt() async {
-  // ignore: prefer_const_declarations
-  final String mqttServer = 'test.mosquitto.org'; // MQTT broker address
-  // ignore: prefer_const_declarations
-  final int mqttPort = 1883; // MQTT broker port
-  // ignore: prefer_const_declarations
-  final String clientId = 'Hanane'; // Unique client ID
+    // ignore: prefer_const_declarations
+    final String mqttServer = 'test.mosquitto.org'; // MQTT broker address
+    // ignore: prefer_const_declarations
+    final int mqttPort = 1883; // MQTT broker port
+    // ignore: prefer_const_declarations
+    final String clientId = 'Hanane'; // Unique client ID
 
-  mqttClient = MqttServerClient(mqttServer, clientId);
-  mqttClient.port = mqttPort; // Set MQTT broker port
+    mqttClient = MqttServerClient(mqttServer, clientId);
+    mqttClient.port = mqttPort; // Set MQTT broker port
 
-  // ignore: unused_local_variable
-  final MqttConnectMessage connectMessage = MqttConnectMessage()
-      .withClientIdentifier(clientId)
-      .startClean()
-      .keepAliveFor(60); // Keep alive interval in seconds
+    // ignore: unused_local_variable
+    final MqttConnectMessage connectMessage = MqttConnectMessage()
+        .withClientIdentifier(clientId)
+        .startClean()
+        .keepAliveFor(60); // Keep alive interval in seconds
 
-  try {
-    await mqttClient.connect();
-    print('Connected to MQTT broker');
-  } catch (e) {
-    print('Failed to connect to MQTT broker: $e');
+    try {
+      await mqttClient.connect();
+      print('Connected to MQTT broker');
+    } catch (e) {
+      print('Failed to connect to MQTT broker: $e');
+    }
   }
-}
-
 
   void _toggleLampState() {
-    if (1==1) {
+    if (1 == 1) {
       setState(() {
         isLampOn = !isLampOn;
         if (isLampOn) {

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/authentification/widget_tree.dart';
+import 'package:smart_switch_team13/features/LogoPage/index.dart';
 import 'package:smart_switch_team13/firebase_options.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
