@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import '../widgets/box_lampe.dart';
 import '../widgets/box_tv.dart';
 import '../widgets/boutton/home_boutton.dart';
@@ -205,3 +205,202 @@ class Home extends StatelessWidget {
     );
   }
 }
+*/
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'next_homepage.dart';
+
+import '../widgets/boutton/home_boutton.dart';
+import '../widgets/boutton/paramettre_boutton.dart';
+import '../widgets/boutton/controle_Boutton.dart';
+import '../widgets/boutton/scence_boutton.dart';
+import '../widgets/boutton/add_scence.dart';
+import '../widgets/ajouter_box.dart';
+
+
+
+
+class Home extends StatefulWidget {
+ 
+
+
+  const Home({super.key});    
+
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+
+class _HomeState extends State<Home> {
+   Future<void> _refreshData() async {
+    }
+
+
+   
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (context) => ColumnBloc(), // Créez une instance de votre bloc ici
+      child: Scaffold(
+        body: Column(
+          children: [
+            const SizedBox(height: 30),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.035),
+                  child: Column(
+                    children: [
+                      
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          alignment: Alignment.bottomLeft,
+                          child: const Text(
+                            'Good Morning,',
+                            style: TextStyle(
+                              fontSize: 23,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          child: const Text(
+                            'User',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.1),
+                Container(
+                  height: 40,
+                  alignment: Alignment.bottomCenter,
+                  width: MediaQuery.of(context).size.width * 0.11,
+                  child:
+                      IconButton(
+                      icon: Image.asset('icon/notifcations.ico',height: 25,width: 25,),
+                      onPressed: () {},
+                    ),
+                 
+                ),
+                Container(
+                  height: 40,
+                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.001),
+                  width: MediaQuery.of(context).size.width * 0.15,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.yellow,
+                    radius: 30,
+                    child: IconButton(
+                      icon: const Icon(Icons.person, color: Color(0xFF6900FF), size: 30.0),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+              ],
+            ),
+                        const SizedBox(height: 120),
+
+             Row(
+              children: [
+                SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.45,
+                  alignment: Alignment.centerLeft,
+                  child: const Text('Connected Devices'),
+                ),
+                Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.45,
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const next_homepage(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'See all',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ////  const SizedBox(height: 10),
+            Expanded(
+              child: ListView(
+                children: [
+                 
+Insert(
+  showButtons: false,
+  maxBoxesToShow: 2,
+  maxBoxesPerColumn1: 2, 
+  maxBoxesPerColumn2: 1, 
+),
+       
+                ],
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: Container(
+          height: 65.0,
+          width: 65.0,
+          child: FittedBox(
+            child: FloatingActionButton(
+              backgroundColor: Color(0xFF6900FF),
+              shape: CircleBorder(),
+              onPressed: () {},
+              child: Padding(
+                padding: const EdgeInsets.only(left: 7),
+                child: Image.asset(
+                  'icon/Microphone.ico',
+                  height: 50,
+                  width: 70,
+                ),
+              ),
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: const BottomAppBar(
+          shape:  CircularNotchedRectangle(),
+          child: PreferredSize(
+            preferredSize:  Size.fromHeight(100.0),
+            child: Row(
+              children: <Widget>[
+                SizedBox(width: 10),
+                 Home_boutton(pathIcon: 'icon/homeOn.ico'),
+              SizedBox(width: 30),
+              Controle_boutton(pathIcon: 'icon/controle.ico'),
+              SizedBox(width: 90),
+              Scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
+              SizedBox(width: 30),
+              Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
+            ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
