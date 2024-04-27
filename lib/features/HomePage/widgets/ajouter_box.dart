@@ -707,13 +707,13 @@ import '../widgets/box_tv.dart';
 import '../widgets/boutton/add_scence.dart';
 import 'dart:async';
 import '../screens/scencepage.dart';
+
 class DeviceList {
   final String name;
   final bool isOn;
 
   DeviceList(this.name, {this.isOn = true});
 }
-
 
 class Box {
   final int boxNumber;
@@ -935,15 +935,18 @@ class MyWidgetContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ColumnBloc, ColumnState>(
       builder: (context, state) {
-        final firstColumnBoxes = state.firstColumnData.take(maxBoxesPerColumn1).toList();
-        final secondColumnBoxes = state.secondColumnData.take(maxBoxesPerColumn2).toList();
+        final firstColumnBoxes =
+            state.firstColumnData.take(maxBoxesPerColumn1).toList();
+        final secondColumnBoxes =
+            state.secondColumnData.take(maxBoxesPerColumn2).toList();
 
         return Column(
           children: [
             if (showButtons)
               ElevatedButton(
                 onPressed: () {
-                  BlocProvider.of<ColumnBloc>(context).add(LoadInitialDataEvent());
+                  BlocProvider.of<ColumnBloc>(context)
+                      .add(LoadInitialDataEvent());
                 },
                 child: Text('Actualiser'),
               ),
@@ -954,58 +957,58 @@ class MyWidgetContent extends StatelessWidget {
                 SizedBox(width: MediaQuery.of(context).size.width * 0.065),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: firstColumnBoxes
-                      .map<Widget>((box) {
-                        if (box.deviceType == 'Lampe') {
-                          return Box_lampe(
-                            name: box.deviceName,
-                            Xcode: box.pairedDevice,
-                            onDelete: () {
-                              BlocProvider.of<ColumnBloc>(context).deleteBox(box.boxNumber);
-                            },
-                          );
-                        } else {
-                          return Box_tv(
-                            name: box.deviceName,
-                            Xcode: box.pairedDevice,
-                            onDelete: () {
-                              BlocProvider.of<ColumnBloc>(context).deleteBox(box.boxNumber);
-                            },
-                          );
-                        }
-                      })
-                      .toList(),
+                  children: firstColumnBoxes.map<Widget>((box) {
+                    if (box.deviceType == 'Lampe') {
+                      return Box_lampe(
+                        name: box.deviceName,
+                        Xcode: box.pairedDevice,
+                        onDelete: () {
+                          BlocProvider.of<ColumnBloc>(context)
+                              .deleteBox(box.boxNumber);
+                        },
+                      );
+                    } else {
+                      return Box_tv(
+                        name: box.deviceName,
+                        Xcode: box.pairedDevice,
+                        onDelete: () {
+                          BlocProvider.of<ColumnBloc>(context)
+                              .deleteBox(box.boxNumber);
+                        },
+                      );
+                    }
+                  }).toList(),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.07),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: secondColumnBoxes
-                      .map<Widget>((box) {
-                        if (box.deviceType == 'Lampe') {
-                          return Box_lampe(
-                            name: box.deviceName,
-                            Xcode: box.pairedDevice,
-                            onDelete: () {
-                              BlocProvider.of<ColumnBloc>(context).deleteBox(box.boxNumber);
-                            },
-                          );
-                        } else {
-                          return Box_tv(
-                            name: box.deviceName,
-                            Xcode: box.pairedDevice,
-                            onDelete: () {
-                              BlocProvider.of<ColumnBloc>(context).deleteBox(box.boxNumber);
-                            },
-                          );
-                        }
-                      })
-                      .toList(),
+                  children: secondColumnBoxes.map<Widget>((box) {
+                    if (box.deviceType == 'Lampe') {
+                      return Box_lampe(
+                        name: box.deviceName,
+                        Xcode: box.pairedDevice,
+                        onDelete: () {
+                          BlocProvider.of<ColumnBloc>(context)
+                              .deleteBox(box.boxNumber);
+                        },
+                      );
+                    } else {
+                      return Box_tv(
+                        name: box.deviceName,
+                        Xcode: box.pairedDevice,
+                        onDelete: () {
+                          BlocProvider.of<ColumnBloc>(context)
+                              .deleteBox(box.boxNumber);
+                        },
+                      );
+                    }
+                  }).toList(),
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            
-        /*  SizedBox(
+
+            /*  SizedBox(
   height: 200,
   child: ListView(
     children: [
@@ -1038,10 +1041,12 @@ class MyWidgetContent extends StatelessWidget {
                 updateDeviceType: updateDeviceType,
                 firstColumnData: state.firstColumnData,
                 secondColumnData: state.secondColumnData,
-                onPressed: (newBoxNumber, deviceType, deviceName, pairedDevice) {
+                onPressed:
+                    (newBoxNumber, deviceType, deviceName, pairedDevice) {
                   BlocProvider.of<ColumnBloc>(context).add(AddBoxEvent(
                       newBoxNumber, deviceType, deviceName, pairedDevice));
-                  BlocProvider.of<ColumnBloc>(context).add(LoadInitialDataEvent());
+                  BlocProvider.of<ColumnBloc>(context)
+                      .add(LoadInitialDataEvent());
                 },
               ),
             const SizedBox(height: 200),
@@ -1106,4 +1111,3 @@ class _InsertState extends State<Insert> {
     );
   }
 }
-

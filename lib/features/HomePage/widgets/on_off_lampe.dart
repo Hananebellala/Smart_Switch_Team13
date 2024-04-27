@@ -2,25 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
+import 'package:uuid/uuid.dart';
 
 // ignore: camel_case_types
 class on_off_lampe extends StatefulWidget {
   final String code;
   const on_off_lampe({required this.code});
 
-
   @override
   State<on_off_lampe> createState() => _on_off_lampeState();
 }
 
-
 // ignore: camel_case_types
 class _on_off_lampeState extends State<on_off_lampe> {
   late String _lampIcon;
- 
+
   late bool isLampOn;
   late MqttServerClient mqttClient;
-
 
   @override
   void initState() {
@@ -30,26 +28,14 @@ class _on_off_lampeState extends State<on_off_lampe> {
     _connectToMqtt();
   }
 
-
   void _connectToMqtt() async {
-    // ignore: prefer_const_declarations
-    final String mqttServer = 'test.mosquitto.org'; // MQTT broker address
-    // ignore: prefer_const_declarations
-    final int mqttPort = 1883; // MQTT broker port
-    // ignore: prefer_const_declarations
-    final String clientId = 'Hanane'; // Unique client ID
-
+    final String mqttServer = 'test.mosquitto.org';
+    final int mqttPort = 1883;
+    final String clientId = generateUniqueId();
 
     mqttClient = MqttServerClient(mqttServer, clientId);
-    mqttClient.port = mqttPort; // Set MQTT broker port
-
-
-    // ignore: unused_local_variable
-    final MqttConnectMessage connectMessage = MqttConnectMessage()
-        .withClientIdentifier(clientId)
-        .startClean()
-        .keepAliveFor(60); // Keep alive interval in seconds
-
+    mqttClient.port = mqttPort;
+    mqttClient.logging(on: true);
 
     try {
       await mqttClient.connect();
@@ -59,17 +45,18 @@ class _on_off_lampeState extends State<on_off_lampe> {
     }
   }
 
-
   void _toggleLampState() {
-    if (1 == 1) {
+    if (mqttClient.connectionStatus != null &&
+        mqttClient.connectionStatus!.state == MqttConnectionState.connected) {
+      print('MQTT client is connected. Toggling lamp state...');
       setState(() {
         isLampOn = !isLampOn;
         if (isLampOn) {
           _lampIcon = 'icon/lampeOn.ico';
-          _publishMessage('ON'); // Publish 'ON' message to MQTT topic
+          _publishMessage('ON');
         } else {
           _lampIcon = 'icon/lampe.ico';
-          _publishMessage('OFF'); // Publish 'OFF' message to MQTT topic
+          _publishMessage('OFF');
         }
       });
     } else {
@@ -77,21 +64,34 @@ class _on_off_lampeState extends State<on_off_lampe> {
     }
   }
 
-
   void _publishMessage(String message) {
+    print('Publishing message: $message');
     final builder = MqttClientPayloadBuilder();
     builder.addString(message);
-    mqttClient.publishMessage(
-        'projet13/lampe1', MqttQos.atMostOnce, builder.payload!);
-  }
 
+    if (mqttClient.connectionStatus!.state == MqttConnectionState.connected) {
+      try {
+        mqttClient.publishMessage(
+          'projet13/lampe1',
+          MqttQos.atMostOnce,
+          builder.payload!,
+        );
+
+        print('Message published successfully');
+      } catch (e) {
+        // Failed to publish message
+        print('Failed to publish message: $e');
+      }
+    } else {
+      print('MQTT client is not connected.');
+    }
+  }
 
   @override
   void dispose() {
     mqttClient.disconnect();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +121,9 @@ class _on_off_lampeState extends State<on_off_lampe> {
   }
 }
 
-
-
-
+String generateUniqueId() {
+  var uuid = const Uuid();
+  print('uuid hereeee');
+  print(uuid);
+  return uuid.v4();
+}
