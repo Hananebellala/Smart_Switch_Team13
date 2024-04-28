@@ -11,10 +11,11 @@ String generateUniqueId() {
 // ignore: camel_case_types
 class On_off_tv extends StatefulWidget {
   final String code;
-  On_off_tv({required this.code});
+  final bool isActivated;
+  On_off_tv({required this.code, required this.isActivated});
 
   @override
-  State<On_off_tv> createState() => _On_offState();
+  State<On_off_tv> createState() => _On_offState(isActivated: isActivated);
 }
 
 // ignore: camel_case_types
@@ -22,32 +23,57 @@ class _On_offState extends State<On_off_tv> {
   late bool _isOn;
   late MqttServerClient mqttClient;
 
+  var isActivated;
+
+  _On_offState({required this.isActivated}) : _isOn = false;
+
   @override
   void initState() {
     super.initState();
-    _isOn = false; // Initial state is 'off'
     _connectToMqtt();
   }
 
   void _connectToMqtt() async {
-    // ignore: prefer_const_declarations
-    final String mqttServer = 'test.mosquitto.org'; // MQTT broker address
-    // ignore: prefer_const_declarations
-    final int mqttPort = 1883; // MQTT broker port
-    // ignore: prefer_const_declarations
-    final String clientId = generateUniqueId(); // Unique client ID
+    final String mqttServer = 'test.mosquitto.org';
+    final int mqttPort = 1883;
+    final String clientId = generateUniqueId();
 
     mqttClient = MqttServerClient(mqttServer, clientId);
-    mqttClient.port = mqttPort; // Set MQTT broker port
+    mqttClient.port = mqttPort;
 
     final MqttConnectMessage connectMessage = MqttConnectMessage()
         .withClientIdentifier(clientId)
         .startClean()
-        .keepAliveFor(60); // Keep alive interval in seconds
+        .keepAliveFor(60);
 
     try {
       await mqttClient.connect();
       print('Connected to MQTT broker');
+
+      // Subscribe to the topic 'projet13/scene'
+      mqttClient.subscribe('projet13/scene', MqttQos.atMostOnce);
+      mqttClient.updates!.listen((List<MqttReceivedMessage<MqttMessage>>? c) {
+        final MqttPublishMessage recMess = c![0].payload as MqttPublishMessage;
+        final String pt =
+            MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+
+        // Check the received message and update the state accordingly
+        if (pt == 'ON' && isActivated) {
+          setState(() {
+            _isOn = true;
+            print('_isOn changed to true');
+            // Publish 'ON' to the topic 'projet13/device'
+            _publishMessage('ON');
+          });
+        } else if (pt == 'OFF' && isActivated) {
+          setState(() {
+            _isOn = false;
+            print('_isOn changed to false');
+            // Publish 'OFF' to the topic 'projet13/device'
+            _publishMessage('OFF');
+          });
+        }
+      });
     } catch (e) {
       print('Failed to connect to MQTT broker: $e');
     }
@@ -57,7 +83,7 @@ class _On_offState extends State<On_off_tv> {
     if (mqttClient.connectionStatus?.state == MqttConnectionState.connected) {
       setState(() {
         _isOn = !_isOn;
-        _publishMessage(_isOn ? 'ON' : 'OFF'); // Publish message to MQTT topic
+        _publishMessage(_isOn ? 'ON' : 'OFF');
       });
     } else {
       print('MQTT client is not connected.');
@@ -81,7 +107,6 @@ class _On_offState extends State<On_off_tv> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Icon and button row
         const SizedBox(width: 15),
         Align(
           alignment: Alignment.centerLeft,
@@ -103,16 +128,11 @@ class _On_offState extends State<On_off_tv> {
           onChanged: (newValue) {
             _toggleTvState();
           },
-          activeColor:
-              const Color(0xFFA58BFF), // Active color (when switch is on)
-          inactiveThumbColor:
-              const Color(0xFFFAF7FF), // Thumb color (when switch is off)
-          inactiveTrackColor:
-              Colors.black.withOpacity(0.2), // Track color (when switch is off)
+          activeColor: const Color(0xFFA58BFF),
+          inactiveThumbColor: const Color(0xFFFAF7FF),
+          inactiveTrackColor: Colors.black.withOpacity(0.2),
         ),
       ],
     );
   }
 }
-
-

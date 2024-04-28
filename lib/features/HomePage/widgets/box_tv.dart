@@ -51,7 +51,9 @@ class Box_tv extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: Column(
               children: [
-                On_off_tv(code: Xcode), // Assuming you have defined this widget
+                On_off_tv(
+                    code: Xcode,
+                    isActivated: true), // Assuming you have defined this widget
                 SizedBox(height: 8),
                 Row(
                   children: [

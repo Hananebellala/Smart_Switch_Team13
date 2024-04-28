@@ -48,6 +48,7 @@ class _AboutState extends State {
       print('Connected to MQTT broker');
     } catch (e) {
       print('Failed to connect to MQTT broker: $e');
+      // Display an error message to the user, e.g., using a Snackbar
     }
   }
 
@@ -57,12 +58,31 @@ class _AboutState extends State {
     super.dispose();
   }
 
-  Future<void> initializeSpeechRecognition() async {
+  void initializeSpeechRecognition() async {
+    print('Initializing speech recognition...');
     bool isPermissionGranted = await getMicrophonePermission();
-    await handlePermissionResponse(isPermissionGranted);
+    if (!isPermissionGranted) {
+      print('Microphone permission not granted');
+      // Request permission or display a message to the user indicating microphone access is required
+      return;
+    }
+
+    try {
+      await _speech.initialize(
+        onError: (error) {
+          print('Error initializing speech recognition: $error');
+          // Handle the error here, such as displaying a message to the user
+        },
+      );
+      print('Speech recognition initialized');
+    } catch (error) {
+      print('Speech recognition not available: $error');
+      // Display an error message to the user indicating speech recognition is not available
+    }
   }
 
   Future<bool> getMicrophonePermission() async {
+    print('Getting microphone permission...');
     bool hasPermission = await _speech.initialize(
       onError: (error) =>
           print('Error initializing speech recognition: $error'),
@@ -82,14 +102,22 @@ class _AboutState extends State {
   }
 
   bool isSpeechRecognitionAvailable() {
-    return _speech.isAvailable;
+    try {
+      return _speech.isAvailable;
+    } catch (error) {
+      // Handle the error here (same as above)
+      print('Error checking speech recognition availability: $error');
+      return false;
+    }
   }
 
   void startSpeechRecognition() {
+    print('Starting speech recognition...');
     _speech.listen(
       onResult: (result) {
         setState(() {
           _text = result.recognizedWords;
+          print('Recognized text: $_text');
           _publishMessage(_text); // Publish the recognized text to MQTT
         });
       },
@@ -99,6 +127,7 @@ class _AboutState extends State {
   }
 
   void stopSpeechRecognition() {
+    print('Stopping speech recognition...');
     _speech.stop();
   }
 
