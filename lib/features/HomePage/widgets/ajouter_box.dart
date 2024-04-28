@@ -339,7 +339,7 @@ class _InsertState extends State<Insert> {
 }
 */
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-/*
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
@@ -606,7 +606,7 @@ class MyWidgetContent extends StatelessWidget {
               ],
             ),
  ////////////////////////////////////////////////////////////////////////////////           
-            const SizedBox(height: 20),
+           /* const SizedBox(height: 20),
             SizedBox(
               height: 200,
               child: ListView(
@@ -621,7 +621,7 @@ class MyWidgetContent extends StatelessWidget {
                   );
                 }).toList(),
               ),
-            ),
+            ),*/
   //////////////////////////////////////////////////////////////////////////////////////////////:          
             if (showButtons)
               AddScence(
@@ -697,7 +697,8 @@ class _InsertState extends State<Insert> {
       ),
     );
   }
-}*/
+}
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
@@ -1106,4 +1107,4 @@ class _InsertState extends State<Insert> {
     );
   }
 }
-
+*/
