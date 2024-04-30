@@ -6,10 +6,8 @@ import '../widgets/boutton/home_boutton.dart';
 import '../widgets/boutton/paramettre_boutton.dart';
 import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
-import '../widgets/boutton/add_scence.dart';
-import '../widgets/ajouter_box.dart';
-
-
+import '../widgets/essay.dart';
+import '../widgets/listescene.dart';
 
 
 class scencepage extends StatefulWidget {
@@ -33,7 +31,7 @@ class _scencepageState extends State<scencepage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => ColumnBloc(), // Créez une instance de votre bloc ici
+        create: (context) => ColumnBloc2(), // Créez une instance de votre bloc ici
       child: Scaffold(
         body: Column(
           children: [
@@ -85,8 +83,9 @@ class _scencepageState extends State<scencepage> {
               child: ListView(
                 children: [
                  
-               // Insert(),
-       
+               // Insert2(),
+                 Insert3(),
+
                 ],
               ),
             ),

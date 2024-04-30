@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'on_off_tv.dart';
 import '../screens/add_new_device.dart';
 
+
 /********************************************************box  ********************************************************************* */
 // ignore: camel_case_types
 class Box_tv extends StatelessWidget {
   // const Box({super.key});
 
+ 
   final String name;
   final String Xcode;
   final Function() onDelete;
 
-  Box_tv({required this.name, required this.Xcode, required this.onDelete});
+
+  Box_tv({required this.name, required this.Xcode, required this.onDelete,});
   final on = true;
+
 
   @override
   Widget build(BuildContext context) {
@@ -95,3 +99,9 @@ class Box_tv extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+

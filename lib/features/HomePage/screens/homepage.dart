@@ -208,6 +208,7 @@ class Home extends StatelessWidget {
 */
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_switch_team13/features/HomePage/widgets/box_lampe.dart';
 
 import 'next_homepage.dart';
 
@@ -218,31 +219,20 @@ import '../widgets/boutton/scence_boutton.dart';
 import '../widgets/boutton/add_scence.dart';
 import '../widgets/ajouter_box.dart';
 
-
-
-
 class Home extends StatefulWidget {
- 
-
-
-  const Home({super.key});    
-
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
 }
 
-
 class _HomeState extends State<Home> {
-   Future<void> _refreshData() async {
-    }
+  Future<void> _refreshData() async {}
 
-
-   
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => ColumnBloc(), // Créez une instance de votre bloc ici
+      create: (context) => ColumnBloc(), // Créez une instance de votre bloc ici
       child: Scaffold(
         body: Column(
           children: [
@@ -250,33 +240,32 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.035),
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.035),
                   child: Column(
                     children: [
-                      
-                        Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          alignment: Alignment.bottomLeft,
-                          child: const Text(
-                            'Good Morning,',
-                            style: TextStyle(
-                              fontSize: 23,
-                            ),
+                      Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        alignment: Alignment.bottomLeft,
+                        child: const Text(
+                          'Good Morning,',
+                          style: TextStyle(
+                            fontSize: 23,
                           ),
                         ),
-                        SizedBox(
-                          height: 30,
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          child: const Text(
-                            'User',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: const Text(
+                          'User',
+                          style: TextStyle(
+                            fontSize: 20,
                           ),
                         ),
-                      ],
-                    
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.1),
@@ -284,32 +273,36 @@ class _HomeState extends State<Home> {
                   height: 40,
                   alignment: Alignment.bottomCenter,
                   width: MediaQuery.of(context).size.width * 0.11,
-                  child:
-                      IconButton(
-                      icon: Image.asset('icon/notifcations.ico',height: 25,width: 25,),
-                      onPressed: () {},
+                  child: IconButton(
+                    icon: Image.asset(
+                      'icon/notifcations.ico',
+                      height: 25,
+                      width: 25,
                     ),
-                 
+                    onPressed: () {},
+                  ),
                 ),
                 Container(
                   height: 40,
                   alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.001),
+                  padding: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.001),
                   width: MediaQuery.of(context).size.width * 0.15,
                   child: CircleAvatar(
                     backgroundColor: Colors.yellow,
                     radius: 30,
                     child: IconButton(
-                      icon: const Icon(Icons.person, color: Color(0xFF6900FF), size: 30.0),
+                      icon: const Icon(Icons.person,
+                          color: Color(0xFF6900FF), size: 30.0),
                       onPressed: () {},
                     ),
                   ),
                 ),
               ],
             ),
-                        const SizedBox(height: 120),
+            const SizedBox(height: 120),
 
-             Row(
+            Row(
               children: [
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),
                 Container(
@@ -341,18 +334,16 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-          ////  const SizedBox(height: 10),
+            ////  const SizedBox(height: 10),
             Expanded(
               child: ListView(
                 children: [
-                 
-Insert(
-  showButtons: false,
-  maxBoxesToShow: 2,
-  maxBoxesPerColumn1: 2, 
-  maxBoxesPerColumn2: 1, 
-),
-       
+                  Insert(
+                    showButtons: false,
+                    maxBoxesToShow: 2,
+                    maxBoxesPerColumn1: 2,
+                    maxBoxesPerColumn2: 1,
+                  ),
                 ],
               ),
             ),
@@ -379,20 +370,20 @@ Insert(
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: const BottomAppBar(
-          shape:  CircularNotchedRectangle(),
+          shape: CircularNotchedRectangle(),
           child: PreferredSize(
-            preferredSize:  Size.fromHeight(100.0),
+            preferredSize: Size.fromHeight(100.0),
             child: Row(
               children: <Widget>[
                 SizedBox(width: 10),
-                 Home_boutton(pathIcon: 'icon/homeOn.ico'),
-              SizedBox(width: 30),
-              Controle_boutton(pathIcon: 'icon/controle.ico'),
-              SizedBox(width: 90),
-              Scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
-              SizedBox(width: 30),
-              Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
-            ],
+                Home_boutton(pathIcon: 'icon/homeOn.ico'),
+                SizedBox(width: 30),
+                Controle_boutton(pathIcon: 'icon/controle.ico'),
+                SizedBox(width: 90),
+                Scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
+                SizedBox(width: 30),
+                Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
+              ],
             ),
           ),
         ),
@@ -400,7 +391,3 @@ Insert(
     );
   }
 }
-
-
-
-

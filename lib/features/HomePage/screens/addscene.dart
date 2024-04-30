@@ -2,22 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+import '../widgets/elements/info_box.dart';
 
 import '../../HomePage/widgets/boutton/controle_Boutton.dart';
 import '../../HomePage/widgets/boutton/home_boutton.dart';
 import '../../HomePage/widgets/boutton/paramettre_boutton.dart';
 import '../../HomePage/widgets/boutton/scence_boutton.dart';
 import '../widgets/goBack.dart';
-import 'settings_page.dart';
+import '../../HomePage/widgets/boutton/sceneDevice.dart';
+import 'scencepage.dart';
 
-class About extends StatefulWidget {
-  const About({Key? key}) : super(key: key);
+class Addscene extends StatefulWidget {
+  const Addscene({Key? key}) : super(key: key);
 
   @override
-  _AboutState createState() => _AboutState();
+  _AddsceneState createState() => _AddsceneState();
 }
 
-class _AboutState extends State {
+class _AddsceneState extends State {
+  String scene_name = '';
   final stt.SpeechToText _speech = stt.SpeechToText();
   bool _isListening = false;
   String _text = '';
@@ -55,6 +58,10 @@ class _AboutState extends State {
   void dispose() {
     mqttClient.disconnect();
     super.dispose();
+  }
+
+  String updateInputValue(String newValue) {
+    return newValue;
   }
 
   Future<void> initializeSpeechRecognition() async {
@@ -118,17 +125,17 @@ class _AboutState extends State {
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 57), // Space from top
-              const Row(
+              SizedBox(height: 57), // Space from top
+              Row(
                 children: [
-                  GoBack(previousScreen: SettingsPage()), // GoBack widget
+                  GoBack(previousScreen: scencepage()), // GoBack widget
                   SizedBox(
                       width:
                           60), // Space between "Go Back" and "Account Settings"
                   Text(
-                    'About',
+                    'Add Scene',
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600, // SemiBold
@@ -138,23 +145,44 @@ class _AboutState extends State {
                   ),
                 ],
               ),
-              const SizedBox(height: 100), // Additional space
-              const Text(
-                'Lorem ipsum dolor sit amet consectetur. Euismod suspendisse sed maecenas in euismod elit senectus sit. Velit arcu volutpat parturient diam amet leo et. Pretium odio sed proin vitae at nunc mi etiam magnis. Amet convallis mauris habitant curabitur sagittis feugiat in diam sed.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 16.0,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 60), // Additional space
-              SizedBox(
-                width: 224,
-                height: 224,
-                child: Image.asset(
-                  'images/Smart_home_bro1.png',
-                  fit: BoxFit.contain,
+              SizedBox(height: 40),
+              Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('Create your scene!',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20.0,
+                            color: Colors.black)),
+                    SizedBox(height: 20),
+                    Text(
+                        'Customize devices in your bedroom to set a certain mood',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w300,
+                            fontSize: 14.0,
+                            color: Colors.black)),
+                    SizedBox(height: 40),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: const Text('Scene Name'),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
+                      child: InfoBox(
+                        initialValue: '',
+                        onChanged: (newValue) {
+                          scene_name = updateInputValue(newValue);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 50),
+                    SceneDevice(deviceName: 'Hanane', isChecked: false)
+                  ],
                 ),
               ),
             ],

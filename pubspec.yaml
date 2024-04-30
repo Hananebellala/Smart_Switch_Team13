@@ -24,14 +24,22 @@ dependencies:
   flutter_bloc: ^8.1.5
   sqflite: ^2.0.0+4
   path: ^1.8.0
-  mqtt_client: ^10.2.0
+  mqtt_client: ^10.2.1
   image_picker: ^1.1.0
   flutter_animate: ^4.5.0
+  speech_to_text: ^6.6.1
+  uuid: ^4.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.2
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/logo.png"
 
 flutter:
   uses-material-design: true
@@ -76,3 +84,14 @@ flutter:
     - images/Questions_bro.png
     - images/Wifi.png
     - icon/notifcations.ico
+    - images/backyellow.png
+    - images/char.png
+    - images/iphone11.png
+    - images/iphone12.png
+    - images/Mobile.png
+    - images/Startled.png
+    - images/woman.png
+    - images/yellow_first.png
+    - images/yellow3.png
+    - images/checked.png
+    - images/notchecked.png

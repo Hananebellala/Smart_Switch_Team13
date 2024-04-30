@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
- import '../widgets/ajouter_box.dart';
-  class cancel_box extends StatefulWidget {
+import '../widgets/ajouter_box.dart';
+
+class cancel_box extends StatefulWidget {
   final Function() onDelete;
    cancel_box({required this.onDelete});
 

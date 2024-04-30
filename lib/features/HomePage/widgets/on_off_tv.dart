@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+import 'package:uuid/uuid.dart';
+
+String generateUniqueId() {
+  var uuid = Uuid();
+  return uuid.v4();
+}
 
 // ignore: camel_case_types
 class On_off_tv extends StatefulWidget {
-   final String code ;
-   
+    final String code;
    On_off_tv({required this.code});
-
-
-
-  
-
   @override
   State<On_off_tv> createState() => _On_offState();
 }
@@ -34,7 +34,7 @@ class _On_offState extends State<On_off_tv> {
     // ignore: prefer_const_declarations
     final int mqttPort = 1883; // MQTT broker port
     // ignore: prefer_const_declarations
-    final String clientId = 'Hana'; // Unique client ID
+    final String clientId = generateUniqueId(); // Unique client ID
 
     mqttClient = MqttServerClient(mqttServer, clientId);
     mqttClient.port = mqttPort; // Set MQTT broker port
@@ -102,8 +102,10 @@ class _On_offState extends State<On_off_tv> {
           onChanged: (newValue) {
             _toggleTvState();
           },
-          activeColor: const Color(0xFFA58BFF), // Active color (when switch is on)
-          inactiveThumbColor: const Color(0xFFFAF7FF), // Thumb color (when switch is off)
+          activeColor:
+              const Color(0xFFA58BFF), // Active color (when switch is on)
+          inactiveThumbColor:
+              const Color(0xFFFAF7FF), // Thumb color (when switch is off)
           inactiveTrackColor:
               Colors.black.withOpacity(0.2), // Track color (when switch is off)
         ),

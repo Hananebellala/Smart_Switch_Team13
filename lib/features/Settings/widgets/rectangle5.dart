@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/changeLocation.dart';
+import 'package:smart_switch_team13/features/HomePage/screens/addscene.dart';
 
 class Rectangle5 extends StatelessWidget {
   const Rectangle5({super.key});
@@ -17,7 +18,7 @@ class Rectangle5 extends StatelessWidget {
         // Navigate to AccountSettings screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ChangeLocation()),
+          MaterialPageRoute(builder: (context) => const Addscene()),
         );
       },
       child: Container(

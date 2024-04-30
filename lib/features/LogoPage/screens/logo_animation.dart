@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smart_switch_team13/features/LogoPage/screens/GettingStarted.dart';
+import 'package:smart_switch_team13/features/authentification/widget_tree.dart';
 
 class LogoAnimation extends StatefulWidget {
   const LogoAnimation({super.key});
@@ -19,7 +20,7 @@ class _LogoAnimationState extends State<LogoAnimation> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) =>
-              const GettingStarted(), // Define your next screen here
+              const WidgetTree(), // Define your next screen here
         ),
       );
     });
@@ -36,7 +37,7 @@ class _LogoAnimationState extends State<LogoAnimation> {
               // Image Widget
               Positioned.fill(
                 child: Image.asset(
-                  'assets/Loading.png', // Provide path to your image asset
+                  'images/Loading.png', // Provide path to your image asset
                   fit: BoxFit.cover, // Cover the entire container
                 ),
               ),
@@ -48,7 +49,7 @@ class _LogoAnimationState extends State<LogoAnimation> {
                 top: MediaQuery.of(context).size.height / 2 -
                     50, // Center vertically
                 child: Lottie.asset(
-                  'animations/loadin.json', // Provide path to your Lottie animation file
+                  'animation/loadin.json', // Provide path to your Lottie animation file
                   width: 200, // Adjust width according to your requirement
                   height: 150, // Adjust height according to your requirement
                 ),

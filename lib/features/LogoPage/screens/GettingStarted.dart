@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:smart_switch_team13/features/LogoPage/screens/Feelit.dart';
 
+
 class GettingStarted extends StatelessWidget {
   const GettingStarted({super.key});
 
@@ -23,7 +24,7 @@ class GettingStarted extends StatelessWidget {
             left: 0,
             right: 0,
             child: Image.asset(
-              'assets/yellow_first.png', // Background image
+              'images/yellow_first.png', // Background image
               fit: BoxFit.cover,
               height: MediaQuery.of(context).size.height - 180,
             ),
@@ -35,7 +36,7 @@ class GettingStarted extends StatelessWidget {
                 MediaQuery.of(context).size.width / 2 - 187, // Center the image
             top: 50, // Position it above the animated content
             child: Image.asset(
-              'assets/Mobile.png', // New image asset
+              'images/Mobile.png', // New image asset
               width: 355,
               height: 392,
             ),
@@ -98,7 +99,7 @@ class GettingStarted extends StatelessWidget {
                     ),
                     child: Center(
                       child: Image.asset(
-                        'assets/Vector.png', // Image in the center of the button
+                        'images/Vector.png', // Image in the center of the button
                       ),
                     ),
                   ),
@@ -120,7 +121,7 @@ class GettingStarted extends StatelessWidget {
             top: 165,
             left: MediaQuery.of(context).size.width, // Start outside the screen
             child: Image.asset(
-              'assets/char.png', // Asset to slide in
+              'images/char.png', // Asset to slide in
               width: 177.69,
               height: 201.85,
             )

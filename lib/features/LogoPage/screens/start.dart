@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:smart_switch_team13/features/authentification/screens/signup_screen.dart';
 
 class start extends StatelessWidget {
   const start({super.key});
@@ -7,7 +8,8 @@ class start extends StatelessWidget {
   void _navigateToNextPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const NextPage()), // Target page
+      MaterialPageRoute(
+          builder: (context) => const SignupScreen()), // Target page
     );
   }
 
@@ -21,7 +23,7 @@ class start extends StatelessWidget {
           left: 0,
           right: 0,
           child: Image.asset(
-            'assets/yellow3.png', // Background image
+            'images/yellow3.png', // Background image
             fit: BoxFit.cover,
             height: MediaQuery.of(context).size.height - 180,
           ),
@@ -30,7 +32,7 @@ class start extends StatelessWidget {
           top: 180,
           left: MediaQuery.of(context).size.width, // Start outside the screen
           child: Image.asset(
-            'assets/iphone11.png', // Asset to slide in
+            'images/iphone11.png', // Asset to slide in
             width: 686.48,
             height: 490.78,
           )
@@ -48,7 +50,7 @@ class start extends StatelessWidget {
           top: 90,
           left: MediaQuery.of(context).size.width, // Start outside the screen
           child: Image.asset(
-            'assets/iphone12.png', // Asset to slide in
+            'images/iphone12.png', // Asset to slide in
             width: 686.48,
             height: 490.78,
           )
@@ -117,23 +119,6 @@ class start extends StatelessWidget {
           ),
         ),
       ]),
-    );
-  }
-}
-
-class NextPage extends StatelessWidget {
-  const NextPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Next Page"),
-      ),
-      body: const Center(
-        child: Text(
-            "This is the next page after pressing the button"), // Content for the next page
-      ),
     );
   }
 }

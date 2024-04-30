@@ -22,7 +22,7 @@ class Feelit extends StatelessWidget {
           left: 0,
           right: 0,
           child: Image.asset(
-            'assets/backyellow.png', // Background image
+            'images/backyellow.png', // Background image
             fit: BoxFit.cover,
             height: MediaQuery.of(context).size.height - 180,
           ),
@@ -31,7 +31,7 @@ class Feelit extends StatelessWidget {
           left: MediaQuery.of(context).size.width / 2 - 187, // Center the image
           top: 50, // Position it above the animated content
           child: Image.asset(
-            'assets/Startled.png', // New image asset
+            'images/Startled.png', // New image asset
             width: 355,
             height: 392,
           ),
@@ -94,7 +94,7 @@ class Feelit extends StatelessWidget {
                   ),
                   child: Center(
                     child: Image.asset(
-                      'assets/Vector.png', // Image in the center of the button
+                      'images/Vector.png', // Image in the center of the button
                     ),
                   ),
                 ),
@@ -115,7 +115,7 @@ class Feelit extends StatelessWidget {
           top: 165,
           left: MediaQuery.of(context).size.width, // Start outside the screen
           child: Image.asset(
-            'assets/woman.png', // Asset to slide in
+            'images/woman.png', // Asset to slide in
             width: 177.69,
             height: 201.85,
           )

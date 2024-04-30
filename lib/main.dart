@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_switch_team13/features/authentification/widget_tree.dart';
 import 'package:smart_switch_team13/features/LogoPage/index.dart';
 import 'package:smart_switch_team13/firebase_options.dart';
+import 'package:smart_switch_team13/features/Homepage/screens/addscene.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins', // Specify the Poppins font family directly
       ),
       home:
-          const WidgetTree(), // Start with the settings page as the home screen
+          const LogoAnimation(), // Start with the settings page as the home screen
     );
   }
 }
