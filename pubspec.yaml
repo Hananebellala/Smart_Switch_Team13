@@ -29,6 +29,8 @@ dependencies:
   flutter_animate: ^4.5.0
   speech_to_text: ^6.6.1
   uuid: ^4.4.0
+  flutter_rating_bar: ^4.0.1
+  mailer: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -95,3 +97,9 @@ flutter:
     - images/yellow3.png
     - images/checked.png
     - images/notchecked.png
+    - images/Feedback-bro 1.png
+    - images/Star1.png
+    - images/Star 2.png
+    - images/Contact us-bro 1.png
+    - images/vide.png
+    - images/Reminders-bro.png

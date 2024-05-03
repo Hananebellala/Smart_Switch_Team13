@@ -8,13 +8,17 @@ import '../screens/add_new_device.dart';
 class Box_tv extends StatelessWidget {
   // const Box({super.key});
 
- 
+   final int  Xid;
+   final String  etat;
   final String name;
   final String Xcode;
+  final bool malak ;
   final Function() onDelete;
+ //final Function(String) updateBoxetat;
 
-
-  Box_tv({required this.name, required this.Xcode, required this.onDelete,});
+  Box_tv({required this.Xid,required this.etat,required this.name, required this.Xcode, required this.onDelete,
+  //required this.updateBoxetat,
+  required this.malak});
   final on = true;
 
 
@@ -55,7 +59,13 @@ class Box_tv extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: Column(
               children: [
-                On_off_tv(code: Xcode), // Assuming you have defined this widget
+                On_off_tv(
+                  id:Xid,
+                    code: Xcode,
+                    isActivated: etat=='OFF' ?false :true,
+                    tvIcon:etat=='OFF' ?'icon/tvOff.ico':'icon/tvOn.ico',
+                    
+                    malak:malak,), // Assuming you have defined this widget
                 SizedBox(height: 8),
                 Row(
                   children: [

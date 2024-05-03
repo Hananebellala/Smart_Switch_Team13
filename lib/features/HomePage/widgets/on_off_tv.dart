@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:uuid/uuid.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 String generateUniqueId() {
   var uuid = Uuid();
@@ -10,39 +11,96 @@ String generateUniqueId() {
 
 // ignore: camel_case_types
 class On_off_tv extends StatefulWidget {
-    final String code;
-   On_off_tv({required this.code});
+
+  final int  id;
+  final String code;
+  final bool isActivated;
+  final String tvIcon;
+   final bool malak;
+ 
+  On_off_tv({required this.id,required this.code, required this.isActivated,required this.tvIcon,required this.malak,});
+
   @override
-  State<On_off_tv> createState() => _On_offState();
+  State<On_off_tv> createState() => _On_off_tvState(isActivated: isActivated,tvIcon:tvIcon,malak:malak);
 }
 
 // ignore: camel_case_types
-class _On_offState extends State<On_off_tv> {
-  late bool _isOn;
+class _On_off_tvState extends State<On_off_tv> {
+  final bool malak;
+  
   late MqttServerClient mqttClient;
+  late  String tvIcon ;
+  late bool  isActivated;
+  
+  _On_off_tvState({required this.malak,required this.isActivated,required this.tvIcon}) ;
 
   @override
   void initState() {
     super.initState();
-    _isOn = false; // Initial state is 'off'
+    if (malak) {
+                  isActivated = false;
+                   if (isActivated ) {
+                tvIcon = 'icon/tvOn.ico';
+                  } else {
+          tvIcon = 'icon/tvOff.ico'; 
+        }
+                  _saveistvOnState(isActivated);
+                   _savetvIconState(tvIcon);
+
+
+        }else{
+          _loadistvOnState();
+          _loadtvIconState();
+     }
+    
     _connectToMqtt();
   }
+Future<void> _loadistvOnState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isActivated = prefs.getBool(_getUniqueKey()) ?? false;
+    });
+  }
 
-  void _connectToMqtt() async {
-    // ignore: prefer_const_declarations
-    final String mqttServer = 'test.mosquitto.org'; // MQTT broker address
-    // ignore: prefer_const_declarations
-    final int mqttPort = 1883; // MQTT broker port
-    // ignore: prefer_const_declarations
-    final String clientId = generateUniqueId(); // Unique client ID
+  Future<void> _saveistvOnState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_getUniqueKey(), value);
+  }
+
+  String _getUniqueKey() {
+    // Utilisez le nom ou l'identifiant de la case comme clé unique
+    return 'isActivated_${widget.id}';
+  }
+  
+  Future<void> _loadtvIconState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      tvIcon = prefs.getString(_getUniqueKey2()) ?? 'icon/tvOff.ico';
+    });
+  }
+
+  Future<void> _savetvIconState(String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_getUniqueKey2(), value);
+  }
+
+  String _getUniqueKey2() {
+    // Utilisez le nom ou l'identifiant de la case comme clé unique
+    return 'tvIcon_${widget.id}';
+  }
+  /*
+ 
+
+  }
+*/
+void _connectToMqtt() async {
+    final String mqttServer = 'test.mosquitto.org';
+    final int mqttPort = 1883;
+    final String clientId = generateUniqueId();
 
     mqttClient = MqttServerClient(mqttServer, clientId);
-    mqttClient.port = mqttPort; // Set MQTT broker port
-
-    final MqttConnectMessage connectMessage = MqttConnectMessage()
-        .withClientIdentifier(clientId)
-        .startClean()
-        .keepAliveFor(60); // Keep alive interval in seconds
+    mqttClient.port = mqttPort;
+    mqttClient.logging(on: true);
 
     try {
       await mqttClient.connect();
@@ -52,36 +110,104 @@ class _On_offState extends State<On_off_tv> {
     }
   }
 
-  void _toggleTvState() {
-    if (mqttClient.connectionStatus?.state == MqttConnectionState.connected) {
+  void _toggletvState(bool newState) {
+    if (mqttClient.connectionStatus != null &&
+        mqttClient.connectionStatus!.state == MqttConnectionState.connected) {
+      print('MQTT client is connected. Toggling lamp state...');
       setState(() {
-        _isOn = !_isOn;
-        _publishMessage(_isOn ? 'ON' : 'OFF'); // Publish message to MQTT topic
+         if (malak) {
+                  isActivated = false;
+
+        } else {
+           isActivated = newState;
+        }
+        
+        if (isActivated ) {
+          tvIcon = 'icon/tvOn.ico';
+          _publishMessage('ON');
+           _saveistvOnState(isActivated);
+         _savetvIconState(tvIcon);
+        } else {
+          tvIcon = 'icon/tvOff.ico';
+          _publishMessage('OFF');
+             _saveistvOnState(isActivated);
+         _savetvIconState(tvIcon);
+
+        }
+        
+         
       });
     } else {
       print('MQTT client is not connected.');
+     /* setState(() {
+         if (malak) {
+                  isActivated = false;
+
+        } else {
+           isActivated = newState;
+        }
+        
+        if (isActivated ) {
+          tvIcon = 'icon/tvOn.ico';
+        //  _publishMessage('ON');
+         // updateBoxetat('ON');
+          print('ON');
+           _saveistvOnState(isActivated);
+         _savetvIconState(tvIcon);
+        } else {
+          tvIcon = 'icon/tvOff.ico';
+      //       _publishMessage('ON');
+
+          //  updateBoxetat('OFF');
+            print('OFF');
+             _saveistvOnState(isActivated);
+         _savetvIconState(tvIcon);
+
+        }
+        
+         
+      });*/
+      
     }
   }
 
   void _publishMessage(String message) {
+    print('Publishing message: $message');
     final builder = MqttClientPayloadBuilder();
     builder.addString(message);
-    mqttClient.publishMessage(
-        'projet13/device', MqttQos.atMostOnce, builder.payload!);
-  }
 
-  @override
-  void dispose() {
-    mqttClient.disconnect();
-    super.dispose();
-  }
+    if (mqttClient.connectionStatus!.state == MqttConnectionState.connected) {
+      try {
+        mqttClient.publishMessage(
+          'projet13/lampe1',
+          MqttQos.atMostOnce,
+          builder.payload!,
+        );
 
+        print('Message published successfully');
+      } catch (e) {
+        print('Failed to publish message: $e');
+      }
+    } else {
+      print('MQTT client is not connected.');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Icon and button row
         const SizedBox(width: 15),
+        Switch(
+          value: isActivated,
+          onChanged: (newValue) {
+            _toggletvState(newValue);
+          },
+          activeColor: const Color(0xFFA58BFF),
+          inactiveThumbColor: const Color(0xFFFAF7FF),
+          inactiveTrackColor: Colors.black.withOpacity(0.2),
+        ),
+                const SizedBox(width: 15),
+
         Align(
           alignment: Alignment.centerLeft,
           child: SizedBox(
@@ -89,26 +215,14 @@ class _On_offState extends State<On_off_tv> {
             width: 60,
             child: Center(
               child: Image.asset(
-                'icon/${_isOn ? 'tvOn' : 'tvOff'}.ico',
-                height: 40,
-                width: 40,
+                tvIcon,
+                height: 50,
+                width: 50,
               ),
             ),
           ),
         ),
-        const SizedBox(width: 15),
-        Switch(
-          value: _isOn,
-          onChanged: (newValue) {
-            _toggleTvState();
-          },
-          activeColor:
-              const Color(0xFFA58BFF), // Active color (when switch is on)
-          inactiveThumbColor:
-              const Color(0xFFFAF7FF), // Thumb color (when switch is off)
-          inactiveTrackColor:
-              Colors.black.withOpacity(0.2), // Track color (when switch is off)
-        ),
+        
       ],
     );
   }

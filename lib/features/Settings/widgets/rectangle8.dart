@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../screens/changeLocation.dart';
+import '../screens/feedback.dart' as customfeedback; 
+
 
 class Rectangle8 extends StatelessWidget {
-  const Rectangle8({super.key});
+  const Rectangle8({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class Rectangle8 extends StatelessWidget {
         // Navigate to AccountSettings screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ChangeLocation()),
+          MaterialPageRoute(builder: (context) =>  customfeedback.Feedback()),
         );
       },
       child: Container(

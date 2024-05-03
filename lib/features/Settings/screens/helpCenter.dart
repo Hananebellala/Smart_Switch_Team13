@@ -47,7 +47,7 @@ class HelpCenter extends StatelessWidget {
                   GoBack(previousScreen: SettingsPage()), // GoBack widget
                   SizedBox(
                       width:
-                          30), // Space between "Go Back" and "Account Settings"
+                          40), // Space between "Go Back" and "Account Settings"
                   Text(
                     'Help Center',
                     style: TextStyle(
@@ -59,13 +59,12 @@ class HelpCenter extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 27), // Additional space
+              const SizedBox(height: 80), // Additional space
               const Rectangle5(),
-              const SizedBox(height: 31), // Additional space
-              const Rectangle6(),
+
               const SizedBox(height: 31), // Additional space
               const Rectangle7(),
-              const SizedBox(height: 20), // Additional space
+              const SizedBox(height: 31), // Additional space
               const Rectangle8(),
               SizedBox(height: imageY), // Space to position the image
               Column(

@@ -209,6 +209,7 @@ class Home extends StatelessWidget {
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_switch_team13/features/HomePage/widgets/box_lampe.dart';
+import 'package:smart_switch_team13/features/Settings/screens/notification.dart';
 
 import 'next_homepage.dart';
 
@@ -279,7 +280,13 @@ class _HomeState extends State<Home> {
                       height: 25,
                       width: 25,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NotificationScreen()),
+                      );
+                    },
                   ),
                 ),
                 Container(
@@ -340,6 +347,7 @@ class _HomeState extends State<Home> {
                 children: [
                   Insert(
                     showButtons: false,
+                    showlist: true,
                     maxBoxesToShow: 2,
                     maxBoxesPerColumn1: 2,
                     maxBoxesPerColumn2: 1,

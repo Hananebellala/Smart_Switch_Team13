@@ -391,7 +391,7 @@ class ColumnBloc2 extends Bloc<ColumnEvent2, ColumnState2> {
     }).toList();
 
     final int newColumnNumber = cases.length % 2 == 0 ? 1 : 2;
-
+    
     await _database.insert(
       'malak',
       {

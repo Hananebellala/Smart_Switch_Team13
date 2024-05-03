@@ -210,10 +210,20 @@ class MyWidgetContent extends StatelessWidget {
                     children: firstColumnBoxes
                         .map<Widget>((box) {
                       if (box.deviceType == 'Lampe') {
-                        return SceneDevice(deviceName:  box.deviceName,isChecked:true);
+                        return Column(
+                          children: [
+                            SceneDevice(deviceName:  box.deviceName,isChecked:true),
+                            SizedBox(height: 15,),
+                          ],
+                        );
                         
                       } else {
-                        return SceneDevice(deviceName:  box.deviceName,isChecked:true);
+                        return Column(
+                          children: [
+                            SceneDevice(deviceName:  box.deviceName,isChecked:true),
+                            SizedBox(height: 15,),
+                          ],
+                        );
                          
                       }
                     })
@@ -225,10 +235,20 @@ class MyWidgetContent extends StatelessWidget {
                     children: secondColumnBoxes
                         .map<Widget>((box) {
                       if (box.deviceType == 'Lampe') {
-                        return SceneDevice(deviceName:  box.deviceName,isChecked:true);
+                        return Column(
+                          children: [
+                            SceneDevice(deviceName:  box.deviceName,isChecked:true),
+                            SizedBox(height: 15,),
+                          ],
+                        );
                        
                       } else {
-                        return SceneDevice(deviceName:  box.deviceName,isChecked:true);
+                        return Column(
+                          children: [
+                            SceneDevice(deviceName:  box.deviceName,isChecked:true),
+                            SizedBox(height: 15,),
+                          ],
+                        );
                          
                       }
                     })
@@ -275,7 +295,7 @@ class _InsertState extends State<Insert2> {
   String deviceName = 'malak';
   String pairedDevice = '';
   String deviceType = '';
-
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Column(
