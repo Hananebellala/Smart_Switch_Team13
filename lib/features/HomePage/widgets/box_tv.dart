@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'on_off_tv.dart';
 import '../screens/add_new_device.dart';
+import 'package:mqtt_client/mqtt_client.dart';
+import 'package:mqtt_client/mqtt_server_client.dart';
 
 /********************************************************box  ********************************************************************* */
 // ignore: camel_case_types
@@ -53,7 +55,8 @@ class Box_tv extends StatelessWidget {
               children: [
                 On_off_tv(
                     code: Xcode,
-                    isActivated: true), // Assuming you have defined this widget
+                    isActivated:
+                        false), // Assuming you have defined this widget
                 SizedBox(height: 8),
                 Row(
                   children: [

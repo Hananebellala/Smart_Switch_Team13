@@ -118,7 +118,8 @@ class _AboutState extends State {
         setState(() {
           _text = result.recognizedWords;
           print('Recognized text: $_text');
-          _publishMessage(_text); // Publish the recognized text to MQTT
+          _publishMessage(_text);
+          print('Sent: $_text'); // Publish the recognized text to MQTT
         });
       },
       listenFor: Duration(minutes: 1),

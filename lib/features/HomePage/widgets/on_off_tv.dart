@@ -52,12 +52,22 @@ class _On_offState extends State<On_off_tv> {
 
       // Subscribe to the topic 'projet13/scene'
       mqttClient.subscribe('projet13/scene', MqttQos.atMostOnce);
+      mqttClient.subscribe('projet13/device1', MqttQos.atMostOnce);
       mqttClient.updates!.listen((List<MqttReceivedMessage<MqttMessage>>? c) {
         final MqttPublishMessage recMess = c![0].payload as MqttPublishMessage;
         final String pt =
             MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+        
+        final String pt1 =
+            MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
         // Check the received message and update the state accordingly
+
+        if(pt1=='ON'){
+          _isOn = true;
+        }else if(pt1=='OFF'){
+          _isOn = true;
+        }
         if (pt == 'ON' && isActivated) {
           setState(() {
             _isOn = true;

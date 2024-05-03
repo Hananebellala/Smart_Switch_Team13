@@ -9,7 +9,7 @@ import '../widgets/boutton/scence_boutton.dart';
 import '../widgets/boutton/add_scence.dart';
 import '../widgets/ajouter_box.dart';
 
-
+//import '../widgets/essay.dart';
 
 
 class next_homepage extends StatefulWidget {
@@ -86,7 +86,7 @@ class _next_homepageState extends State<next_homepage> {
                 children: [
                  
                 Insert(),
-       
+                // Insert2(),
                 ],
               ),
             ),
@@ -134,7 +134,6 @@ class _next_homepageState extends State<next_homepage> {
     );
   }
 }
-
 
 
 

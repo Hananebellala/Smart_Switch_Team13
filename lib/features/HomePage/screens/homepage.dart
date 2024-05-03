@@ -210,6 +210,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_switch_team13/features/HomePage/widgets/box_lampe.dart';
 import 'package:smart_switch_team13/features/Settings/screens/notification.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import 'next_homepage.dart';
 
@@ -219,21 +220,101 @@ import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
 import '../widgets/boutton/add_scence.dart';
 import '../widgets/ajouter_box.dart';
+import 'package:mqtt_client/mqtt_client.dart';
+import 'package:mqtt_client/mqtt_server_client.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  Future<void> _refreshData() async {}
+  late stt.SpeechToText _speech;
+  bool _isListening = false;
+  String _text = '';
+  late MqttServerClient mqttClient;
+
+  @override
+  void initState() {
+    super.initState();
+    _speech = stt.SpeechToText(); // Initialize _speech here
+    initializeSpeechRecognition();
+    _connectToMqtt();
+  }
+
+  void _connectToMqtt() async {
+    final String mqttServer = 'test.mosquitto.org'; // MQTT broker address
+    final int mqttPort = 1883; // MQTT broker port
+    final String clientId = 'Hannine'; // Unique client ID
+
+    mqttClient = MqttServerClient(mqttServer, clientId);
+    mqttClient.port = mqttPort; // Set MQTT broker port
+
+    final MqttConnectMessage connectMessage = MqttConnectMessage()
+        .withClientIdentifier(clientId)
+        .startClean()
+        .keepAliveFor(60); // Keep alive interval in seconds
+
+    try {
+      await mqttClient.connect();
+      print('Connected to MQTT broker');
+    } catch (e) {
+      print('Failed to connect to MQTT broker: $e');
+      // Display an error message to the user, e.g., using a Snackbar
+    }
+  }
+
+  void initializeSpeechRecognition() async {
+    bool isAvailable = await _speech.initialize();
+    if (!isAvailable) {
+      print('Speech recognition not available');
+      // Handle speech recognition not available
+    }
+  }
+
+  bool isSpeechRecognitionAvailable() {
+    try {
+      return _speech.isAvailable;
+    } catch (error) {
+      // Handle the error here (same as above)
+      print('Error checking speech recognition availability: $error');
+      return false;
+    }
+  }
+
+  void _publishMessage(String message) {
+    final builder = MqttClientPayloadBuilder();
+    builder.addString(message);
+    mqttClient.publishMessage(
+        'VoiceCommTea13', MqttQos.atMostOnce, builder.payload!);
+  }
+
+  void startSpeechRecognition() {
+    print('Starting speech recognition...');
+    _speech.listen(
+      onResult: (result) {
+        setState(() {
+          _text = result.recognizedWords;
+          print('Recognized text: $_text');
+          _publishMessage(_text); // Publish the recognized text to MQTT
+        });
+      },
+      listenFor: Duration(minutes: 1),
+      cancelOnError: true,
+    );
+  }
+
+  void stopSpeechRecognition() {
+    print('Stopping speech recognition...');
+    _speech.stop();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ColumnBloc(), // Créez une instance de votre bloc ici
+      create: (context) => ColumnBloc(),
       child: Scaffold(
         body: Column(
           children: [
@@ -308,7 +389,6 @@ class _HomeState extends State<Home> {
               ],
             ),
             const SizedBox(height: 120),
-
             Row(
               children: [
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),
@@ -363,7 +443,18 @@ class _HomeState extends State<Home> {
             child: FloatingActionButton(
               backgroundColor: Color(0xFF6900FF),
               shape: CircleBorder(),
-              onPressed: () {},
+              onPressed: () {
+                if (isSpeechRecognitionAvailable()) {
+                  _isListening
+                      ? stopSpeechRecognition()
+                      : startSpeechRecognition();
+                  setState(() {
+                    _isListening = !_isListening;
+                  });
+                } else {
+                  // Speech recognition not available, show error message or alternative
+                }
+              },
               child: Padding(
                 padding: const EdgeInsets.only(left: 7),
                 child: Image.asset(
@@ -397,4 +488,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  
 }

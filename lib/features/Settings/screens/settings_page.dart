@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:mqtt_client/mqtt_client.dart';
+import 'package:mqtt_client/mqtt_server_client.dart';
 import '../widgets/rectangle.dart';
 import '../widgets/rectangle3.dart';
 import '../widgets/rectangle4.dart';
@@ -11,24 +14,146 @@ import '../../HomePage/widgets/boutton/scence_boutton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_switch_team13/features/authentification/index.dart';
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key}) : super(key: key);
+
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  final stt.SpeechToText _speech = stt.SpeechToText();
+  bool _isListening = false;
+  String _text = '';
+  late MqttServerClient mqttClient;
+
+  @override
+  void initState() {
+    super.initState();
+    initializeSpeechRecognition();
+    _connectToMqtt();
+  }
+
+  void _connectToMqtt() async {
+    final String mqttServer = 'test.mosquitto.org'; // MQTT broker address
+    final int mqttPort = 1883; // MQTT broker port
+    final String clientId = 'Hannnine'; // Unique client ID
+
+    mqttClient = MqttServerClient(mqttServer, clientId);
+    mqttClient.port = mqttPort; // Set MQTT broker port
+
+    final MqttConnectMessage connectMessage = MqttConnectMessage()
+        .withClientIdentifier(clientId)
+        .startClean()
+        .keepAliveFor(60); // Keep alive interval in seconds
+
+    try {
+      await mqttClient.connect();
+      print('Connected to MQTT broker');
+    } catch (e) {
+      print('Failed to connect to MQTT broker: $e');
+      // Display an error message to the user, e.g., using a Snackbar
+    }
+  }
+
+  @override
+  void dispose() {
+    mqttClient.disconnect();
+    super.dispose();
+  }
+
+  void initializeSpeechRecognition() async {
+    print('Initializing speech recognition...');
+    bool isPermissionGranted = await getMicrophonePermission();
+    if (!isPermissionGranted) {
+      print('Microphone permission not granted');
+      // Request permission or display a message to the user indicating microphone access is required
+      return;
+    }
+
+    try {
+      await _speech.initialize(
+        onError: (error) {
+          print('Error initializing speech recognition: $error');
+          // Handle the error here, such as displaying a message to the user
+        },
+      );
+      print('Speech recognition initialized');
+    } catch (error) {
+      print('Speech recognition not available: $error');
+      // Display an error message to the user indicating speech recognition is not available
+    }
+  }
+
+  Future<bool> getMicrophonePermission() async {
+    print('Getting microphone permission...');
+    bool hasPermission = await _speech.initialize(
+      onError: (error) =>
+          print('Error initializing speech recognition: $error'),
+    );
+
+    if (!hasPermission) {
+      print('Microphone permission not granted');
+    }
+
+    return hasPermission;
+  }
+
+  Future<void> handlePermissionResponse(bool isPermissionGranted) async {
+    if (!isPermissionGranted) {
+      // Handle permission not granted
+    }
+  }
+
+  bool isSpeechRecognitionAvailable() {
+    try {
+      return _speech.isAvailable;
+    } catch (error) {
+      // Handle the error here (same as above)
+      print('Error checking speech recognition availability: $error');
+      return false;
+    }
+  }
+
+  void startSpeechRecognition() {
+    print('Starting speech recognition...');
+    _speech.listen(
+      onResult: (result) {
+        setState(() {
+          _text = result.recognizedWords;
+          print('Recognized text: $_text');
+          _publishMessage(_text); // Publish the recognized text to MQTT
+        });
+      },
+      listenFor: Duration(minutes: 1),
+      cancelOnError: true,
+    );
+  }
+
+  void stopSpeechRecognition() {
+    print('Stopping speech recognition...');
+    _speech.stop();
+  }
+
+  void _publishMessage(String message) {
+    final builder = MqttClientPayloadBuilder();
+    builder.addString(message);
+    mqttClient.publishMessage(
+        'VoiceCommTea13', MqttQos.atMostOnce, builder.payload!);
+  }
 
   @override
   Widget build(BuildContext context) {
     // Get the device screen width and height
-
     final screenHeight = MediaQuery.of(context).size.height;
 
     // Define the size of the image
     const imageSize = Size(183, 186.54);
 
-    // Calculate the position of the image
-
-// Define the percentage of the screen height for the image position
+    // Define the percentage of the screen height for the image position
     const imageYPercentage = 0.05; // Adjust as needed
 
-// Calculate the position of the image
+    // Calculate the position of the image
     final imageY = screenHeight * imageYPercentage;
 
     return Scaffold(
@@ -119,7 +244,16 @@ class SettingsPage extends StatelessWidget {
             backgroundColor: const Color(0xFF6900FF),
             shape: const CircleBorder(),
             onPressed: () {
-              //   Navigator.push(context, MaterialPageRoute(builder: (context) => next_homepage()));
+              if (isSpeechRecognitionAvailable()) {
+                _isListening
+                    ? stopSpeechRecognition()
+                    : startSpeechRecognition();
+                setState(() {
+                  _isListening = !_isListening;
+                });
+              } else {
+                // Speech recognition not available, show error message or alternative
+              }
             },
             child: Padding(
               padding: const EdgeInsets.only(left: 7),

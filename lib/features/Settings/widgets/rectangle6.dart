@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/changeLocation.dart';
+import '../screens/getstarted.dart';
 
 class Rectangle6 extends StatelessWidget {
   const Rectangle6({super.key});
@@ -17,7 +18,7 @@ class Rectangle6 extends StatelessWidget {
         // Navigate to AccountSettings screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ChangeLocation()),
+          MaterialPageRoute(builder: (context) => const GettingStarted()),
         );
       },
       child: Container(

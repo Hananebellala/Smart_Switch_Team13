@@ -31,6 +31,8 @@ dependencies:
   uuid: ^4.4.0
   flutter_rating_bar: ^4.0.1
   mailer: ^6.1.0
+  provider: ^6.1.2
+  awesome_notifications: ^0.9.3+1
 
 dev_dependencies:
   flutter_test:
@@ -41,7 +43,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "images/logo.png"
+  image_path: "images/logonew.png"
 
 flutter:
   uses-material-design: true
@@ -103,3 +105,8 @@ flutter:
     - images/Contact us-bro 1.png
     - images/vide.png
     - images/Reminders-bro.png
+    - images/logonew.png
+    - images/discord.png
+    - images/facebook.png
+    - images/gmail.png
+    - images/instagram.png

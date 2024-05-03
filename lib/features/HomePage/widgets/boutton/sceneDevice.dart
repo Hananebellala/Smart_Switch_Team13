@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:uuid/uuid.dart';
@@ -82,44 +84,34 @@ class _On_offState extends State<On_Off_Scene> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        // Icon and button row
-        const SizedBox(width: 15),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: SizedBox(
-            height: 60,
-            width: 60,
-            child: Center(
-              child: Image.asset(
-                'icon/${_isOn ? 'tvOn' : 'tvOff'}.ico',
-                height: 40,
-                width: 40,
-              ),
+        Row(
+          children: [
+            // Icon and button row
+            const SizedBox(width: 15),
+
+            const SizedBox(width: 15),
+            Switch(
+              value: _isOn,
+              onChanged: (newValue) {
+                _toggleTvState();
+              },
+              activeColor:
+                  const Color(0xFFA58BFF), // Active color (when switch is on)
+              inactiveThumbColor:
+                  const Color(0xFFFAF7FF), // Thumb color (when switch is off)
+              inactiveTrackColor: Colors.black
+                  .withOpacity(0.2), // Track color (when switch is off)
             ),
-          ),
+          ],
         ),
         const SizedBox(width: 15),
-        Switch(
-          value: _isOn,
-          onChanged: (newValue) {
-            _toggleTvState();
-          },
-          activeColor:
-              const Color(0xFFA58BFF), // Active color (when switch is on)
-          inactiveThumbColor:
-              const Color(0xFFFAF7FF), // Thumb color (when switch is off)
-          inactiveTrackColor:
-              Colors.black.withOpacity(0.2), // Track color (when switch is off)
-        ),
+        const SizedBox(height: 15),
       ],
     );
   }
 }
-
-
-
 
 class SceneDevice extends StatefulWidget {
   final String deviceName;
@@ -137,14 +129,58 @@ class SceneDevice extends StatefulWidget {
 
 class _SceneDeviceState extends State<SceneDevice> {
   late bool _isOn;
-  bool _isChecked = false;
+  late bool _isChecked;
 
   @override
-  void initState() {
+  /*void initState() {
     super.initState();
     _isOn =
         widget.isChecked; // Initialize _isOn with the provided isChecked value
     _isChecked = false; // Initial state for the check circle is unchecked
+  }*/
+  void initState() {
+    super.initState();
+    _loadCheckedState();
+
+    _loadisOnState();
+  }
+
+  Future<void> _loadCheckedState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isChecked = prefs.getBool(_getUniqueKey()) ?? false;
+    });
+  }
+
+  Future<void> _saveCheckedState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_getUniqueKey(), value);
+  }
+
+  String _getUniqueKey() {
+    // Utilisez le nom ou l'identifiant de la case comme clé unique
+    return 'isChecked_${widget.deviceName}';
+  }
+  /* void initState() {
+    super.initState();
+    _loadCheckedState();
+  }*/
+
+  Future<void> _loadisOnState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isOn = prefs.getBool(_getUniqueKey2()) ?? false;
+    });
+  }
+
+  Future<void> _saveisOnState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_getUniqueKey2(), value);
+  }
+
+  String _getUniqueKey2() {
+    // Utilisez le nom ou l'identifiant de la case comme clé unique
+    return 'isOn_${widget.deviceName}';
   }
 
   @override
@@ -194,6 +230,7 @@ class _SceneDeviceState extends State<SceneDevice> {
                 setState(() {
                   _isChecked = !_isChecked;
                 });
+                _saveCheckedState(_isChecked);
               },
               child: Container(
                 width: 32, // Adjust size as needed
