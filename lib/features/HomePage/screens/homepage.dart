@@ -427,6 +427,7 @@ class _HomeState extends State<Home> {
                 children: [
                   Insert(
                     showButtons: false,
+                    showlist: true,
                     maxBoxesToShow: 2,
                     maxBoxesPerColumn1: 2,
                     maxBoxesPerColumn2: 1,

@@ -1,31 +1,89 @@
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:uuid/uuid.dart';
 
-// ignore: camel_case_types
+
 class on_off_lampe extends StatefulWidget {
+  final int id;
   final String code;
-  const on_off_lampe({required this.code});
+  final bool isLampOn;
+  final String lampIcon;
+  final bool malak;
+
+  const on_off_lampe(
+      {required this.id,
+      required this.code,
+      required this.isLampOn,
+      required this.lampIcon,
+      required this.malak});
 
   @override
-  State<on_off_lampe> createState() => _on_off_lampeState();
+  State<on_off_lampe> createState() =>
+      _on_off_lampeState(isLampOn: isLampOn, lampIcon: lampIcon, malak: malak);
 }
 
-// ignore: camel_case_types
 class _on_off_lampeState extends State<on_off_lampe> {
-  late String _lampIcon;
-
+  late String lampIcon;
   late bool isLampOn;
+  final bool malak;
+
   late MqttServerClient mqttClient;
+
+  _on_off_lampeState(
+      {required this.isLampOn, required this.lampIcon, required this.malak});
 
   @override
   void initState() {
     super.initState();
-    _lampIcon = 'icon/lampe.ico'; // Initial state is 'off'
-    isLampOn = false; // Initial state is 'off'
+    if (malak) {
+      isLampOn = false;
+      lampIcon = 'icon/lampe.ico';
+      _saveisLampOnState(isLampOn);
+      _saveLampIconState(lampIcon);
+    } else {
+      _loadLampIconState();
+      _loadisLampOnState();
+      _loadLampIconState();
+    }
+
     _connectToMqtt();
+  }
+
+  Future<void> _loadisLampOnState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isLampOn = prefs.getBool(_getUniqueKey()) ?? false;
+    });
+  }
+
+  Future<void> _saveisLampOnState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_getUniqueKey(), value);
+  }
+
+  String _getUniqueKey() {
+    // Utilisez le nom ou l'identifiant de la case comme clé unique
+    return 'isLampOn_${widget.id}';
+  }
+
+  Future<void> _loadLampIconState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      lampIcon = prefs.getString(_getUniqueKey2()) ?? 'icon/lampe.ico';
+    });
+  }
+
+  Future<void> _saveLampIconState(String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_getUniqueKey2(), value);
+  }
+
+  String _getUniqueKey2() {
+    // Utilisez le nom ou l'identifiant de la case comme clé unique
+    return 'lampIcon_${widget.id}';
   }
 
   void _connectToMqtt() async {
@@ -45,26 +103,33 @@ class _on_off_lampeState extends State<on_off_lampe> {
     }
   }
 
-  void _toggleLampState() {
+  void _toggleLampState(bool newState, String code) {
     if (mqttClient.connectionStatus != null &&
         mqttClient.connectionStatus!.state == MqttConnectionState.connected) {
       print('MQTT client is connected. Toggling lamp state...');
       setState(() {
-        isLampOn = !isLampOn;
-        if (isLampOn) {
-          _lampIcon = 'icon/lampeOn.ico';
-          _publishMessage('ON');
+        if (malak) {
+          isLampOn = false;
         } else {
-          _lampIcon = 'icon/lampe.ico';
-          _publishMessage('OFF');
+          isLampOn = newState;
         }
+
+        if (isLampOn) {
+          lampIcon = 'icon/lampeOn.ico';
+          _publishMessage('ON', code);
+        } else {
+          lampIcon = 'icon/lampe.ico';
+          _publishMessage('OFF', code);
+        }
+        _saveisLampOnState(isLampOn);
+        _saveLampIconState(lampIcon);
       });
     } else {
       print('MQTT client is not connected.');
     }
   }
 
-  void _publishMessage(String message) {
+  void _publishMessage(String message, String code) {
     print('Publishing message: $message');
     final builder = MqttClientPayloadBuilder();
     builder.addString(message);
@@ -72,14 +137,13 @@ class _on_off_lampeState extends State<on_off_lampe> {
     if (mqttClient.connectionStatus!.state == MqttConnectionState.connected) {
       try {
         mqttClient.publishMessage(
-          'projet13/lampe1',
+          code,
           MqttQos.atMostOnce,
           builder.payload!,
         );
 
         print('Message published successfully');
       } catch (e) {
-        // Failed to publish message
         print('Failed to publish message: $e');
       }
     } else {
@@ -88,33 +152,27 @@ class _on_off_lampeState extends State<on_off_lampe> {
   }
 
   @override
-  void dispose() {
-    mqttClient.disconnect();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Icon and button row
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Image.asset(
-            _lampIcon,
-            height: 65,
-            width: 65,
-          ),
-        ),
         const SizedBox(width: 15),
         Switch(
           value: isLampOn,
           onChanged: (newValue) {
-            _toggleLampState();
+            _toggleLampState(newValue, widget.code);
           },
           activeColor: const Color(0xFFA58BFF),
           inactiveThumbColor: const Color(0xFFFAF7FF),
           inactiveTrackColor: Colors.black.withOpacity(0.2),
+        ),
+        const SizedBox(width: 15),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Image.asset(
+            lampIcon,
+            height: 65,
+            width: 65,
+          ),
         ),
       ],
     );

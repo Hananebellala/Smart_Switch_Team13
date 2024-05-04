@@ -18,7 +18,7 @@ class Rectangle6 extends StatelessWidget {
         // Navigate to AccountSettings screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const GettingStarted()),
+          MaterialPageRoute(builder: (context) => const ChangeLocation()),
         );
       },
       child: Container(

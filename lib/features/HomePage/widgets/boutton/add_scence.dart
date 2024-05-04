@@ -152,7 +152,8 @@ class _AddScenceState extends State<AddScence> {
                           child: InfoBox(
                             initialValue: '',
                             onChanged: (newValue) {
-                              paired_device = updateInputValue(newValue);
+                              paired_device = updateInputValue(
+                                  newValue); // Update the paired_device variable with the new value
                               print(paired_device);
                             },
                           ),
@@ -182,7 +183,7 @@ class _AddScenceState extends State<AddScence> {
                                 widget.updatePairedDevice(paired_device);
                                 widget.updateDeviceType(device_type);
                                 widget.onPressed(newBoxNumber, device_type,
-                                    device_name, device_type);
+                                    device_name, paired_device);
                                 _refreshScenePage(context);
 
 //Navigator.push(context, MaterialPageRoute(builder: (context) => scencepage()));

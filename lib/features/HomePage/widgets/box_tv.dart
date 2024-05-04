@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'on_off_tv.dart';
 import '../screens/add_new_device.dart';
-import 'package:mqtt_client/mqtt_client.dart';
-import 'package:mqtt_client/mqtt_server_client.dart';
+
 
 /********************************************************box  ********************************************************************* */
 // ignore: camel_case_types
 class Box_tv extends StatelessWidget {
   // const Box({super.key});
 
+   final int  Xid;
+   final String  etat;
   final String name;
   final String Xcode;
+  final bool malak ;
   final Function() onDelete;
+ //final Function(String) updateBoxetat;
 
-  Box_tv({required this.name, required this.Xcode, required this.onDelete});
+  Box_tv({required this.Xid,required this.etat,required this.name, required this.Xcode, required this.onDelete,
+  //required this.updateBoxetat,
+  required this.malak});
   final on = true;
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +60,12 @@ class Box_tv extends StatelessWidget {
             child: Column(
               children: [
                 On_off_tv(
+                  id:Xid,
                     code: Xcode,
-                    isActivated:
-                        false), // Assuming you have defined this widget
+                    isActivated: etat=='OFF' ?false :true,
+                    tvIcon:etat=='OFF' ?'icon/tvOff.ico':'icon/tvOn.ico',
+                    
+                    malak:malak,), // Assuming you have defined this widget
                 SizedBox(height: 8),
                 Row(
                   children: [
@@ -100,3 +109,8 @@ class Box_tv extends StatelessWidget {
     );
   }
 }
+
+
+
+
+

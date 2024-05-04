@@ -48,7 +48,7 @@ class _next_homepageState extends State<next_homepage> {
                         height: 50,
                         width: MediaQuery.of(context).size.width * 0.6,
                         alignment: Alignment.bottomLeft,
-                        child: const Text('Connected Device', style: TextStyle(fontSize: 23)),
+                        child: const Text('Connected Devices', style: TextStyle(fontSize: 23)),
                       ),
                     ],
                   ),

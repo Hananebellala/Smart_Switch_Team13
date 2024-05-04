@@ -6,10 +6,11 @@ import '../widgets/boutton/home_boutton.dart';
 import '../widgets/boutton/paramettre_boutton.dart';
 import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
-import '../widgets/boutton/add_scence.dart';
+import '../widgets/ajouter_box.dart';
 import '../widgets/ajouter_box.dart';
 
-
+//import '../widgets/essay.dart';
+//import '../widgets/listescene.dart';
 
 
 class scencepage extends StatefulWidget {
@@ -85,8 +86,9 @@ class _scencepageState extends State<scencepage> {
               child: ListView(
                 children: [
                  
-               // Insert(),
-       
+                Insert(show:true ,showButtons: false,showlist: false,),
+                 //Insert3(),
+
                 ],
               ),
             ),
