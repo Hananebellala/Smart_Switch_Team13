@@ -218,7 +218,8 @@ import '../widgets/boutton/home_boutton.dart';
 import '../widgets/boutton/paramettre_boutton.dart';
 import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
-import '../widgets/boutton/add_scence.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 import '../widgets/ajouter_box.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -231,10 +232,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Future<void> _refreshData() async {}
+  String _username = 'User';
+
   late stt.SpeechToText _speech;
   bool _isListening = false;
   String _text = '';
   late MqttServerClient mqttClient;
+
+  
 
   @override
   void initState() {
@@ -242,7 +248,29 @@ class _HomeState extends State<Home> {
     _speech = stt.SpeechToText(); // Initialize _speech here
     initializeSpeechRecognition();
     _connectToMqtt();
+    _loadUsername();
+    
   }
+
+
+
+  Future<void> _loadUsername() async {
+    final Database database = await openDatabase(
+      join(await getDatabasesPath(), 'my_database.db'),
+      version: 1,
+    );
+
+
+    final List<Map<String, dynamic>> users = await database.rawQuery('SELECT * FROM users');
+
+
+    if (users.isNotEmpty) {
+      setState(() {
+        _username = users.first['username'];
+      });
+    }
+  }
+
 
   void _connectToMqtt() async {
     final String mqttServer = 'test.mosquitto.org'; // MQTT broker address
@@ -340,8 +368,8 @@ class _HomeState extends State<Home> {
                       SizedBox(
                         height: 30,
                         width: MediaQuery.of(context).size.width * 0.6,
-                        child: const Text(
-                          'User',
+                        child: Text(
+                          ' $_username',
                           style: TextStyle(
                             fontSize: 20,
                           ),
@@ -489,6 +517,4 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
-  
 }
