@@ -1,64 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 class Username extends StatefulWidget {
   final TextEditingController controller;
-  const Username({Key? key, required this.controller});
+  const Username({super.key, required this.controller});
 
   @override
+  // ignore: library_private_types_in_public_api
   _UsernameState createState() => _UsernameState();
 }
 
 class _UsernameState extends State<Username> {
   late FocusNode _focusNode;
-  late TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
-    _controller = TextEditingController();
-
   }
 
-  
   @override
   void dispose() {
     _focusNode.dispose();
-    _controller.dispose();
     super.dispose();
   }
-
-
-  Future<void> _saveUsername(String username) async {
-    // Ouvrir la base de données
-    final Database database = await openDatabase(
-      join(await getDatabasesPath(), 'my_database.db'),
-      onCreate: (db, version) {
-        return db.execute(
-          'CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY, username TEXT)',
-        );
-      },
-      version: 1,
-    );
-
-
-    // Insérer ou mettre à jour le nom d'utilisateur
-    await database.transaction((txn) async {
-      await txn.rawInsert(
-        'INSERT OR REPLACE INTO users(id, username) VALUES(?, ?)',
-        [1, username],
-      );
-    });
-  }
-
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       focusNode: _focusNode,
-      controller: _controller,
+      controller: widget.controller,
       decoration: InputDecoration(
         filled: true,
         fillColor: const Color(0xFFFFFAFA),
@@ -77,18 +47,11 @@ class _UsernameState extends State<Username> {
             const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w300),
       ),
       onChanged: (value) {
-
-        _saveUsername(value);
-        // Update the value in the controller
-        widget.controller.text = value;
-        // Save the username to the database
-        
         setState(() {}); // Trigger rebuild to maintain focus
       },
     );
   }
 }
-
 
 class EmailField extends StatefulWidget {
   final TextEditingController controller;
