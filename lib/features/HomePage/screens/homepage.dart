@@ -212,6 +212,7 @@ import 'package:smart_switch_team13/features/HomePage/widgets/box_lampe.dart';
 import 'package:smart_switch_team13/features/weather/Pages/weather_page.dart';
 import 'package:smart_switch_team13/features/Settings/screens/notification.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:image_picker/image_picker.dart';
 
 import 'next_homepage.dart';
 
@@ -227,10 +228,20 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 class Home extends StatefulWidget {
   final String message;
-  Home({Key? key, this.message = 'User'}) : super(key: key);
+  final bool test;
+  final String photo;
+  final bool testphoto;
+  Home(
+      {Key? key,
+      this.message = 'User',
+      this.test = false,
+      this.photo = '',
+      this.testphoto = false})
+      : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState(userEmail: message);
+  State<Home> createState() => _HomeState(
+      userEmail: message, test: test, imagePath: photo, testphoto: testphoto);
 }
 
 class _HomeState extends State<Home> {
@@ -242,9 +253,14 @@ class _HomeState extends State<Home> {
   Future<void> _refreshData() async {}
 
   late String userEmail = 'Hanane';
-  _HomeState({
-    required this.userEmail,
-  });
+  late String imagePath;
+  final bool test;
+  final bool testphoto;
+  _HomeState(
+      {required this.userEmail,
+      required this.test,
+      required this.imagePath,
+      required this.testphoto});
 
   @override
   void initState() {
@@ -253,16 +269,27 @@ class _HomeState extends State<Home> {
     initializeSpeechRecognition();
     _connectToMqtt();
     _loadUser2State();
+    _loadImagePath();
+  }
+
+  Future<void> _loadUser1State() async {
+    _loadUser2State();
   }
 
   Future<void> _loadUser2State() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      userEmail = prefs.getString(_getUniqueKey()) ?? widget.message;
+      if (test) {
+        userEmail = widget.message;
+        _saveUser1State(userEmail);
+      } else {
+        userEmail = prefs.getString(_getUniqueKey()) ?? widget.message;
+        _saveUser1State(userEmail);
+      }
     });
   }
 
-  Future<void> _saveUser2State(String value) async {
+  Future<void> _saveUser1State(String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(_getUniqueKey(), value);
   }
@@ -339,6 +366,24 @@ class _HomeState extends State<Home> {
     _speech.stop();
   }
 
+  Future<void> _loadImagePath() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (!testphoto) {
+      setState(() {
+        imagePath = prefs.getString('user_image') ?? '';
+      });
+      _saveImageState(imagePath);
+    } else {
+      imagePath = 'image/user_male.png';
+      _saveImageState(imagePath);
+    }
+  }
+
+  Future<void> _saveImageState(String imagePath) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_image', imagePath);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -346,7 +391,7 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         body: Column(
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 60),
             Row(
               children: [
                 Container(
@@ -361,7 +406,7 @@ class _HomeState extends State<Home> {
                         child: const Text(
                           'Hey there,',
                           style: TextStyle(
-                            fontSize: 23,
+                            fontSize: 33,
                           ),
                         ),
                       ),
@@ -380,26 +425,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.1),
-                Container(
-                  height: 40,
-                  alignment: Alignment.bottomCenter,
-                  width: MediaQuery.of(context).size.width * 0.11,
-                  child: IconButton(
-                    icon: Image.asset(
-                      'icon/notifcations.ico',
-                      height: 25,
-                      width: 25,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NotificationScreen()),
-                      );
-                      _saveUser2State(userEmail);
-                    },
-                  ),
-                ),
+                SizedBox(width: 20),
                 Container(
                   height: 40,
                   alignment: Alignment.bottomCenter,
@@ -409,11 +435,7 @@ class _HomeState extends State<Home> {
                   child: CircleAvatar(
                     backgroundColor: Colors.yellow,
                     radius: 30,
-                    child: IconButton(
-                      icon: const Icon(Icons.person,
-                          color: Color(0xFF6900FF), size: 30.0),
-                      onPressed: () {},
-                    ),
+                    child: Image.asset(imagePath, fit: BoxFit.cover),
                   ),
                 ),
               ],
@@ -426,7 +448,13 @@ class _HomeState extends State<Home> {
                   height: 50,
                   width: MediaQuery.of(context).size.width * 0.45,
                   alignment: Alignment.centerLeft,
-                  child: const Text('Connected Devices'),
+                  child: const Text(
+                    'Connected Devices',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 Container(
                   height: 50,
@@ -445,6 +473,8 @@ class _HomeState extends State<Home> {
                       'See all',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
+                        fontSize: 20,
+                        //fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -520,4 +550,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-

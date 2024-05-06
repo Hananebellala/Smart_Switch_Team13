@@ -150,7 +150,7 @@ class SignupButton extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                     Home(message :usernameController.text), // Replace Home() with your home screen widget
+                     Home(message :usernameController.text,test:true), // Replace Home() with your home screen widget
               ),
             );
           } on FirebaseAuthException catch (e) {

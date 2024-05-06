@@ -72,7 +72,7 @@ class Box_tv extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Smart Tv',
+                        'Smart TV',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.black, // Black text
