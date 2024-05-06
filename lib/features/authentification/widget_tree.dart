@@ -19,7 +19,7 @@ class WidgetTree extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Poppins',
       ),
-      home: user != null ? const Home() : const GettingStarted(),
+      home: user != null ?  Home() : const GettingStarted(),
     );
   }
 }

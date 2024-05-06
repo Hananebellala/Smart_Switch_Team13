@@ -209,6 +209,7 @@ class Home extends StatelessWidget {
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_switch_team13/features/HomePage/widgets/box_lampe.dart';
+import 'package:smart_switch_team13/features/weather/Pages/weather_page.dart';
 import 'package:smart_switch_team13/features/Settings/screens/notification.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -221,13 +222,15 @@ import '../widgets/boutton/scence_boutton.dart';
 import '../widgets/boutton/add_scence.dart';
 import '../widgets/ajouter_box.dart';
 import 'package:mqtt_client/mqtt_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final String message;
+  Home({Key? key, this.message = 'User'}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Home> createState() => _HomeState(userEmail: message);
 }
 
 class _HomeState extends State<Home> {
@@ -236,12 +239,37 @@ class _HomeState extends State<Home> {
   String _text = '';
   late MqttServerClient mqttClient;
 
+  Future<void> _refreshData() async {}
+
+  late String userEmail = 'Hanane';
+  _HomeState({
+    required this.userEmail,
+  });
+
   @override
   void initState() {
     super.initState();
     _speech = stt.SpeechToText(); // Initialize _speech here
     initializeSpeechRecognition();
     _connectToMqtt();
+    _loadUser2State();
+  }
+
+  Future<void> _loadUser2State() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userEmail = prefs.getString(_getUniqueKey()) ?? widget.message;
+    });
+  }
+
+  Future<void> _saveUser2State(String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_getUniqueKey(), value);
+  }
+
+  String _getUniqueKey() {
+    // Utilisez le nom ou l'identifiant de la case comme clé unique
+    return '';
   }
 
   void _connectToMqtt() async {
@@ -331,7 +359,7 @@ class _HomeState extends State<Home> {
                         width: MediaQuery.of(context).size.width * 0.6,
                         alignment: Alignment.bottomLeft,
                         child: const Text(
-                          'Good Morning,',
+                          'Hey there,',
                           style: TextStyle(
                             fontSize: 23,
                           ),
@@ -340,13 +368,14 @@ class _HomeState extends State<Home> {
                       SizedBox(
                         height: 30,
                         width: MediaQuery.of(context).size.width * 0.6,
-                        child: const Text(
-                          'User',
+                        child: Text(
+                          ' $userEmail',
                           style: TextStyle(
                             fontSize: 20,
                           ),
                         ),
                       ),
+                      //WeatherPage(), // Here's where you add the WeatherPage widget
                     ],
                   ),
                 ),
@@ -367,6 +396,7 @@ class _HomeState extends State<Home> {
                         MaterialPageRoute(
                             builder: (context) => NotificationScreen()),
                       );
+                      _saveUser2State(userEmail);
                     },
                   ),
                 ),
@@ -489,6 +519,5 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
-  
 }
+

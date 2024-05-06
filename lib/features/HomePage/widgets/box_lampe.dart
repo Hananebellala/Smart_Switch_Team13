@@ -6,16 +6,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /********************************************************box  ********************************************************************* */
 class Box_lampe extends StatelessWidget {
-  final int  Xid;
+  final int Xid;
   final String etat;
   final String name;
   final String Xcode;
   final bool malak;
   final Function() onDelete;
   //final Function() update;
-  Box_lampe({required this.Xid,required this.etat,required this.name, required this.Xcode, required this.onDelete,required this.malak
-  //required this.update
-  });
+  Box_lampe(
+      {required this.Xid,
+      required this.etat,
+      required this.name,
+      required this.Xcode,
+      required this.onDelete,
+      required this.malak
+      //required this.update
+      });
   var on = true;
 
   @override
@@ -23,11 +29,7 @@ class Box_lampe extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => cancel_box(
-                      onDelete: onDelete,
-                    )));
+            context, MaterialPageRoute(builder: (context) => MyApp()));
       },
       child: Column(
         children: [
@@ -65,12 +67,13 @@ class Box_lampe extends StatelessWidget {
               children: [
                 // SizedBox(height:40),
                 on_off_lampe(
-                    id:Xid,
-                    code:Xcode,
-                    isLampOn: etat=='OFF' ?true :true,
-                    lampIcon: etat=='OFF' ?'icon/lampe.ico':'icon/lampeOn.ico',
-                    malak:malak,
-                    ), // qui va controler l icon on/off et envoyer des message a base de donenr
+                  id: Xid,
+                  code: Xcode,
+                  isLampOn: etat == 'OFF' ? true : true,
+                  lampIcon:
+                      etat == 'OFF' ? 'icon/lampe.ico' : 'icon/lampeOn.ico',
+                  malak: malak,
+                ), // qui va controler l icon on/off et envoyer des message a base de donenr
                 const SizedBox(height: 8),
                 const Row(
                   children: [

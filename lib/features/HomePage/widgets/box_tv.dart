@@ -2,36 +2,35 @@ import 'package:flutter/material.dart';
 import 'on_off_tv.dart';
 import '../screens/add_new_device.dart';
 
-
 /********************************************************box  ********************************************************************* */
 // ignore: camel_case_types
 class Box_tv extends StatelessWidget {
   // const Box({super.key});
 
-   final int  Xid;
-   final String  etat;
+  final int Xid;
+  final String etat;
   final String name;
   final String Xcode;
-  final bool malak ;
+  final bool malak;
   final Function() onDelete;
- //final Function(String) updateBoxetat;
+  //final Function(String) updateBoxetat;
 
-  Box_tv({required this.Xid,required this.etat,required this.name, required this.Xcode, required this.onDelete,
-  //required this.updateBoxetat,
-  required this.malak});
+  Box_tv(
+      {required this.Xid,
+      required this.etat,
+      required this.name,
+      required this.Xcode,
+      required this.onDelete,
+      //required this.updateBoxetat,
+      required this.malak});
   final on = true;
-
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => cancel_box(
-                      onDelete: onDelete,
-                    )));
+            context, MaterialPageRoute(builder: (context) => CancelBox()));
       },
       child: Column(
         children: [
@@ -60,12 +59,12 @@ class Box_tv extends StatelessWidget {
             child: Column(
               children: [
                 On_off_tv(
-                  id:Xid,
-                    code: Xcode,
-                    isActivated: etat=='OFF' ?false :true,
-                    tvIcon:etat=='OFF' ?'icon/tvOff.ico':'icon/tvOn.ico',
-                    
-                    malak:malak,), // Assuming you have defined this widget
+                  id: Xid,
+                  code: Xcode,
+                  isActivated: etat == 'OFF' ? false : true,
+                  tvIcon: etat == 'OFF' ? 'icon/tvOff.ico' : 'icon/tvOn.ico',
+                  malak: malak,
+                ), // Assuming you have defined this widget
                 SizedBox(height: 8),
                 Row(
                   children: [
@@ -109,8 +108,3 @@ class Box_tv extends StatelessWidget {
     );
   }
 }
-
-
-
-
-

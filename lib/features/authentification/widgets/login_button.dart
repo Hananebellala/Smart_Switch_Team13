@@ -56,7 +56,7 @@ class LoginButton extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        const Home()), // Replace HomeScreen() with the appropriate screen
+                         Home()), // Replace HomeScreen() with the appropriate screen
               );
             } else {
               // Show an error message if authentication fails
@@ -150,7 +150,7 @@ class SignupButton extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    const Home(), // Replace Home() with your home screen widget
+                     Home(message :usernameController.text), // Replace Home() with your home screen widget
               ),
             );
           } on FirebaseAuthException catch (e) {
