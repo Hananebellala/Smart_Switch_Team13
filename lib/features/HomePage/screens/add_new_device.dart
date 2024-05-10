@@ -7,6 +7,8 @@ import 'package:uuid/uuid.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CancelBox extends StatefulWidget {
+  final Function() onDelete;
+  CancelBox({required this.onDelete});
   @override
   _CancelBoxState createState() => _CancelBoxState();
 }
@@ -74,27 +76,37 @@ class _CancelBoxState extends State<CancelBox> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            _deleteBox();
+                        ElevatedButton(
+                          onPressed: () {
+                            _deleteBox(); // Retour à la page précédente (scencepage)
                           },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xFFA58BFF),
+                            ), // Set button background color
+                            elevation: MaterialStateProperty.all<double>(
+                                0), // Set elevation to 0
+                            shadowColor: MaterialStateProperty.all<Color>(
+                              Colors.transparent,
+                            ), // Set shadow color to transparent
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ), // Set button border radius
+                          ),
                           child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFA58BFF),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              padding:
-                                  EdgeInsets.fromLTRB(16.8, 10.5, 16.8, 10.5),
-                              child: Text(
-                                'Delete',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18,
-                                  height: 1,
-                                  letterSpacing: 0.1,
-                                  color: const Color(0xFFFFFAFA),
-                                ),
+                            padding:
+                                EdgeInsets.fromLTRB(16.8, 10.5, 16.8, 10.5),
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                                height: 1,
+                                letterSpacing: 0.1,
+                                color: const Color(0xFFFFFAFA),
                               ),
                             ),
                           ),
@@ -112,7 +124,7 @@ class _CancelBoxState extends State<CancelBox> {
                             ),
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 10.5, horizontal: 20),
+                                  vertical: 12, horizontal: 20),
                               child: Text(
                                 'Save',
                                 style: TextStyle(
@@ -144,7 +156,7 @@ class _CancelBoxState extends State<CancelBox> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Confirmation"),
-          content: Text("Are you sure you want to delete this box?"),
+          content: Text("Are you sure you want to delete this device?"),
           actions: <Widget>[
             TextButton(
               child: Text("Cancel"),
@@ -156,7 +168,7 @@ class _CancelBoxState extends State<CancelBox> {
               child: Text("Delete"),
               onPressed: () {
                 // Perform deletion logic here
-                Navigator.of(context).pop(); // Close the dialog
+                widget.onDelete(); // Appel de la fonction onDelete
                 Navigator.pop(context); // Navigate back to the previous screen
               },
             ),
@@ -254,50 +266,29 @@ class _On_Off_SceneState extends State<On_Off_Scene> {
   }
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+class CancelBox1 extends StatefulWidget {
+  final Function() onDelete;
+  CancelBox1({required this.onDelete});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSwatch().copyWith(secondary: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(),
-    );
-  }
+  _CancelBox1State createState() => _CancelBox1State();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _CancelBox1State extends State<CancelBox1> {
   bool _isSwitchOn = false; // Track the state of the switch
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-      ),
+      backgroundColor: Color(0xFFFFFAFA),
       body: SingleChildScrollView(
         child: Container(
-          color: const Color(0xFFFFFAFA),
-          padding: const EdgeInsets.fromLTRB(16, 120, 1, 145),
+          padding: EdgeInsets.fromLTRB(17, 120, 0, 145),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: const EdgeInsets.fromLTRB(1, 0, 1, 112),
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
@@ -313,66 +304,30 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.fromLTRB(0, 0, 0, 181.3),
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 60, 0, 0),
-                            child: On_Off_Scene(
-                              code: 'YourCodeHere',
-                              isActivated: true,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  _isSwitchOn = value;
-                                });
-                              },
-                            ),
-                          ),
-                          Container(
-                            width: 170.77,
-                            height: 180.69,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage('images/s-l640 1.png'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (_isSwitchOn) // Conditionally render the image based on switch state
-                      Positioned(
-                        right: 15,
-                        bottom: -120,
-                        child: Opacity(
-                          opacity: 0.5,
-                          child: SizedBox(
-                            width: 143,
-                            height: 121,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage('images/vector_246_x2.png'),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
+                margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                child: OnOffTv(
+                  isActivated: _isSwitchOn,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _isSwitchOn = value;
+                    });
+                  },
+                ),
+              ),
+              Center(
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(0, 80, 0, 20),
+                  child: SizedBox(
+                    width: 300,
+                    height: 241.9,
+                    child: _isSwitchOn
+                        ? Image.asset('images/light.png')
+                        : Image.asset('images/lighon.png'),
+                  ),
                 ),
               ),
               Container(
-                margin: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+                margin: EdgeInsets.fromLTRB(25, 100, 30, 400),
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: SizedBox(
@@ -381,31 +336,37 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            _deleteBox();
+                        ElevatedButton(
+                          onPressed: () {
+                            _deleteBox(); // Retour à la page précédente (scencepage)
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFA58BFF),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.fromLTRB(
-                                16.8,
-                                10.5,
-                                16.8,
-                                10.5,
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xFFA58BFF),
+                            ), // Set button background color
+                            elevation: MaterialStateProperty.all<double>(
+                                0), // Set elevation to 0
+                            shadowColor: MaterialStateProperty.all<Color>(
+                              Colors.transparent,
+                            ), // Set shadow color to transparent
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Text(
-                                'Delete',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18,
-                                  height: 1,
-                                  letterSpacing: 0.1,
-                                  color: const Color(0xFFFFFAFA),
-                                ),
+                            ), // Set button border radius
+                          ),
+                          child: Container(
+                            padding:
+                                EdgeInsets.fromLTRB(16.8, 10.5, 16.8, 10.5),
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                                height: 1,
+                                letterSpacing: 0.1,
+                                color: const Color(0xFFFFFAFA),
                               ),
                             ),
                           ),
@@ -423,9 +384,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                vertical: 10.5,
-                                horizontal: 20,
-                              ),
+                                  vertical: 12, horizontal: 20),
                               child: Text(
                                 'Save',
                                 style: TextStyle(
@@ -457,7 +416,7 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Confirmation"),
-          content: Text("Are you sure you want to delete this box?"),
+          content: Text("Are you sure you want to delete this device?"),
           actions: <Widget>[
             TextButton(
               child: Text("Cancel"),
@@ -469,7 +428,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text("Delete"),
               onPressed: () {
                 // Perform deletion logic here
-                Navigator.of(context).pop(); // Close the dialog
+                widget.onDelete(); // Appel de la fonction onDelete
                 Navigator.pop(context); // Navigate back to the previous screen
               },
             ),
@@ -478,8 +437,4 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
-}
-
-void main() {
-  runApp(const MyApp());
 }

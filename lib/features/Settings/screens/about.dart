@@ -168,9 +168,9 @@ class _AboutState extends State {
                   ),
                 ],
               ),
-              const SizedBox(height: 100), // Additional space
+              const SizedBox(height: 70), // Additional space
               const Text(
-                'Lorem ipsum dolor sit amet consectetur. Euismod suspendisse sed maecenas in euismod elit senectus sit. Velit arcu volutpat parturient diam amet leo et. Pretium odio sed proin vitae at nunc mi etiam magnis. Amet convallis mauris habitant curabitur sagittis feugiat in diam sed.',
+                'Switch It is a mobile application designed for both Android and iOS users, developed with Flutter. It serves as a control hub for the Switch It smart switch, allowing you to manage it whether you are nearby or remotely. With Switch It, you can effortlessly add or remove devices connected to the smart switch, individually control each device, or activate them all at once. The app also features voice command capability, enabling you to control your household devices simply by speaking commands into the app.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Poppins',
@@ -222,21 +222,38 @@ class _AboutState extends State {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: PreferredSize(
-          preferredSize: Size.fromHeight(100.0),
-          child: Row(
-            children: <Widget>[
-              SizedBox(width: 10),
-              Home_boutton(pathIcon: 'icon/home.ico'),
-              SizedBox(width: 30),
-              Controle_boutton(pathIcon: 'icon/controle.ico'),
-              SizedBox(width: 90),
-              Scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
-              SizedBox(width: 30),
-              Paramettre_boutton(pathIcon: 'icon/Setting.ico'),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.15),
+                blurRadius: 10,
+                offset: Offset(0, -4),
+              ),
             ],
+          ),
+          child: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            child: PreferredSize(
+              preferredSize: Size.fromHeight(100.0),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 10),
+                  Home_boutton(pathIcon: 'icon/home.ico'),
+                  SizedBox(width: 30),
+                  Controle_boutton(pathIcon: 'icon/controle.ico'),
+                  SizedBox(width: 90),
+                  Scence_boutton(pathIcon: 'icon/scenceON.ico'),
+                  SizedBox(width: 30),
+                  Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
+                ],
+              ),
+            ),
           ),
         ),
       ),

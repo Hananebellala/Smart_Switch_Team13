@@ -29,7 +29,7 @@ class Box_lampe extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyApp()));
+            context, MaterialPageRoute(builder: (context) => CancelBox1(onDelete: onDelete,)));
       },
       child: Column(
         children: [

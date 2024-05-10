@@ -206,6 +206,8 @@ class Home extends StatelessWidget {
   }
 }
 */
+
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_switch_team13/features/HomePage/widgets/box_lampe.dart';
@@ -225,6 +227,19 @@ import '../widgets/ajouter_box.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:mqtt_client/mqtt_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'next_homepage.dart';
+import '../widgets/boutton/home_boutton.dart';
+import '../widgets/boutton/paramettre_boutton.dart';
+import '../widgets/boutton/controle_Boutton.dart';
+import '../widgets/boutton/scence_boutton.dart';
+import '../widgets/boutton/add_scence.dart';
+import '../widgets/ajouter_box.dart';
 
 class Home extends StatefulWidget {
   final String message;
@@ -250,10 +265,11 @@ class _HomeState extends State<Home> {
   String _text = '';
   late MqttServerClient mqttClient;
 
+  var imagePath;
+
   Future<void> _refreshData() async {}
 
   late String userEmail = 'Hanane';
-  late String imagePath;
   final bool test;
   final bool testphoto;
   _HomeState(
@@ -269,7 +285,6 @@ class _HomeState extends State<Home> {
     initializeSpeechRecognition();
     _connectToMqtt();
     _loadUser2State();
-    _loadImagePath();
   }
 
   Future<void> _loadUser1State() async {
@@ -295,8 +310,7 @@ class _HomeState extends State<Home> {
   }
 
   String _getUniqueKey() {
-    // Utilisez le nom ou l'identifiant de la case comme clé unique
-    return '';
+    return 'images/user_male.png';
   }
 
   void _connectToMqtt() async {
@@ -366,29 +380,12 @@ class _HomeState extends State<Home> {
     _speech.stop();
   }
 
-  Future<void> _loadImagePath() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (!testphoto) {
-      setState(() {
-        imagePath = prefs.getString('user_image') ?? '';
-      });
-      _saveImageState(imagePath);
-    } else {
-      imagePath = 'image/user_male.png';
-      _saveImageState(imagePath);
-    }
-  }
-
-  Future<void> _saveImageState(String imagePath) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user_image', imagePath);
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ColumnBloc(),
       child: Scaffold(
+        backgroundColor: const Color(0xFFFFFAFA),
         body: Column(
           children: [
             const SizedBox(height: 60),
@@ -424,23 +421,18 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.1),
-                SizedBox(width: 20),
-                Container(
-                  height: 40,
-                  alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width * 0.001),
-                  width: MediaQuery.of(context).size.width * 0.15,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.yellow,
-                    radius: 30,
-                    child: Image.asset(imagePath, fit: BoxFit.cover),
-                  ),
-                ),
               ],
             ),
-            const SizedBox(height: 120),
+            SizedBox(
+              height: 150, // Adjust the height as needed
+              width: MediaQuery.of(context).size.width * 0.9999,
+              child: Image.asset(
+                'images/Frame 20.png', // Add the path to the image
+                fit: BoxFit.contain,
+              ),
+            ),
+
+            SizedBox(height: 10),
             Row(
               children: [
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),
@@ -490,7 +482,7 @@ class _HomeState extends State<Home> {
                     showlist: true,
                     maxBoxesToShow: 2,
                     maxBoxesPerColumn1: 2,
-                    maxBoxesPerColumn2: 1,
+                    maxBoxesPerColumn2: 2,
                   ),
                 ],
               ),
@@ -528,21 +520,27 @@ class _HomeState extends State<Home> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: const BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          child: PreferredSize(
-            preferredSize: Size.fromHeight(100.0),
-            child: Row(
-              children: <Widget>[
-                SizedBox(width: 10),
-                Home_boutton(pathIcon: 'icon/homeOn.ico'),
-                SizedBox(width: 30),
-                Controle_boutton(pathIcon: 'icon/controle.ico'),
-                SizedBox(width: 90),
-                Scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
-                SizedBox(width: 30),
-                Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
-              ],
+        bottomNavigationBar: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
+          child: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            child: PreferredSize(
+              preferredSize: Size.fromHeight(100.0),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 10),
+                  Home_boutton(pathIcon: 'icon/homeOn.ico'),
+                  SizedBox(width: 30),
+                  Controle_boutton(pathIcon: 'icon/controle.ico'),
+                  SizedBox(width: 90),
+                  Scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
+                  SizedBox(width: 30),
+                  Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
+                ],
+              ),
             ),
           ),
         ),

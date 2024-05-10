@@ -1,94 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 import '../widgets/boutton/home_boutton.dart';
 import '../widgets/boutton/paramettre_boutton.dart';
 import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
 import '../widgets/ajouter_box.dart';
-import '../widgets/ajouter_box.dart';
 
 //import '../widgets/essay.dart';
 //import '../widgets/listescene.dart';
 
-
 class scencepage extends StatefulWidget {
- 
-
-
-  const scencepage({super.key});    
-
+  const scencepage({Key? key}) : super(key: key);
 
   @override
   State<scencepage> createState() => _scencepageState();
 }
 
-
 class _scencepageState extends State<scencepage> {
-   Future<void> _refreshData() async {
-    }
+  Future<void> _refreshData() async {}
 
-
-   
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => ColumnBloc(), // Créez une instance de votre bloc ici
+      create: (context) => ColumnBloc(),
       child: Scaffold(
+        backgroundColor: const Color(0xFFFFFAFA),
         body: Column(
           children: [
-            const SizedBox(height: 30),
+            SizedBox(height: 60),
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.035),
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.035),
                   child: Column(
                     children: [
                       Container(
                         height: 50,
                         width: MediaQuery.of(context).size.width * 0.6,
                         alignment: Alignment.bottomLeft,
-                        child: const Text('Scene', style: TextStyle(fontSize: 23)),
+                        child: const Text(
+                          'Modes',
+                          style: TextStyle(
+                            fontSize: 33,
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.1),
-                Container(
-                  height: 40,
-                  alignment: Alignment.bottomCenter,
-                  width: MediaQuery.of(context).size.width * 0.11,
-                  child:
-                      IconButton(
-                      icon: Image.asset('icon/notifcations.ico',height: 25,width: 25,),
-                      onPressed: () {},
-                    ),
-                 
-                ),
-                Container(
-                  height: 40,
-                  alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.001),
-                  width: MediaQuery.of(context).size.width * 0.15,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.yellow,
-                    radius: 30,
-                    child: IconButton(
-                      icon: const Icon(Icons.person, color: Color(0xFF6900FF), size: 30.0),
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
               ],
             ),
             Expanded(
               child: ListView(
                 children: [
-                 
-                Insert(show:true ,showButtons: false,showlist: false,),
-                 //Insert3(),
-
+                  Insert(
+                    show: true,
+                    showButtons: false,
+                    showlist: false,
+                  ),
                 ],
               ),
             ),
@@ -114,21 +86,27 @@ class _scencepageState extends State<scencepage> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: const BottomAppBar(
-          shape:  CircularNotchedRectangle(),
-          child: PreferredSize(
-            preferredSize:  Size.fromHeight(100.0),
-            child: Row(
-              children: <Widget>[
-                SizedBox(width: 10),
-                Home_boutton(pathIcon: 'icon/home.ico'),
-                SizedBox(width: 30),
-                Controle_boutton(pathIcon: 'icon/controle.ico'),
-                SizedBox(width: 90),
-                Scence_boutton(pathIcon: 'icon/scenceON.ico'),
-                SizedBox(width: 30),
-                Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
-              ],
+        bottomNavigationBar: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
+          child: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            child: PreferredSize(
+              preferredSize: Size.fromHeight(100.0),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 10),
+                  Home_boutton(pathIcon: 'icon/home.ico'),
+                  SizedBox(width: 30),
+                  Controle_boutton(pathIcon: 'icon/controle.ico'),
+                  SizedBox(width: 90),
+                  Scence_boutton(pathIcon: 'icon/scenceON.ico'),
+                  SizedBox(width: 30),
+                  Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
+                ],
+              ),
             ),
           ),
         ),
@@ -136,7 +114,3 @@ class _scencepageState extends State<scencepage> {
     );
   }
 }
-
-
-
-

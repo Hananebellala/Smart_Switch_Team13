@@ -69,7 +69,7 @@ class ContactUs extends StatelessWidget {
                       onTap: () {
                         // Navigate to Discord
                         // Replace 'discord_invite_url' with the actual Discord invite URL
-                        launch('https://discord.gg/example');
+                        launch('https://discord.gg/RJhehjcw');
                       },
                       child: Image.asset(
                         'images/discord.png',
@@ -87,7 +87,7 @@ class ContactUs extends StatelessWidget {
                       onTap: () {
                         // Navigate to Facebook
                         // Replace 'facebook_page_url' with the actual Facebook page URL
-                        launch('https://www.facebook.com/example');
+                        launch('https://web.facebook.com/profile.php?id=61559197316457');
                       },
                       child: Image.asset(
                         'images/facebook.png',
@@ -100,7 +100,7 @@ class ContactUs extends StatelessWidget {
                       onTap: () {
                         // Navigate to Gmail
                         // Replace 'gmail_address' with the actual Gmail address
-                        launch('mailto:example@gmail.com');
+                        launch('mailto:switch.it.esi@gmail.com');
                       },
                       child: Image.asset(
                         'images/gmail.png',

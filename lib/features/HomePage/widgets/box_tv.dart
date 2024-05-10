@@ -30,7 +30,7 @@ class Box_tv extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => CancelBox()));
+            context, MaterialPageRoute(builder: (context) => CancelBox(onDelete: onDelete)));
       },
       child: Column(
         children: [

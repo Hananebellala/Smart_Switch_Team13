@@ -1169,32 +1169,21 @@ class _MyWidgetContentState extends State<MyWidgetContent> {
 
   @override
   Widget build(BuildContext context) {
+    final firstColumnBoxes = BlocProvider.of<ColumnBloc>(context)
+        .state
+        .firstColumnData
+        .take(widget.maxBoxesPerColumn1)
+        .toList();
+    final secondColumnBoxes = BlocProvider.of<ColumnBloc>(context)
+        .state
+        .secondColumnData
+        .take(widget.maxBoxesPerColumn2)
+        .toList();
+
     return BlocBuilder<ColumnBloc, ColumnState>(
       builder: (context, state) {
-        final firstColumnBoxes =
-            state.firstColumnData.take(widget.maxBoxesPerColumn1).toList();
-        final secondColumnBoxes =
-            state.secondColumnData.take(widget.maxBoxesPerColumn2).toList();
         return Column(
           children: [
-            /* if(widget.show)
-             ElevatedButton(
-                        onPressed: () {
-                              BlocProvider.of<ColumnBloc>(context).add(UpdateBoxetatOFFEvent(0));
-                               BlocProvider.of<ColumnBloc>(context).add(LoadInitialDataEvent());
-                              
-                                       },
-                             child: Text('Modifier tous les rtat des boîtiers à "Off"'),
-                                ),
-              if(widget.show)
-            ElevatedButton(
-                        onPressed: () {
-                              BlocProvider.of<ColumnBloc>(context).add(UpdateBoxNameEvent(0));
-                               BlocProvider.of<ColumnBloc>(context).add(LoadInitialDataEvent());
-                              
-                                       },
-                             child: Text('Modifier tous les rtat des boîtiers à "On"'),
-                                ),*/
             if (widget.show)
               Column(
                 children: [
@@ -1217,68 +1206,61 @@ class _MyWidgetContentState extends State<MyWidgetContent> {
                         SizedBox(
                           width: 10,
                         ),
-                        Positioned(
-                          top: 8,
-                          left: 10,
-                          right: 10,
-                          child: Text(
-                            '  Turn Off all devices               ', // turn off all devices qui existe en temps de aluumer ce boutton
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontFamily: 'Poppins',
-                            ),
+                        Text(
+                          '  Turn Off all devices               ', // turn off all devices qui existe en temps de aluumer ce boutton
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: 'Poppins',
                           ),
                         ),
-                        Positioned(
-                          right: 0,
-                          child: Switch(
-                            value: on,
-                            onChanged: (newValue) {
-                              if (newValue) {
-                                BlocProvider.of<ColumnBloc>(context)
-                                    .add(UpdateBoxNameEvent(0));
-                              } else {
-                                BlocProvider.of<ColumnBloc>(context)
-                                    .add(UpdateBoxetatOFFEvent(0));
-                              }
+                        Spacer(), // Pour pousser l'interrupteur à droite
+                        Switch(
+                          value: on,
+                          onChanged: (newValue) {
+                            if (newValue) {
                               BlocProvider.of<ColumnBloc>(context)
-                                  .add(LoadInitialDataEvent());
-                              _saveCheckedState(
-                                  newValue); // Enregistrez l'état de l'interrupteur
-                              setState(() {
-                                on = newValue;
-                              });
-                            },
-                            activeColor: const Color(
-                                0xFFA58BFF), // Couleur de l'interrupteur lorsque activé
-                            inactiveThumbColor: const Color(
-                                0xFFFAF7FF), // Couleur de la poignée lorsque désactivé
-                            inactiveTrackColor: Colors.black.withOpacity(
-                                0.2), // Couleur de la piste lorsque désactivé
-                          ),
+                                  .add(UpdateBoxNameEvent(0));
+                            } else {
+                              BlocProvider.of<ColumnBloc>(context)
+                                  .add(UpdateBoxetatOFFEvent(0));
+                            }
+                            BlocProvider.of<ColumnBloc>(context)
+                                .add(LoadInitialDataEvent());
+                            _saveCheckedState(
+                                newValue); // Enregistrez l'état de l'interrupteur
+                            setState(() {
+                              on = newValue;
+                            });
+                          },
+                          activeColor: const Color(
+                              0xFFA58BFF), // Couleur de l'interrupteur lorsque activé
+                          inactiveThumbColor: const Color(
+                              0xFFFAF7FF), // Couleur de la poignée lorsque désactivé
+                          inactiveTrackColor: Colors.black.withOpacity(
+                              0.2), // Couleur de la piste lorsque désactivé
                         ),
                       ],
                     ),
                   ),
+                  if (widget.show)
+                    Container(
+                      width: 360, // Width of the image container
+                      height: 490, // Height of the image container
+                      child: Image.asset('images/Frame 3713.png'),
+                    ),
                   SizedBox(
                     height: 25,
                   ),
                 ],
               ),
-            if (widget.showButtons)
-              ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<ColumnBloc>(context)
-                      .add(LoadInitialDataEvent());
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Color(0xFFFFD700)), // Set background color
-                ),
-                child: Text('Actualiser'),
+            if (widget.show)
+              Container(
+                width: 360, // Width of the image container
+                height: 490, // Height of the image container
+                child: Image.asset('images/Frame 3713.png'),
               ),
-            const SizedBox(height: 20),
+            if (widget.showButtons) const SizedBox(height: 20),
             if (widget.showlist)
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1431,7 +1413,7 @@ class _InsertState extends State<Insert> {
           });
         },
         updateBoxetat: (newValue) {
-          print('ellemarche ');
+          print('ellemarche Actualiser ');
           setState(() {
             etat = newValue;
             print(etat);

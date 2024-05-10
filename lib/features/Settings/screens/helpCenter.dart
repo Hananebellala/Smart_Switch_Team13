@@ -243,22 +243,38 @@ class _HelpCenterState extends State<HelpCenter> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const BottomAppBar(
-        shape:
-            CircularNotchedRectangle(), // quelle a fait border -aspace au dessous de bottom
-        child: PreferredSize(
-          preferredSize: Size.fromHeight(100.0),
-          child: Row(
-            children: <Widget>[
-              SizedBox(width: 10),
-              Home_boutton(pathIcon: 'icon/home.ico'),
-              SizedBox(width: 30),
-              Controle_boutton(pathIcon: 'icon/controle.ico'),
-              SizedBox(width: 90),
-              Scence_boutton(pathIcon: 'icon/sCENCE_1.ico'),
-              SizedBox(width: 30),
-              Paramettre_boutton(pathIcon: 'icon/Setting.ico'),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.15),
+                blurRadius: 10,
+                offset: Offset(0, -4),
+              ),
             ],
+          ),
+          child: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            child: PreferredSize(
+              preferredSize: Size.fromHeight(100.0),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 10),
+                  Home_boutton(pathIcon: 'icon/home.ico'),
+                  SizedBox(width: 30),
+                  Controle_boutton(pathIcon: 'icon/controle.ico'),
+                  SizedBox(width: 90),
+                  Scence_boutton(pathIcon: 'icon/scenceON.ico'),
+                  SizedBox(width: 30),
+                  Paramettre_boutton(pathIcon: 'icon/paramettre.ico'),
+                ],
+              ),
+            ),
           ),
         ),
       ),
