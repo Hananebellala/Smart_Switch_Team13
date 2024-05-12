@@ -4,9 +4,20 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:uuid/uuid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'dart:math';
+
 String generateUniqueId() {
-  var uuid = Uuid();
-  return uuid.v4();
+  const length = 10;
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+  Random random = Random();
+  String result = '';
+
+  for (int i = 0; i < length; i++) {
+    result += chars[random.nextInt(chars.length)];
+  }
+
+  return result;
 }
 
 // ignore: camel_case_types
@@ -58,7 +69,7 @@ class _On_off_tvState extends State<On_off_tv> {
       _loadtvIconState();
     }
 
-    _connectToMqtt();
+    _connectToMqtt(widget.code);
   }
 
   Future<void> _loadistvOnState() async {
@@ -100,10 +111,10 @@ class _On_off_tvState extends State<On_off_tv> {
 
   }
 */
-  void _connectToMqtt() async {
+  void _connectToMqtt(String code) async {
     final String mqttServer = 'test.mosquitto.org';
     final int mqttPort = 1883;
-    final String clientId = generateUniqueId();
+    final String clientId = code;
 
     mqttClient = MqttServerClient(mqttServer, clientId);
     mqttClient.port = mqttPort;

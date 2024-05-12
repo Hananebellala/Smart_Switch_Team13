@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smart_switch_team13/features/HomePage/widgets/on_off_tv.dart';
 
-import 'package:mqtt_client/mqtt_client.dart';
-import 'package:mqtt_client/mqtt_server_client.dart';
+
+
 import 'package:uuid/uuid.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 
 class CancelBox extends StatefulWidget {
   final Function() onDelete;

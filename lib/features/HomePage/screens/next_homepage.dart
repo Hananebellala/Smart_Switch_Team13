@@ -5,7 +5,7 @@ import '../widgets/boutton/home_boutton.dart';
 import '../widgets/boutton/paramettre_boutton.dart';
 import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
-import '../widgets/boutton/add_scence.dart';
+
 import '../widgets/ajouter_box.dart';
 
 //import '../widgets/essay.dart';
@@ -53,7 +53,6 @@ class _next_homepageState extends State<next_homepage> {
                 SizedBox(width: MediaQuery.of(context).size.width * 0.1),
               ],
             ),
-            
             Expanded(
               child: ListView(
                 children: [

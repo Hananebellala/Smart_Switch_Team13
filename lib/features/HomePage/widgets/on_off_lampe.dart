@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:uuid/uuid.dart';
 
-
 class on_off_lampe extends StatefulWidget {
   final int id;
   final String code;
@@ -49,7 +48,7 @@ class _on_off_lampeState extends State<on_off_lampe> {
       _loadLampIconState();
     }
 
-    _connectToMqtt();
+    _connectToMqtt(widget.code);
   }
 
   Future<void> _loadisLampOnState() async {
@@ -86,10 +85,10 @@ class _on_off_lampeState extends State<on_off_lampe> {
     return 'lampIcon_${widget.id}';
   }
 
-  void _connectToMqtt() async {
+  void _connectToMqtt(String code) async {
     final String mqttServer = 'test.mosquitto.org';
     final int mqttPort = 1883;
-    final String clientId = generateUniqueId();
+    final String clientId = code;
 
     mqttClient = MqttServerClient(mqttServer, clientId);
     mqttClient.port = mqttPort;

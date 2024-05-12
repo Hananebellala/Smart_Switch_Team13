@@ -210,11 +210,10 @@ class Home extends StatelessWidget {
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_switch_team13/features/HomePage/widgets/box_lampe.dart';
+
 import 'package:smart_switch_team13/features/weather/Pages/weather_page.dart';
-import 'package:smart_switch_team13/features/Settings/screens/notification.dart';
+
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:image_picker/image_picker.dart';
 
 import 'next_homepage.dart';
 
@@ -222,24 +221,11 @@ import '../widgets/boutton/home_boutton.dart';
 import '../widgets/boutton/paramettre_boutton.dart';
 import '../widgets/boutton/controle_Boutton.dart';
 import '../widgets/boutton/scence_boutton.dart';
-import '../widgets/boutton/add_scence.dart';
+
 import '../widgets/ajouter_box.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:mqtt_client/mqtt_client.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'next_homepage.dart';
-import '../widgets/boutton/home_boutton.dart';
-import '../widgets/boutton/paramettre_boutton.dart';
-import '../widgets/boutton/controle_Boutton.dart';
-import '../widgets/boutton/scence_boutton.dart';
-import '../widgets/boutton/add_scence.dart';
-import '../widgets/ajouter_box.dart';
 
 class Home extends StatefulWidget {
   final String message;
