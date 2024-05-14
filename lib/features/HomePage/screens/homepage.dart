@@ -411,14 +411,11 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(
               height: 160, // Adjust the height as needed
-              width: MediaQuery.of(context).size.width * 0.96,
-              child: Image.asset(
-                'images/Frame 20 (2).png', // Add the path to the image
-                fit: BoxFit.contain,
-              ),
+              //width: MediaQuery.of(context).size.width * 0.96,
+              child: WeatherPage(),
             ),
 
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             Row(
               children: [
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),

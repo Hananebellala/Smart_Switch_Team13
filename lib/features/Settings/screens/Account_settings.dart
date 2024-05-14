@@ -243,7 +243,7 @@ class _AccountSettingsState extends State<AccountSettings> {
     super.initState();
     _usernameController = TextEditingController();
     _nameController = TextEditingController();
-     _loadImageState(); 
+    _loadImageState();
   }
 
   @override
@@ -252,19 +252,21 @@ class _AccountSettingsState extends State<AccountSettings> {
     _nameController.dispose();
     super.dispose();
   }
-Future<void> _loadImageState() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? imagePath = prefs.getString('user_image');
-  if (imagePath != null) {
-    setState(() {
-      _pickedImage = XFile(imagePath);
-    });
+
+  Future<void> _loadImageState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? imagePath = prefs.getString('user_image');
+    if (imagePath != null) {
+      setState(() {
+        _pickedImage = XFile(imagePath);
+      });
+    }
   }
-}
-Future<void> _saveImageState(String imagePath) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString('user_image', imagePath);
-}
+
+  Future<void> _saveImageState(String imagePath) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_image', imagePath);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -395,22 +397,21 @@ Future<void> _saveImageState(String imagePath) async {
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     child: const Column(
                       children: [
-                        ChangeLoc(),
-                        SizedBox(
-                            height: 30), // Add space between Name and Username
+                        //ChangeLoc(),
+                        // Add space between Name and Username
                         ChangePass(),
                       ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
               Padding(
                 padding: EdgeInsets.only(
-                    left: 10), // Adjust the left padding as needed
+                    left: 20), // Adjust the left padding as needed
                 child: SizedBox(
-                  height: 50,
-                  width: 335, // Adjust height to match the password rectangle
+                  height: 60,
+                  width: 340, // Adjust height to match the password rectangle
                   child: ElevatedButton(
                     onPressed: () async {
                       // Implement password change logic here
@@ -452,7 +453,7 @@ Future<void> _saveImageState(String imagePath) async {
       setState(() {
         _pickedImage = pickedImage;
       });
-        _saveImageState(pickedImage.path);
+      _saveImageState(pickedImage.path);
     }
   }
 }

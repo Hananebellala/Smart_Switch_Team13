@@ -69,7 +69,7 @@ class ContactUs extends StatelessWidget {
                       onTap: () {
                         // Navigate to Discord
                         // Replace 'discord_invite_url' with the actual Discord invite URL
-                        launch('https://discord.gg/RJhehjcw');
+                        launch('https://discord.gg/E7qKgMBU');
                       },
                       child: Image.asset(
                         'images/discord.png',
@@ -87,7 +87,8 @@ class ContactUs extends StatelessWidget {
                       onTap: () {
                         // Navigate to Facebook
                         // Replace 'facebook_page_url' with the actual Facebook page URL
-                        launch('https://web.facebook.com/profile.php?id=61559197316457');
+                        launch(
+                            'https://web.facebook.com/profile.php?id=61559197316457');
                       },
                       child: Image.asset(
                         'images/facebook.png',
