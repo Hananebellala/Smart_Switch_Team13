@@ -403,17 +403,17 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      //WeatherPage(), // Here's where you add the WeatherPage widget
+                      //const WeatherPage(),
                     ],
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: 150, // Adjust the height as needed
-              width: MediaQuery.of(context).size.width * 0.9999,
+              height: 160, // Adjust the height as needed
+              width: MediaQuery.of(context).size.width * 0.96,
               child: Image.asset(
-                'images/Frame 20.png', // Add the path to the image
+                'images/Frame 20 (2).png', // Add the path to the image
                 fit: BoxFit.contain,
               ),
             ),

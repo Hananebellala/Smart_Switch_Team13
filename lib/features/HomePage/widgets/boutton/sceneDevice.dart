@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,38 +10,31 @@ import 'package:uuid/uuid.dart';
 /********************************************************box  ********************************************************************* */
 // ignore: camel_case_types
 
-
 String generateUniqueId() {
   var uuid = Uuid();
   return uuid.v4();
 }
-
 
 // ignore: camel_case_types
 class On_Off_Scene extends StatefulWidget {
   final String code;
   On_Off_Scene({required this.code});
 
-
   @override
   State<On_Off_Scene> createState() => _On_offState();
 }
-
 
 // ignore: camel_case_types
 class _On_offState extends State<On_Off_Scene> {
   late bool _isOn;
   late MqttServerClient mqttClient;
 
-
   @override
   void initState() {
     super.initState();
     _isOn = false; // Initial state is 'off'
     _connectToMqtt();
-   
   }
-
 
   void _connectToMqtt() async {
     // ignore: prefer_const_declarations
@@ -49,16 +44,13 @@ class _On_offState extends State<On_Off_Scene> {
     // ignore: prefer_const_declarations
     final String clientId = generateUniqueId(); // Unique client ID
 
-
     mqttClient = MqttServerClient(mqttServer, clientId);
     mqttClient.port = mqttPort; // Set MQTT broker port
-
 
     final MqttConnectMessage connectMessage = MqttConnectMessage()
         .withClientIdentifier(clientId)
         .startClean()
         .keepAliveFor(60); // Keep alive interval in seconds
-
 
     try {
       await mqttClient.connect();
@@ -67,7 +59,6 @@ class _On_offState extends State<On_Off_Scene> {
       print('Failed to connect to MQTT broker: $e');
     }
   }
-
 
   void _toggleTvState() {
     if (mqttClient.connectionStatus?.state == MqttConnectionState.connected) {
@@ -80,7 +71,6 @@ class _On_offState extends State<On_Off_Scene> {
     }
   }
 
-
   void _publishMessage(String message) {
     final builder = MqttClientPayloadBuilder();
     builder.addString(message);
@@ -88,25 +78,21 @@ class _On_offState extends State<On_Off_Scene> {
         'projet13/scene', MqttQos.atMostOnce, builder.payload!);
   }
 
-
   @override
   void dispose() {
     mqttClient.disconnect();
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
-
       children: [
-        
         Row(
           children: [
             // Icon and button row
             const SizedBox(width: 15),
-           
+
             const SizedBox(width: 15),
             Switch(
               value: _isOn,
@@ -117,31 +103,21 @@ class _On_offState extends State<On_Off_Scene> {
                   const Color(0xFFA58BFF), // Active color (when switch is on)
               inactiveThumbColor:
                   const Color(0xFFFAF7FF), // Thumb color (when switch is off)
-              inactiveTrackColor:
-                  Colors.black.withOpacity(0.2), // Track color (when switch is off)
+              inactiveTrackColor: Colors.black
+                  .withOpacity(0.2), // Track color (when switch is off)
             ),
-            
           ],
         ),
-                const SizedBox(width: 15),
-                const SizedBox(height: 15),
-
+        const SizedBox(width: 15),
+        const SizedBox(height: 15),
       ],
     );
   }
 }
 
-
-
-
-
-
-
-
 class SceneDevice extends StatefulWidget {
   final String deviceName;
   final bool isChecked;
-
 
   const SceneDevice({
     Key? key,
@@ -149,16 +125,13 @@ class SceneDevice extends StatefulWidget {
     required this.isChecked,
   }) : super(key: key);
 
-
   @override
   _SceneDeviceState createState() => _SceneDeviceState();
 }
 
-
 class _SceneDeviceState extends State<SceneDevice> {
   late bool _isOn;
   late bool _isChecked;
-
 
   @override
   /*void initState() {
@@ -167,11 +140,11 @@ class _SceneDeviceState extends State<SceneDevice> {
         widget.isChecked; // Initialize _isOn with the provided isChecked value
     _isChecked = false; // Initial state for the check circle is unchecked
   }*/
-void initState() {
+  void initState() {
     super.initState();
     _loadCheckedState();
-    
-  _loadisOnState();
+
+    _loadisOnState();
   }
 
   Future<void> _loadCheckedState() async {
@@ -190,7 +163,7 @@ void initState() {
     // Utilisez le nom ou l'identifiant de la case comme clé unique
     return 'isChecked_${widget.deviceName}';
   }
- /* void initState() {
+  /* void initState() {
     super.initState();
     _loadCheckedState();
   }*/
@@ -259,8 +232,7 @@ void initState() {
                 setState(() {
                   _isChecked = !_isChecked;
                 });
-                 _saveCheckedState(_isChecked);
-
+                _saveCheckedState(_isChecked);
               },
               child: Container(
                 width: 32, // Adjust size as needed
@@ -293,8 +265,3 @@ void initState() {
     );
   }
 }
-
-
-
-
-

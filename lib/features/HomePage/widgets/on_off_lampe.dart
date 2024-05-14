@@ -1,9 +1,10 @@
+// ignore_for_file: camel_case_types, use_key_in_widget_constructors, no_logic_in_create_state, avoid_print, prefer_const_declarations
+
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:uuid/uuid.dart';
 
 class on_off_lampe extends StatefulWidget {
   final int id;
@@ -178,9 +179,4 @@ class _on_off_lampeState extends State<on_off_lampe> {
   }
 }
 
-String generateUniqueId() {
-  var uuid = const Uuid();
-  print('uuid hereeee');
-  print(uuid);
-  return uuid.v4();
-}
+

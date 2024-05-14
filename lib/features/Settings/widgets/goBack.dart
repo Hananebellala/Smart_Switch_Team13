@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class GoBack extends StatelessWidget {
   final Widget previousScreen; // Reference to the previous screen
 
+  // ignore: use_key_in_widget_constructors
   const GoBack({required this.previousScreen, Key? key});
 
   @override

@@ -46,8 +46,8 @@ class Feedback extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 30, 0, 10),
-                    child: Text(
+                    margin: const EdgeInsets.fromLTRB(0, 30, 0, 10),
+                    child: const Text(
                       'Rate switch it !',
                       style: TextStyle(
                         fontFamily: 'Poppins',
@@ -59,7 +59,7 @@ class Feedback extends StatelessWidget {
                   Container(
                     width: 307,
                     height: 48.94,
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 15),
                     child: Center(
                       child: RatingBar.builder(
                         initialRating: 0,
@@ -67,7 +67,7 @@ class Feedback extends StatelessWidget {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                         itemBuilder: (context, _) => Image.asset(
                           'images/Star 2.png', // Path to your star image
                           width: 50, // Adjust width as needed
@@ -75,6 +75,7 @@ class Feedback extends StatelessWidget {
                           semanticLabel: 'Star',
                         ),
                         onRatingUpdate: (rating) {
+                          // ignore: avoid_print
                           print(rating);
                         },
                       ),
@@ -87,8 +88,8 @@ class Feedback extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                    child: Text(
+                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    child: const Text(
                       'Write your feedback',
                       style: TextStyle(
                         fontFamily: 'Poppins',
@@ -101,16 +102,16 @@ class Feedback extends StatelessWidget {
                   Container(
                     width: 307,
                     height: 153,
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                     decoration: BoxDecoration(
-                      color: Color(0xFFFBF3AB),
+                      color: const Color(0xFFFBF3AB),
                       borderRadius: BorderRadius.circular(15.88),
                       border: Border.all(
                         color: Colors.black,
                         width: 0.6,
                       ),
                     ),
-                    child: TextField(
+                    child: const TextField(
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         contentPadding:
@@ -124,10 +125,10 @@ class Feedback extends StatelessWidget {
                 width: 307,
                 height: 45,
                 decoration: BoxDecoration(
-                  color: Color(0xFFFFD700),
+                  color: const Color(0xFFFFD700),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'Submit',
                     textAlign: TextAlign.center,

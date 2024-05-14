@@ -108,6 +108,7 @@ class _PasswordState extends State<Password> {
     if (widget.controller.text == widget.correctLastPassword) {
       // If the entered last password is correct
       // Perform the action here, like saving changes
+      // ignore: avoid_print
       print('Last password is correct. Saving changes...');
     } else {
       setState(() {

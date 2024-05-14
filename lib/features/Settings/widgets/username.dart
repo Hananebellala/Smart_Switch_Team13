@@ -58,6 +58,7 @@ class Name extends StatefulWidget {
   const Name({Key? key, required this.nameController});
 
   @override
+  // ignore: library_private_types_in_public_api
   _NameState createState() => _NameState();
 }
 

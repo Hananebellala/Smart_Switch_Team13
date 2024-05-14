@@ -1,8 +1,9 @@
+// ignore_for_file: prefer_const_constructors, camel_case_types, must_be_immutable, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'on_off_lampe.dart';
 import '../screens/add_new_device.dart';
-import '../widgets/ajouter_box.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 /********************************************************box  ********************************************************************* */
 class Box_lampe extends StatelessWidget {

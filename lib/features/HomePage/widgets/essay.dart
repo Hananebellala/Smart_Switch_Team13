@@ -1,13 +1,13 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import '../widgets/box_lampe.dart';
-import '../widgets/box_tv.dart';
-import '../widgets/boutton/add_scence.dart';
+
 import '../widgets/boutton/sceneDevice.dart';
 import 'dart:async';
-import '../screens/scencepage.dart';
+
 
 class Box {
   final int boxNumber;

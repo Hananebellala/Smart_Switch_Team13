@@ -1254,14 +1254,9 @@ class _MyWidgetContentState extends State<MyWidgetContent> {
                   ),
                 ],
               ),
-            if (widget.show)
-              Container(
-                width: 360, // Width of the image container
-                height: 490, // Height of the image container
-                child: Image.asset('images/Frame 3713.png'),
-              ),
+           
             if (widget.showButtons) const SizedBox(height: 20),
-            if (widget.showlist)
+            if (widget.showlist)  
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

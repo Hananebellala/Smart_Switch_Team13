@@ -33,10 +33,11 @@ class ChangeLocation extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        GoBack(previousScreen: AccountSettings()), // GoBack widget
-                        SizedBox(
+                        const GoBack(previousScreen: AccountSettings()), // GoBack widget
+                        const SizedBox(
                             width: 5), // Add some space between GoBack and Text
                         Expanded(
+                          // ignore: avoid_unnecessary_containers
                           child: Container(
                             //margin: const EdgeInsets.fromLTRB(0, 0, 0, 34),
                             child: const Text(
